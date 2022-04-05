@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class List {
+class List :virtual public LinearContainer<Data>, PreOrderMappableContainer<Data>, PostOrderMappableContainer<Data>, PreOrderFoldableContainer<Data>, PostOrderFoldableContainer<Data> {
               // Must extend LinearContainer<Data>,
               //             PreOrderMappableContainer<Data>,
               //             PostOrderMappableContainer<Data>,
@@ -26,7 +26,7 @@ private:
 
 protected:
 
-  // using LinearContainer<Data>::???;
+   using LinearContainer<Data>::dim;
 
   struct Node {
 
