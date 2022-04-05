@@ -38,7 +38,7 @@ protected:
 
     // Specific constructors
       Node(const Data&);
-      Node(Data&&); //??
+      Node(Data&&); 
 
     /* ********************************************************************** */
 
