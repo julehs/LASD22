@@ -80,7 +80,7 @@ public:
 
   // Specific member functions (inherited from Container)
 
-   void Clear() override; // Override Container member
+   void Clear() noexcept override; // Override Container member
 
   /* ************************************************************************ */
 
@@ -97,19 +97,19 @@ public:
 
    using typename MappableContainer<Data>::MapFunctor;
 
-   void Map(MapFunctor, void*) const override; // Override MappableContainer member
+   void Map(MapFunctor, void*) override; // Override MappableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from PreOrderMappableContainer)
 
-   void MapPreOrder(MapFunctor, void*) const override; // Override PreOrderMappableContainer member
+   void MapPreOrder(MapFunctor, void*) override; // Override PreOrderMappableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from PostOrderMappableContainer)
 
-   void MapPostOrder(MapFunctor, void*) const override; // Override PostOrderMappableContainer member
+   void MapPostOrder(MapFunctor, void*) override; // Override PostOrderMappableContainer member
 
   /* ************************************************************************ */
 
@@ -117,19 +117,19 @@ public:
 
    using typename FoldableContainer<Data>::FoldFunctor;
 
-   void Fold(FoldFunctor, void*) const override; // Override FoldableContainer member
+   void Fold(FoldFunctor, const void*, void*) const override; // Override FoldableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from PreOrderFoldableContainer)
 
-   void FoldPreOrder(FoldFunctor, void*) const override; // Override FoldableContainer member
+   void FoldPreOrder(FoldFunctor, const void*, void*) const override; // Override FoldableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from PostOrderFoldableContainer)
 
-   void FoldPostOrder(FoldFunctor, void*) const override; // Override FoldableContainer member
+   void FoldPostOrder(FoldFunctor, const void*, void*) const override; // Override FoldableContainer member
 
 };
 
