@@ -33,13 +33,13 @@ public:
 
   // Copy assignment
 
-    Container& operator = (const Container&) = delete; // il copy assignment di un tipo astratto non è possibile
+    Container& operator = (const Container&) = delete; // Copy assignment of abstract types should not be possible.
 
 
 
   // Move assignment
 
-    Container& operator = (Container&&) noexcept = delete;
+    Container& operator = (Container&&) noexcept = delete; // Move assignment of abstract types should not be possible.
  
 
   // Comparison operators
@@ -86,15 +86,14 @@ public:
     virtual ~LinearContainer() = default;
 
   
-
   // Copy assignment
 
-    LinearContainer& operator = (const LinearContainer&)= delete;
+    LinearContainer& operator = (const LinearContainer&) = delete; // Copy assignment of abstract types should not be possible.
 
 
   // Move assignment
   
-    LinearContainer& operator = (LinearContainer&&) noexcept = delete;
+    LinearContainer& operator = (LinearContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   
 
@@ -106,26 +105,16 @@ public:
   
 
   // Specific member functions
-  // Front: returns the first element
-  // throws std::length_error when empty
-  // pure virtual function, defined later
 
 
-    virtual Data& Front() = 0; 
-
-  // Back: returns the last element
-  // throws std::length_error when empty
-  // pure virtual function, defined later
+    virtual Data& Front() = 0; // Front: returns the first element, throws std::length_error when empty
 
 
-    virtual Data& Back() = 0;
+    virtual Data& Back() = 0; // Back: returns the last element, throws std::length_error when empty
   
 
-  // operator[]: returns the i-th element
-  // throws std::out_of_range when out of out_of_range
-  // pure virtual function, defined later
-
-    virtual Data&[] operator (const ulong) const = 0;
+    virtual Data&[] operator (const ulong) const = 0; // operator[]: returns the i-th element, throws std::out_of_range when out of out_of_range
+  
   
 };
 
@@ -151,15 +140,16 @@ public:
 
   // Copy assignment
 
-    TestableContainer& operator = (const TestableContainer&)= delete;
+    TestableContainer& operator = (const TestableContainer&)= delete; // Copy assignment of abstract types should not be possible.
 
 
   // Move assignment
 
-    TestableContainer& operator = (TestableContainer&&) = delete;
+    TestableContainer& operator = (TestableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
   
 
   // Comparison operators
+  //of abstract types might not be possible.
 
     bool operator == (const TestableContainer&) const noexcept = delete;
     bool operator != (const TestableContainer&) const noexcept = delete;
@@ -167,11 +157,7 @@ public:
 
   // Specific member functions
  
-  // Exists(): returns true if the container exists, false otherwise
-  // pure virtual function, defined later
-
-
-    virtual bool Exists(const Data&) const noexcept = 0;
+    virtual bool Exists(const Data&) const noexcept = 0; // Exists(): returns true if the container exists, false otherwise
   
 };
 
@@ -198,14 +184,15 @@ public:
 
   // Copy assignment
 
-    MappableContainer& operator = (const MappableContainer&) = delete;
+    MappableContainer& operator = (const MappableContainer&) = delete; // Copy assignment of abstract types should not be possible.
   
 
   // Move assignment
 
-    MappableContainer& operator = (MappableContainer&&) = delete;
+    MappableContainer& operator = (MappableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   // Comparison operators
+  //of abstract types might not be possible.
 
     bool operator == (const MappableContainer&) const noexcept = delete;
     bool operator != (const MappableContainer&) const noexcept = delete;
@@ -239,20 +226,22 @@ public:
 
   // Destructor
 
-    virtual ~FoldableContainer() = default;
-
+    virtual ~FoldableContainer() = default; 
 
   // Copy assignment
 
-    FoldableContainer& operator = (const FoldableContainer&) = delete;
+    FoldableContainer& operator = (const FoldableContainer&) = delete; // Copy assignment of abstract types should not be possible.
+
 
 
   // Move assignment
 
-    FoldableContainer& operator = (FoldableContainer&&) = delete;
+    FoldableContainer& operator = (FoldableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
 
   // Comparison operators
+  //of abstract types might not be possible.
+
 
     bool operator == (const FoldableContainer&) const noexcept = delete;
     bool operator != (const FoldableContainer&) const noexcept = delete;
@@ -266,10 +255,9 @@ public:
      virtual void Fold (FoldFunctor, void*) = 0;
 
   
-
   // Specific member functions (inherited from TestableContainer)
 
-    bool Exists(const Data&) const noexcept = 0; //l' override di un metodo non necessita del virtual
+    virtual bool Exists(const Data&) const noexcept override; // Override TestableContainer member
   
 };
 
@@ -296,15 +284,16 @@ public:
 
   // Copy assignment
 
-    PreOrderMappableContainer& operator = (const PreOrderMappableContainer&) = delete;
+    PreOrderMappableContainer& operator = (const PreOrderMappableContainer&) = delete; // Copy assignment of abstract types should not be possible.
 
 
   // Move assignment
 
-    PreOrderMappableContainer& operator = (PreOrderMappableContainer&&) = delete;
+    PreOrderMappableContainer& operator = (PreOrderMappableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
 
   // Comparison operators
+  //of abstract types might not be possible.
 
     bool operator == (const PreOrderMappableContainer&) const noexcept = delete;
     bool operator != (const PreOrderMappableContainer&) const noexcept = delete;
@@ -317,10 +306,9 @@ public:
     virtual void MapPreOrder (MapFunctor, void*) = 0;
   
 
-
   // Specific member functions (inherited from MappableContainer)
 
-    void Map (MapFunctor, void*) = 0;
+    virtual void Map (MapFunctor, void*) const noexcept override; // Override MappableContainer member
 
 };
 
@@ -345,14 +333,17 @@ public:
 
 
   // Copy assignment
-    PreOrderFoldableContainer& operator = (const PreOrderFoldableContainer&) = delete;
+    PreOrderFoldableContainer& operator = (const PreOrderFoldableContainer&) = delete; // Copy assignment of abstract types should not be possible.
 
 
   // Move assignment
-    PreOrderFoldableContainer& operator = (PreOrderFoldableContainer&&) = delete;
+    PreOrderFoldableContainer& operator = (PreOrderFoldableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+
 
 
   // Comparison operators
+  //of abstract types might not be possible.
+  
     bool operator == (const PreOrderFoldableContainer&) const noexcept = delete;
     bool operator != (const PreOrderFoldableContainer&) const noexcept = delete;
   
@@ -366,7 +357,7 @@ public:
   
   // Specific member functions (inherited from FoldableContainer)
 
-    void Fold (FoldFunctor, void*) = 0;
+    virtual void Fold (FoldFunctor, void*) const noexcept override; //Override FoldableContainer member
 
 };
 
@@ -392,16 +383,20 @@ public:
 
   // Copy assignment
 
-    PostOrderMappableContainer& operator = (const PostOrderMappableContainer&) = delete;
+    PostOrderMappableContainer& operator = (const PostOrderMappableContainer&) = delete; // Copy assignment of abstract types should not be possible.
+
   
   // Move assignment
 
-    PostOrderMappableContainer& operator = (PostOrderMappableContainer&&) = delete;
+    PostOrderMappableContainer& operator = (PostOrderMappableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+
 
   // Comparison operators
+  //of abstract types might not be possible.
 
     bool operator == (const PostOrderMappableContainer&) const noexcept = delete;
     bool operator != (const PostOrderMappableContainer&) const noexcept = delete;
+
   // Specific member functions
 
     using typename MappableContainer<Data>::MapFunctor;
@@ -412,7 +407,7 @@ public:
 
   // Specific member functions (inherited from MappableContainer)
 
-    void Map (MapFunctor, void*) = 0;
+    virtual void Map (MapFunctor, void*) const noexcept override; //Override MappableContainer member
 
 
 };

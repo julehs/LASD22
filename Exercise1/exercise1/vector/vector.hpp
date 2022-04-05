@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class Vector {
+class Vector :virtual public LinearContainer<Data>, PreOrderMappableContainer<Data>, PostOrderMappableContainer<Data>, PreOrderFoldableContainer<Data>, PostOrderFoldableContainer<Data> {
                 // Must extend LinearContainer<Data>,
                 //             PreOrderMappableContainer<Data>,
                 //             PostOrderMappableContainer<Data>,
@@ -26,16 +26,16 @@ private:
 
 protected:
 
-  // using LinearContainer<Data>::???;
+    using LinearContainer<Data> :: dim;
 
-  // ...
+  
 
 public:
 
   // Default constructor
-  // Vector() specifiers;
 
-  /* ************************************************************************ */
+    Vector() = default; 
+  
 
   // Specific constructors
   // Vector(argument) specifiers; // A vector with a given initial dimension
