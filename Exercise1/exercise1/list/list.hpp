@@ -74,10 +74,8 @@ public:
   // Default constructor
     List();
 
-  
   // Specific constructor
     List(const LinearContainer<Data>&) specifiers; // A list obtained from a LinearContainer
-
   
   // Copy constructor
     List(const List&);

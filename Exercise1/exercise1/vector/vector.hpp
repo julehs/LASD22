@@ -29,7 +29,6 @@ protected:
     using LinearContainer<Data> :: dim;
 
   
-
 public:
 
   // Default constructor
