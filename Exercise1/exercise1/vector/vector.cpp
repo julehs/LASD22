@@ -50,5 +50,46 @@ Vector<Data>::~Vector(){
     delete[] elem;
 }
 
+//Copy assignment
+template<typename Data>
+Vector<Data>& Vector<Data>::operator = (const Vector<Data>& vec) {
+    Vector<Data>* newvec = new Vector<Data>(vec);
+    std::swap(*newvec, *this);
+    delete newvec;
+    return this;
+}
+
+//Move assignment
+template<typename Data>
+Vector<Data>& Vector<Data>::operator= (Vector <Data>&& vec) noexcept {
+    std::swap(elem, vec.elem);
+    std::swap(dim, vec.dim);
+    return *this;
+
+} 
+
+//Comparision operators
+template<typename Data>
+bool Vector<Data>::operator == (const Vector<Data>& vec) const noexcept {
+    if(dim == vec.dim){
+        for(ulong i=0; i < dim; ++i) {
+            if(elem[i] != vec.elem[i]){
+                return false;
+            }
+            
+        }
+         return true;
+    }
+   else{
+       return false;
+   }
+
+}
+
+template<typename Data>
+bool Vector<Data>::operator!=(const Vector<Data>& vec) const noexcept{
+    return !(*this == vec);
+}
+
 
 }
