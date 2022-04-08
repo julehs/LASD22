@@ -126,15 +126,83 @@ Data& Vector<Data>::Front()const {
     }
     else{
         throw std::length_error ("Array vuoto.");
+
     }
-    
 
+}
+//Back function
+template<typename Data>
+Data& Vector<Data>::Back() const{
+    if(dim != 0){
+        return elem[dim-1];
+    } 
+    else{
+        throw std::length_error("Array vuoto.");
+    }
 
+}
+
+//operator [] function
+
+template<typename Data>
+Data& Vector<Data>::operator[](const ulong i) const{
+    if(i < dim){
+        return elem[i];
+    }
+    else {
+        throw std::out_of_range("Indice:" + std::to_string(i) + "; lunghezza del vettore: " +std::to_string(dim) + ".")
+    }
 
 }
 
 
+//Map function, PreOrder, PostOrder
+template<typename Data>
+void Vector<Data>::Map(MapFunctor fun,void* par){
+    MapPreOrder(fun, par);
+}
 
+
+template<typename Data>
+void Vector<Data>::MapPreOrder(MapFunctor fun,void* par){
+    for(unsigned long i = 0; i < dim; ++i){
+        fun(elem[i],par);
+    }
+}
+
+template<typename Data>
+void Vector<Data>::MapPostOrder(MapFunctor fun,void* par){
+    unsigned long i = dim;
+    while (i>0) {
+        fun(elem[--i], par);
+    }
+    
+}
+
+//Fold function, PreOrder, PostOrder
+
+template<typename Data>
+void Vector<Data>::Fold(FoldFunctor fun,const void* par, void* acc) const{
+    FoldPreOrder(fun, par, acc);
+}
+
+template<typename Data>
+void Vector<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc) const{
+    for (unsigned long i = 0; i < dim; ++i) {
+        fun(elem[i], par, acc);
+    }
+    
+}
+
+template<typename Data>
+void Vector<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc) const{
+    unsigned long i = dim;
+    while (i > 0){
+        fun(elem[--i], par, acc);
+    }
+    
+    
+}
 
 
 
