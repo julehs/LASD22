@@ -125,7 +125,7 @@ public:
 
   // Copy assignment
 
-    TestableContainer& operator = (const TestableContainer&)= delete; // Copy assignment of abstract types should not be possible.
+    TestableContainer& operator = (const TestableContainer&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
 
@@ -225,7 +225,7 @@ public:
 
      typedef std::function<void(const Data&, const void*, void*)> FoldFunctor;
 
-     virtual void Fold (FoldFunctor, void*) = 0;
+     virtual void Fold (FoldFunctor, const void*, void*) = 0;
 
   // Specific member functions (inherited from TestableContainer)
 
@@ -276,7 +276,7 @@ public:
   
   // Specific member functions (inherited from MappableContainer)
 
-    virtual void Map (MapFunctor, void*) const noexcept override; // Override MappableContainer member
+    virtual void Map (MapFunctor, void*) override; // Override MappableContainer member
 
 };
 
@@ -319,7 +319,7 @@ public:
 
   // Specific member functions (inherited from FoldableContainer)
 
-    virtual void Fold (FoldFunctor, void*) const noexcept override; //Override FoldableContainer member
+    virtual void Fold (FoldFunctor, const void*, void*) const override; //Override FoldableContainer member
 
 };
 
@@ -364,7 +364,7 @@ public:
 
   // Specific member functions (inherited from MappableContainer)
 
-    virtual void Map (MapFunctor, void*) const noexcept override; //Override MappableContainer member
+    virtual void Map (MapFunctor, void*) override; //Override MappableContainer member
 
 };
 
@@ -409,7 +409,7 @@ public:
 
   // Specific member functions (inherited from FoldableContainer)
 
-    virtual void Fold (FoldFunctor, void*) const noexcept override; //Override FoldableContainer member
+    virtual void Fold (FoldFunctor, const void*, void*) const override; //Override FoldableContainer member
 
 };
 
@@ -456,7 +456,7 @@ public:
 
 //   // Specific member functions (inherited from MappableContainer)
 
-//     virtual void Map (MapFunctor, void*) const noexcept override; //Override MappableContainer member
+//     virtual void Map (MapFunctor, void*) override; //Override MappableContainer member
 
 // };
 
@@ -501,7 +501,7 @@ public:
 
 //   // Specific member functions (inherited from FoldableContainer)
 
-//     virtual void Fold(FoldFunctor, void*) const noexcept override; //Override MappableContainer member
+//     virtual void Fold(FoldFunctor, const void*, void*) const override; //Override MappableContainer member
 
 // };
 
@@ -545,7 +545,7 @@ public:
 
 //   // Specific member functions (inherited from MappableContainer)
 
-//     virtual void Map (MapFunctor, void*) const noexcept override; //Override MappableContainer member
+//     virtual void Map (MapFunctor, void*) override; //Override MappableContainer member
 
 
 // };
@@ -592,7 +592,7 @@ public:
 
 //   // Specific member functions (inherited from FoldableContainer)
      
-//      virtual void Fold (FoldFunctor, void*) const noexcept override; //Override FoldableContainer member
+//      virtual void Fold (FoldFunctor, const void*, void*) const override; //Override FoldableContainer member
 // };
 
 
