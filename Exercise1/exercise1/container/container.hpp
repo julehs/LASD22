@@ -95,9 +95,9 @@ public:
 
   // Specific member functions
 
-    virtual Data& Front() = 0; // Front: returns the first element, throws std::length_error when empty
+    virtual Data& Front() const = 0; // Front: returns the first element, throws std::length_error when empty
 
-    virtual Data& Back() = 0; // Back: returns the last element, throws std::length_error when empty
+    virtual Data& Back() const = 0; // Back: returns the last element, throws std::length_error when empty
   
     virtual Data&[] operator (const ulong) const = 0; // operator[]: returns the i-th element, throws std::out_of_range when out of out_of_range
   
