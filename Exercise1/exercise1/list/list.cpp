@@ -133,6 +133,55 @@ List<Data>::~List(){
 }
 
 //Copy assignment 
+template <typename Data>
+List<Data>& List<Data>::operator=(const List<Data>& cpylist){
+    List<Data>*tmplist = new List<Data>(cpylist);
+    std::swap(*tmplist, *this);
+    delete tmplist;
+    return *this;
+}
+
+
+//Move assignment
+template<typename Data>
+List<Data>& List<Data>::operator=(List<Data>&& mvlist) noexcept{
+  std::swap(First, mvlist.First);
+  std::swap(Last, mvlist.Last);
+  std::swap(dim, mvlist.dim);
+  return *this;
+}
+
+
+//Comparision operator
+template<typename Data>
+bool List<Data>::operator==(const List<Data>& list) const noexcept{
+
+  if(dim == list.dim){
+    struct Node* current = First;
+    struct Node* Tmp = list.First;
+    for(unsigned long i = 0; i < dim; i++){
+      if(current->elemento != Tmp->elemento){
+        return false;
+      }
+      current = current->next;
+      Tmp = Tmp->next;
+    }
+    return true;
+  }
+  else{
+    return false;
+  }
+
+}  
+
+
+template<typename Data>
+bool List<Data>::operator!=(const List<Data>& list) const noexcept{
+  return !(*this == list);
+}
+
+
+
 
 
 /* ************************************************************************** */
