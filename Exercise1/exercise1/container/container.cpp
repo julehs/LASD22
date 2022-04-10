@@ -1,31 +1,30 @@
-
 namespace lasd {
 
 /* ************************************************************************** */
 
 //LinearContainer
-template<typename Data>
-bool LinearContainer<Data>::operator==(const LinearContainer<Data>& lc) const noexcept{
-    if(dim == lc.dim){
-        for(unsigned long i; i < dim; ++i){
-            if (operator[][i] != lc[i])
-            {
-                return false;
-            }
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-}
+//TODO: CAncellare
+// ERROR: Non era cancellato?
+/* bool LinearContainer<Data>::operator==(const LinearContainer<Data>& lc) const noexcept{ */
+/*     if(dim == lc.dim){ */
+/*         for(unsigned long i; i < dim; ++i){ */
+/*             if (operator[][i] != lc[i]) */
+/*             { */
+/*                 return false; */
+/*             } */
+/*             return true; */
+/*         } */
+/*         else{ */
+/*             return false; */
+/*         } */
+/*     } */
+/* } */
 
 //Operator function
-template<typename Data> 
-bool LinearContainer<Data>::operator==(const LinearContainer<Data>& lc) const noexcept{
-    return !(*this == lc);
-
-}
+/* template<typename Data>  */
+/* bool LinearContainer<Data>::operator!=(const LinearContainer<Data>& lc) const noexcept{ */
+/*     return !(*this == lc); */
+/* } */
 
 //Front function
 template <typename Data>
@@ -48,8 +47,11 @@ Data& LinearContainer<Data>::Back() const {
 //ExtraFoldExist, Foldable Container
 template <typename Data>
 void ExtraFoldExist(const Data& data, const void* value, void* exists) {
-    if (data == (*(Data*)value))
-    *(bool*)exists = true;
+    /* if (data == (*(Data*)value)) */
+    /* *(bool*)exists = true; */
+
+    if(data == *((Data*)value))
+			*((bool*)exists) = true;
 }
 
 template<typename Data>

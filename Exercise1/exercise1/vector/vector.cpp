@@ -44,9 +44,8 @@ Vector<Data>::Vector (Vector<Data>&& vec) noexcept{
 }
 
 //Destructor
-
 template<typename Data>
-Vector<Data>::~Vector(){
+Vector<Data>::~Vector() noexcept {
     delete[] elem;
 }
 
@@ -94,13 +93,13 @@ bool Vector<Data>::operator!=(const Vector<Data>& vec) const noexcept{
 // Resize function
 template<typename Data>
 void Vector<Data>::Resize(const unsigned long newdim){
-    if(newdim = 0){
+    if(newdim == 0){
         Clear();
     }
     else if (dim != newdim) {
         unsigned long limit = (dim < newdim) ? dim : newdim;
         Data* tmp_elem = new Data[newdim] {};
-        for (unsigned lounsigned long limitng i = 0; i < limit; ++i) {
+        for (unsigned long i = 0; i < limit; ++i) {
             std::swap(elem[i], tmp_elem[i]);
         }
         std::swap(elem, tmp_elem);
@@ -150,7 +149,7 @@ Data& Vector<Data>::operator[](const ulong i) const{
         return elem[i];
     }
     else {
-        throw std::out_of_range("Indice:" + std::to_string(i) + "; lunghezza del vettore: " +std::to_string(dim) + ".")
+        throw std::out_of_range("Indice:" + std::to_string(i) + "; lunghezza del vettore: " +std::to_string(dim) + ".");
     }
 
 }
@@ -200,9 +199,10 @@ void Vector<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc) co
     while (i > 0){
         fun(elem[--i], par, acc);
     }
-    
-    
 }
+
+/* template<typename Data> */
+/* void Vector<Data>::PostOrderFoldableContainer(FoldFunctor fun, const void* par, void* acc) const {} */
 
 
 

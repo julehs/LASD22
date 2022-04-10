@@ -13,7 +13,12 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class Vector :virtual public LinearContainer<Data>, PreOrderMappableContainer<Data>, PostOrderMappableContainer<Data>, PreOrderFoldableContainer<Data>, PostOrderFoldableContainer<Data> {
+class Vector:
+	virtual public LinearContainer<Data>, 
+	virtual public PreOrderMappableContainer<Data>,
+	virtual public PostOrderMappableContainer<Data>, 
+	virtual public PreOrderFoldableContainer<Data>, 
+	virtual public PostOrderFoldableContainer<Data> {
                 // Must extend LinearContainer<Data>,
                 //             PreOrderMappableContainer<Data>,
                 //             PostOrderMappableContainer<Data>,
@@ -53,7 +58,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-    virtual ~Vector();
+		virtual ~Vector() noexcept;
 
   /* ************************************************************************ */
 

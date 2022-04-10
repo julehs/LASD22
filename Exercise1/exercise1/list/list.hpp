@@ -13,7 +13,11 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class List :virtual public LinearContainer<Data>, PreOrderMappableContainer<Data>, PostOrderMappableContainer<Data>, PreOrderFoldableContainer<Data>, PostOrderFoldableContainer<Data> {
+class List :virtual public LinearContainer<Data>, 
+	virtual public PreOrderMappableContainer<Data>, 
+	virtual public PostOrderMappableContainer<Data>, 
+	virtual public PreOrderFoldableContainer<Data>, 
+	virtual public PostOrderFoldableContainer<Data> {
               // Must extend LinearContainer<Data>,
               //             PreOrderMappableContainer<Data>,
               //             PostOrderMappableContainer<Data>,
@@ -37,16 +41,17 @@ protected:
     /* ********************************************************************** */
 
     // Specific constructors
+			Node() = delete;
       Node(const Data&);
-      Node(Data&&); 
+      Node(Data&&) noexcept; 
 
     /* ********************************************************************** */
 
     // Copy constructor
-      Node(const Data&);
-
+      Node& operator=(const Node&);
+    
     // Move constructor
-      Node(Node&&) noexcept;
+      Node& operator=(Node&&) noexcept;
 
     /* ********************************************************************** */
 
@@ -66,16 +71,16 @@ protected:
     // ...
 
   };
-
-  // ...
-
+	
+	Node* First = nullptr;
+	Node* Last = nullptr;
 public:
 
   // Default constructor
-    List();
+    List() = default;
 
   // Specific constructor
-    List(const LinearContainer<Data>&) specifiers; // A list obtained from a LinearContainer
+    List(const LinearContainer<Data>&); // A list obtained from a LinearContainer
   
   // Copy constructor
     List(const List&);
@@ -109,7 +114,7 @@ public:
     void InsertAtFront(const Data&) noexcept; // Copy of the value
     void InsertAtFront(Data&&) noexcept; // Move of the value
     void RemoveFromFront(); // (must throw std::length_error when empty)
-    Data& FrontNRemove(); // (must throw std::length_error when empty)
+    Data FrontNRemove(); // (must throw std::length_error when empty)
 
     void InsertAtBack(const Data&); // Copy of the value
     void InsertAtBack(Data&&) noexcept; // Move of the value
