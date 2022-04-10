@@ -19,41 +19,33 @@ void menu(){
 	}
 
       if (opzione == '1'){
-	std::system("clear");
 	VectorInt();
       }
       if (opzione == '2'){
-	std::system("clear");
 	VectorFloat();
 	quit = true;
       }
       if (opzione == '3'){
-	std::system("clear");
 	VectorString();
 	quit = true;
       }
       if (opzione == '4'){
-	std::system("clear");
 	VectorStruct();
 	quit = true;
       }
       if (opzione == '5'){
-	std::system("clear");
 	ListInt();
 	quit = true;
       }
       if (opzione == '6'){
-	std::system("clear");
 	ListFloat();
 	quit = true;
       }
       if (opzione == '7'){
-	std::system("clear");
 	ListString();
 	quit = true;
       }
       if (opzione == '8'){
-	std::system("clear");
 	ListStruct();
 	quit = true;
       }
