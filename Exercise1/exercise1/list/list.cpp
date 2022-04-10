@@ -385,7 +385,21 @@ void List<Data>::MapPostOrder(MapFunctor fun, void* par, Node* curr){
 }
 
 //Auxiliary member function: FoldPreOrder e FoldPostOrder
+template<typename Data>
+void List<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc, Node* curr) const{
+    for(; curr!= nullptr; curr = curr->next){
+        fun(curr->elemento, par, acc);
+    }
+}
 
+template<typename Data>
+void List<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc, Node* curr)const{
+    unsigned long index = dim;
+    while (index > 0){
+        fun((*this)[index-1], par, acc);
+        index--;
+    }
+}
 
 /* ************************************************************************** */
 
