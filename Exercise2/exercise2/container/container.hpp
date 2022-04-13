@@ -21,30 +21,34 @@ private:
 
 protected:
 
-  // ...
+  ulong dim = 0;
 
 public:
 
   // Destructor
-  // ~Container() specifiers
+  virtual ~Container() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types should not be possible.
+  Container& operator = (const Container&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types should not be possible.
+  Container& operator = (Container&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types might not be possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract types might not be possible.
+  bool operator == (const Container&) const noexcept = delete; // Comparison of abstract types might not be possible.
+  bool operator != (const Container&) const noexcept = delete; // Comparison of abstract types might not be possible.
 
   /* ************************************************************************ */
 
   // Specific member functions
+
+  virtual bool Empty() const noexcept{
+      return (dim == 0);
+  }
 
   // type Empty() specifiers; // (concrete function should not throw exceptions)
 
