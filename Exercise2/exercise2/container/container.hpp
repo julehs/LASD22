@@ -382,7 +382,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PostOrderFoldableContainer { // Must extend FoldableContainer<Data>
+class PostOrderFoldableContainer:virtual public FoldableContainer<Data> { // Must extend FoldableContainer<Data>
 
 private:
 
@@ -395,12 +395,12 @@ protected:
 public:
 
   // Destructor
-  // ~PostOrderFoldableContainer() specifiers
+    virtual ~PostOrderFoldableContainer() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types should not be possible.
+    PostOrderFoldableContainer& operator = (const PostOrderFoldableContainer&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types should not be possible.
