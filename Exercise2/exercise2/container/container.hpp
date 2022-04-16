@@ -375,7 +375,7 @@ public:
 
   // Specific member functions (inherited from MappableContainer)
 
-    virtual Map(MapFunctor, void*) override; // Override MappableContainer member
+    virtual void Map(MapFunctor, void*) override; // Override MappableContainer member
 
 };
 
@@ -560,7 +560,7 @@ public:
 
     using typename MappableContainer<Data>::MapFunctor;
 
-    virtual void MapBreadth(MapFunctor. void*) = 0; 
+    virtual void MapBreadth(MapFunctor, void*) = 0; 
   
   /* ************************************************************************ */
 
