@@ -498,7 +498,7 @@ class InOrderFoldableContainer :virtual public FoldableContainer<Data> { // Must
 
       using typename FoldableContainer<Data>::FoldFunctor;
 
-      virtual void FoldInOrder (FoldFunctor, void*) = 0;
+      virtual void FoldInOrder (FoldFunctor, const void*, void*) = 0;
 
    // Specific member functions (inherited from FoldableContainer)
 
@@ -588,7 +588,7 @@ class InOrderFoldableContainer :virtual public FoldableContainer<Data> { // Must
 
      using typename FoldableContainer<Data>::FoldFunctor;
 
-     virtual void FoldBreadth(FoldFunctor, void*) = 0;
+     virtual void FoldBreadth(FoldFunctor,const void*, void*) = 0;
 
 
    // Specific member functions (inherited from FoldableContainer)
