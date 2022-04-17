@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class Stack {
+class Stack: virtual public Container {
               // Must extend Container
 
 private:
@@ -27,12 +27,12 @@ protected:
 public:
 
   // Destructor
-  // ~Stack() specifiers
+    virtual ~Stack() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types should not be possible.
+  Stack& operator = (const Stack&) // Copy assignment of abstract types should not be possible.
 
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types should not be possible.
