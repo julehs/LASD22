@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class Queue {
+class Queue: virtual public Container {
               // Must extend Container
 
 private:
