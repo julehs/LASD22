@@ -22,7 +22,7 @@ private:
 
 protected:
 
-  // ...
+  unsigned int index = 0;
 
 public:
 
@@ -32,20 +32,26 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  Stack& operator = (const Stack&) // Copy assignment of abstract types should not be possible.
+    Stack& operator = (const Stack&) = delete;// Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types should not be possible.
+    Stack& operator = (Stack&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types might not be possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract types might not be possible.
+    bool operator == (const Stack&) const noexcept = delete;  // Comparison of abstract types might not be possible.
+    bool operator != (const Stack&) const noexcept = delete; // Comparison of abstract types might not be possible.
 
   /* ************************************************************************ */
 
   // Specific member functions
+  //constant version?
+  virtual Data& Top() const = 0; //concrete func...
+  virtual void Pop() = 0; // concrete func..
+  virtual Data TopNPop() = 0; // concrete func
+  virtual void Push(const Data&) = 0;
+  virtual void Push(Data&&) noexcept = 0; 
 
   // type Top() specifiers; // (constant version; concrete function must throw std::length_error when empty)
   // type Top() specifiers; // (concrete function must throw std::length_error when empty)
