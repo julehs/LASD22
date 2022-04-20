@@ -46,19 +46,13 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions
-  //constant version?
-  virtual Data& Top() const = 0; //concrete func...
-  virtual void Pop() = 0; // concrete func..
-  virtual Data TopNPop() = 0; // concrete func
-  virtual void Push(const Data&) = 0;
-  virtual void Push(Data&&) noexcept = 0; 
+  const Data& Top() const = 0; // (constant version; concrete function must throw std::length_error when empty)
+  virtual Data& Top() const = 0; // (concrete function must throw std::length_error when empty)
+  virtual void Pop() = 0; // (concrete function must throw std::length_error when empty)
+  virtual Data TopNPop() = 0; // (concrete function must throw std::length_error when empty)
+  virtual void Push(const Data&) = 0; // Copy of the value
+  virtual void Push(Data&&) noexcept = 0; // Move of the value
 
-  // type Top() specifiers; // (constant version; concrete function must throw std::length_error when empty)
-  // type Top() specifiers; // (concrete function must throw std::length_error when empty)
-  // type Pop() specifiers; // (concrete function must throw std::length_error when empty)
-  // type TopNPop() specifiers; // (concrete function must throw std::length_error when empty)
-  // type Push(argument) specifiers; // Copy of the value
-  // type Push(argument) specifiers; // Move of the value
 
 };
 
