@@ -14,7 +14,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class StackVec {
+class StackVec: virtual public Stack<Data>, virtual protected Vector<Data> {
                   // Must extend Stack<Data>,
                   //             Vector<Data>
 
@@ -24,7 +24,9 @@ private:
 
 protected:
 
-  // using Vector<Data>::???;
+  using Vector<Data>::elemento;
+  using Vector<Data>::dimensione;
+  ulong top = 0;
 
   // ...
 
