@@ -54,7 +54,7 @@ public:
 
   /* ************************************************************************ */
 
-  // Copy assignment// type operator=(argument);
+  // Copy assignment
     StackLst& operator = (const StackLst&);
 
   // Move assignment
