@@ -31,7 +31,7 @@ private:
 
 protected:
 
-   using LinearContainer<Data>::dim;
+   using LinearContainer<Data>::dimensione;
 
   struct Node {
 
@@ -75,6 +75,7 @@ protected:
 	
 	Node* First = nullptr;
 	Node* Last = nullptr;
+  
 public:
 
   // Default constructor

@@ -65,7 +65,7 @@ public:
 
   // Comparison operators
     bool operator == (const StackVec&) const noexcept;
-    bool opeator != (const StackVec&) const noexcept;
+    bool operator != (const StackVec&) const noexcept;
 
   /* ************************************************************************ */
 
