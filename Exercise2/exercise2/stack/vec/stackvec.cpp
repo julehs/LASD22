@@ -77,7 +77,104 @@ bool StackVec<Data>::operator!=(const StackVec& sv) const noexcept{
     return!(*this == sv);
 }
 
+//Member function
 
+//Top constant version
+template <typename Data>
+const Data& StackVec<Data>::Top() const{}
+
+//Top
+template <typename Data>
+Data& StackVec<Data>::Top() const{
+    if(Empty())
+            throw std::length_error("Impossibile rimuovere dallo stack: la dimensione è 0");
+
+    return Vector<Data>::operator[](top-1);
+
+
+
+//Pop
+template <typename Data>
+void StackVec<Data>::Pop(){
+    if(Empty())
+            throw std::length_error("Impossibile rimuovere dallo stack: la dimensione è 0");
+        
+    Data eliminato = std::move(Vector<Data>::operator[](--top));
+    (void)eliminato;
+
+    if(top < dimensione/4)
+        Reduce();
+    }
+
+
+//TopNPop
+template <typename Data>
+Data StackVec<Data>::TopNPop(){
+    if(Empty())
+        throw std::length_error("Impossibile rimuovere dallo stack: la sua dimensione è 0");
+
+    Data ret = std::move(Vector<Data>::operator[](--top));
+
+    if(top < dimensione/4)
+        Reduce();
+        
+    return ret;
+    }
+
+//Push copy
+template <typename Data>
+void StackVec<Data>::Push(const Data& data){
+Vector<Data>::operator[](top++) = data;
+    if (top == dimensione)
+        Expand();
+    }
+
+
+//Push move
+template <typename Data>
+void StackVec<Data>::Push(const Data& data){
+    Vector<Data>::operator[](top++)=std::move(data);
+    if(top == dimensione);
+        Expand();
+
+    }
+
+
+//Empty
+template <typename Data>
+bool StackVec<Data>::Empty() const noexcept{
+    return pop = 0;
+    }
+
+//Size
+template <typename Data>
+ulong StackVec<Data>::Size() const noexcept{
+    return pop;
+    }
+
+//Clear
+template <typename Data>
+void StackVec<Data>::Clear() noexcept{
+    Vector<Data>::Resize();
+    top = 0;
+    }
+
+
+//Expand
+template <typename Data>
+void StackVec<Data>::Expand(){
+    Vector<Data>::Resize(dimensione*2);
+}
+
+//Reduce
+template <typename Data>
+void StackVec<Data>::Reduce(){
+    Vector<Data>::Resize(dimensione/2);
+}
+
+
+
+}
 
 /* ************************************************************************** */
 
