@@ -4,8 +4,8 @@ namespace lasd {
 /* ************************************************************************** */
 
 //Dafault constructor
-// template <typename Data>
-// StackLst<Data>::StackLst(): List<Data>::List(){}
+template <typename Data>
+StackLst<Data>::StackLst(): List<Data>::List(){}
 
 
 //Specific constructor
@@ -36,6 +36,66 @@ StackLst<Data>& StackLst<Data>::operator = (StackLst&& listmove) noexcept {
     List<Data>::operator = (std::move(listmove));
     return *this;
 
+}
+
+template <typename Data>
+bool StackLst<Data>::operator==(const StackLst& listcomp) const noexcept{
+    return List<Data>::operator==(listcomp);
+}
+
+template <typename Data>
+bool StackLst<Data>::operator!=(const StackLst& listcomp) const noexcept{
+    return List<Data>::operator!=(listcomp);
+}
+
+
+//Top constant version
+template <typename Data>
+const Data& StackLst<Data>::Top() const{
+    if(Empty())
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
+
+  return List<Data>::Front();
+
+}
+
+//Top 
+template<typename Data>
+Data& StackLst<Data>::Top() const{
+    if(Empty())
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
+
+  return List<Data>::Front();
+}
+
+//Pop
+template <typename Data>
+void StackLst<Data>::Pop(){
+    if(Empty())
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
+
+  List<Data>::RemoveFromFront();
+}
+
+//TopNPop
+template <typename Data>
+Data StackLst<Data>::TopNPop(){
+    if(Empty())
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
+
+  return List<Data>::FrontNRemove();
+}
+
+//Push copy
+template <typename Data>
+void StackLst<Data>::Push(const Data& d){
+    List<Data>::InsertAtFront(d);
+}
+
+//Push move
+template <typename Data>
+void StackLst<Data>::Push(Data&& d){
+    List<Data>::InsertAtFront(std::move(d));
 }
 
 /* ************************************************************************** */
