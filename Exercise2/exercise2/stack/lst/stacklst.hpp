@@ -14,7 +14,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class StackLst: virtual public Stack<Data>
+class StackLst: virtual public Stack<Data> ,
                 virtual protected List<Data> {
                   // Must extend Stack<Data>,
                   //             List<Data>
@@ -25,7 +25,7 @@ private:
 
 protected:
 
-  using List<Data>::dimensione;
+  using List<Data>::dim;
 
   // ...
 
@@ -50,7 +50,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-    ~StackLst() =default;
+    ~StackLst() = default;
 
   /* ************************************************************************ */
 
@@ -70,7 +70,7 @@ public:
 
   // Specific member functions (inherited from Stack)
 
-    const Data& Top() const override; // Override Stack member (constant version; must throw std::length_error when empty)
+    const Data& Top() override; // Override Stack member (constant version; must throw std::length_error when empty)
     Data& Top() const override; // Override Stack member (must throw std::length_error when empty)
     void Pop() override; // Override Stack member (must throw std::length_error when empty)
     Data TopNPop() override; // Override Stack member (must throw std::length_error when empty)
@@ -82,9 +82,11 @@ public:
 
   // Specific member functions (inherited from Container)
 
-    inline void Clear() override{
-      List<Data>::Clear();
-    } // Override Container member
+   using List<Data>::Empty;
+
+   using List<Data>::Size;
+
+   using List<Data>::Clear;
 
 };
 

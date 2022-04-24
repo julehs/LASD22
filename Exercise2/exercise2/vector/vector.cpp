@@ -55,7 +55,7 @@ Vector<Data>& Vector<Data>::operator = (const Vector<Data>& vec) {
     Vector<Data>* newvec = new Vector<Data>(vec);
     std::swap(*newvec, *this);
     delete newvec;
-    return this;
+    return *this;
 }
 
 //Move assignment

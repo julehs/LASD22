@@ -12,8 +12,8 @@ StackVec<Data>::StackVec(): Vector<Data>::Vector(){}
 
 template <typename Data>
 StackVec<Data>::StackVec(const LinearContainer<Data>& Container){
-    dimensione = Container.Size();
-    elemento = new Data[dimensione];
+    dim = Container.Size();
+    elem = new Data[dim];
     for (ulong i=0; i<Container.Size(); ++i){
         Push(Container[i]);
     }
@@ -31,7 +31,7 @@ StackVec<Data>::StackVec(const StackVec<Data>& stackv): Vector<Data>::Vector(sta
 template<typename Data>
 StackVec<Data>::StackVec(StackVec<Data>&& stackv) : Vector<Data>::Vector(std::move(stackv)){
     top = stackv.top;
-    stackvec.Clear();
+    stackv.Clear();
 } 
 
 
@@ -81,7 +81,10 @@ bool StackVec<Data>::operator!=(const StackVec& sv) const noexcept{
 
 //Top constant version
 template <typename Data>
-const Data& StackVec<Data>::Top() const{}
+const Data& StackVec<Data>::Top(){
+    if(Empty())
+            throw std::length_error("Impossibile rimuovere dallo stack: la dimensione è 0");
+}
 
 //Top
 template <typename Data>
@@ -102,7 +105,7 @@ void StackVec<Data>::Pop(){
     Data eliminato = std::move(Vector<Data>::operator[](--top));
     (void)eliminato;
 
-    if(top < dimensione/4)
+    if(top < dim/4)
         Reduce();
     }
 
@@ -115,7 +118,7 @@ Data StackVec<Data>::TopNPop(){
 
     Data ret = std::move(Vector<Data>::operator[](--top));
 
-    if(top < dimensione/4)
+    if(top < dim/4)
         Reduce();
         
     return ret;
@@ -125,7 +128,7 @@ Data StackVec<Data>::TopNPop(){
 template <typename Data>
 void StackVec<Data>::Push(const Data& data){
 Vector<Data>::operator[](top++) = data;
-    if (top == dimensione)
+    if (top == dim)
         Expand();
     }
 
@@ -134,7 +137,7 @@ Vector<Data>::operator[](top++) = data;
 template <typename Data>
 void StackVec<Data>::Push(const Data& data){
     Vector<Data>::operator[](top++)=std::move(data);
-    if(top == dimensione);
+    if(top == dim);
         Expand();
 
     }
@@ -163,13 +166,13 @@ void StackVec<Data>::Clear() noexcept{
 //Expand
 template <typename Data>
 void StackVec<Data>::Expand(){
-    Vector<Data>::Resize(dimensione*2);
+    Vector<Data>::Resize(dim*2);
 }
 
 //Reduce
 template <typename Data>
 void StackVec<Data>::Reduce(){
-    Vector<Data>::Resize(dimensione/2);
+    Vector<Data>::Resize(dim/2);
 }
 
 

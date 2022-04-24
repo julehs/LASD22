@@ -24,7 +24,7 @@ private:
 
 protected:
 
-  using Vector<Data>::elemento;
+  using Vector<Data>::elem;
   using Vector<Data>::dim;
   ulong top = 0;
 
@@ -70,7 +70,7 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Stack)
-    const Data& Top() const override; // Override Stack member (constant version; must throw std::length_error when empty)
+    const Data& Top() override; // Override Stack member (constant version; must throw std::length_error when empty)
     Data& Top() const override; // Override Stack member (must throw std::length_error when empty)
     void Pop() override; // Override Stack member (must throw std::length_error when empty)
     Data TopNPop() override; // Override Stack member (must throw std::length_error when empty)

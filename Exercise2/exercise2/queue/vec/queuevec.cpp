@@ -9,8 +9,8 @@ QueueVec<Data>::QueueVec():Vector<Data>(){}
 //Specific constructor
 template<typename Data>
 QueueVec<Data>::QueueVec(const LinearContainer<Data>& Container): Vector<Data>::Vector(Container){
-    dimensione = Container.Size();
-    elemento = new Data[dimensione];
+    dim = Container.Size();
+    elem = new Data[dim];
     for (ulong i = 0; i < Container.Size(); ){
         Enqueue(Container[i]);
     }
@@ -25,11 +25,11 @@ QueueVec<Data>::QueueVec(const QueueVec& Tail): Vector<Data>(Tail){
 
 //Move constructor
 template <typename Data>
-QueueVec<Data>::QueueVec(QueueVec&& Tail):Vector<Data>(std::move(Tail)) noexcept{
+QueueVec<Data>::QueueVec(QueueVec&& Tail) noexcept :Vector<Data>(std::move(Tail)) {
     testa = Tail.testa;
     coda = Tail.coda;
 
-    Coda.Clear();
+    Tail.Clear();
 }
 
 //Copy assignment
@@ -37,7 +37,7 @@ template<typename Data>
 QueueVec<Data>& QueueVec<Data>::operator = (const QueueVec& Tail){
     Vector<Data>::operator=(Tail);
     testa = Tail.testa;
-    coda = Coda.coda;
+    coda = Tail.coda;
 
     return *this;
 }
@@ -48,12 +48,13 @@ QueueVec<Data>& QueueVec<Data>::operator = (QueueVec&& Tail) noexcept{
    Vector<Data>::operator=(std::move(Tail));
    std::swap(testa, Tail.testa);
    std::swap(coda, Tail.coda); 
+   return *this;
 }
 
 //Comparision
 template <typename Data>
 bool QueueVec<Data>::operator==(const QueueVec& Tail) const noexcept{
-    if(this == &Coda)
+    if(this == &Tail)
       return true;
 
     if(Size() != Tail.Size())
@@ -63,8 +64,8 @@ bool QueueVec<Data>::operator==(const QueueVec& Tail) const noexcept{
     ulong j = Tail.testa;
     ulong compares = 0;
     while(i != coda && Vector<Data>::operator[](i) == Tail.Vector<Data>::operator[](j) ){
-      i = (i+1) % dimensione;
-      j = (j+1) % Tail.dimensione;
+      i = (i+1) % dim;
+      j = (j+1) % Tail.dim;
       compares++;
     }
 
@@ -82,7 +83,7 @@ bool QueueVec<Data>::operator!=(const QueueVec& Tail) const noexcept{
 //Member function
 //Head constant version
 template <typename Data>
-const Data& QueueVec<Data>::Head() const{
+const Data& QueueVec<Data>::Head(){
     if(Empty())
   	throw std::length_error("Impossibile rimuovere dalla Coda: la sua dimesione è 0!");
 
@@ -106,8 +107,8 @@ void QueueVec<Data>::Dequeue(){
 //Moving to an internal variable that will be deleted upon exiting the scope
   Data del = std::move(Vector<Data>::operator[](testa));
   (void)del;
-  testa = (testa+1) % dimensione;
-  if(Size() < dimensione/4)
+  testa = (testa+1) % dim;
+  if(Size() < dim/4)
     Reduce();
 }
 
@@ -119,8 +120,8 @@ Data QueueVec<Data>::HeadNDequeue(){
 
   Data ret = std::move(Vector<Data>::operator[](testa));
 
-  testa = (testa+1) % dimensione;
-  if(Size() < dimensione/4)
+  testa = (testa+1) % dim;
+  if(Size() < dim/4)
     Reduce();
 
   return ret;
@@ -131,7 +132,7 @@ Data QueueVec<Data>::HeadNDequeue(){
 template <typename Data>
 void QueueVec<Data>::Enqueue(const Data& d){  
   Vector<Data>::operator[](coda) = d;
-  coda = (coda+1) % dimensione;
+  coda = (coda+1) % dim;
 
   if(coda == testa)
     Expand();
@@ -142,7 +143,7 @@ void QueueVec<Data>::Enqueue(const Data& d){
 template <typename Data>
 void QueueVec<Data>::Enqueue(Data&& d){ 
   Vector<Data>::operator[](coda) = std::move(d);
-  coda = (coda+1) % dimensione;
+  coda = (coda+1) % dim;
 
   if(coda == testa)
     Expand();
@@ -156,7 +157,7 @@ inline bool QueueVec<Data>::Empty() const noexcept {
 }
 template <typename Data>
 inline ulong QueueVec<Data>::Size() const noexcept { 
-  return (dimensione -  testa + coda) % dimensione;
+  return (dim -  testa + coda) % dim;
 }
 template <typename Data>
 void QueueVec<Data>::Clear() noexcept { 
@@ -168,26 +169,26 @@ void QueueVec<Data>::Clear() noexcept {
 //Expand function
 template <typename Data>
 void QueueVec<Data>::Expand(){ 
-  Vector<Data>::Resize(dimensione*2);
+  Vector<Data>::Resize(dim*2);
 
   ulong j;
   for(j = 0; j < coda; j++)
-    Vector<Data>::operator[](j+dimensione/2) = std::move(Vector<Data>::operator[](j));
+    Vector<Data>::operator[](j+dim/2) = std::move(Vector<Data>::operator[](j));
 
-  coda = j + dimensione/2;
+  coda = j + dim/2;
 }
 
 
 //Reduce function
 template <typename Data>
 void QueueVec<Data>::Reduce(){ 
-  Vector<Data> d(dimensione/2);
+  Vector<Data> d(dim/2);
 
   ulong p = 0;
   ulong j = testa;
   while(j != coda){
       d[p++] = std::move(Vector<Data>::operator[](j));
-      j = (j+1) % dimensione;
+      j = (j+1) % dim;
   }
 
   testa = 0;

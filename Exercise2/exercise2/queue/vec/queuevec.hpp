@@ -14,8 +14,8 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class QueueVec: virtual public Queue<Data>
-                virtual protected Vector<Data> {
+class QueueVec: public virtual Queue<Data> ,
+                protected virtual Vector<Data> {
                   // Must extend Queue<Data>,
                   //             Vector<Data>
 
@@ -25,8 +25,8 @@ private:
 
 protected:
 
-  using Vector<Data>::elemento;
-  using Vector<Data>::dimensione;
+  using Vector<Data>::elem;
+  using Vector<Data>::dim;
   ulong testa = 0;
   ulong coda = 0;
   // ...
@@ -52,7 +52,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-    ~QueueVec() = default;
+    ~QueueVec() noexcept = default;
 
   /* ************************************************************************ */
 
@@ -72,7 +72,7 @@ public:
 
   // Specific member functions (inherited from Queue)
 
-    const Data& Head() const override = 0; // Override Queue member (constant version; must throw std::length_error when empty)
+    const Data& Head() override; // Override Queue member (constant version; must throw std::length_error when empty)
     Data& Head() const override; // Override Queue member (must throw std::length_error when empty)
     void Dequeue() override; // Override Queue member (must throw std::length_error when empty)
     Data HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
@@ -97,7 +97,7 @@ protected:
 
     void Expand();
     void Reduce();
-    void SwapVectors(unit newSize) noexcept;
+    void SwapVectors(unsigned int newSize) noexcept;
 
 };
 

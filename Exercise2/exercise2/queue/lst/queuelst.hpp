@@ -14,8 +14,8 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class QueueLst: virtual public Queue<Data> 
-                virtual public List<Data> {
+class QueueLst: public virtual Queue<Data> ,
+                protected virtual List<Data> {
                   // Must extend Queue<Data>,
                   //             List<Data>
 
@@ -25,7 +25,7 @@ private:
 
 protected:
 
-   using List<Data>::dimensione;
+   using Container::dim;
 
   // ...
 
@@ -42,15 +42,15 @@ public:
   /* ************************************************************************ */
 
   // Copy constructor
-    QueueLst(const QueueLst<Data>&);
+    QueueLst(const QueueLst&);
 
   // Move constructor
-    QueueLst(QueueLst<Data>&&) noexcept;
+    QueueLst(QueueLst&&) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
-    ~QueueLst() = default;
+    ~QueueLst() noexcept = default;
 
   /* ************************************************************************ */
 
@@ -70,7 +70,7 @@ public:
 
   // Specific member functions (inherited from Queue)
 
-  const Data& Head() const override; // Override Queue member (constant version; must throw std::length_error when empty)
+  const Data& Head() override; // Override Queue member (constant version; must throw std::length_error when empty)
   Data& Head() const override; // Override Queue member (must throw std::length_error when empty)
   void Dequeue() override; // Override Queue member (must throw std::length_error when empty)
   Data HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
@@ -83,14 +83,14 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
+  using List<Data>::Empty;
 
+  using List<Data>::Size;
+
+  using List<Data>::Clear;
   
 
-  inline void Clear() override{   // Override Container member
-    List<Data>::Clear();
-  } 
-
-
+  
 };
 
 /* ************************************************************************** */

@@ -22,20 +22,20 @@ private:
 
 protected:
 
-  // ...
+  using Container ::dim;
 
 public:
 
   // Destructor
-    virtual ~Queue() = default;
+    virtual ~Queue() noexcept = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-    Queue& operator = (const Queue&) = delete; // Copy assignment of abstract types should not be possible.
+    virtual Container& operator = (const Queue&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-    Queue& operator = (Queue&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+    virtual Container& operator = (Queue&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
@@ -47,7 +47,7 @@ public:
 
   // Specific member functions
 
-  const Data& Head() const = 0; // (constant version; concrete function must throw std::length_error when empty)
+  virtual const Data& Head() = 0; // (constant version; concrete function must throw std::length_error when empty)
   virtual Data& Head() const = 0; // (concrete function must throw std::length_error when empty)
   virtual void Dequeue() = 0; // (concrete function must throw std::length_error when empty)
   virtual Data HeadNDequeue() = 0; // (concrete function must throw std::length_error when empty)

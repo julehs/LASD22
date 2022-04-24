@@ -10,22 +10,20 @@ StackLst<Data>::StackLst(): List<Data>::List(){}
 
 //Specific constructor
 template <typename Data>
-StackLst<Data>::StackLst(const LinearContainer<Data>& Container):List<Data>::List::(Container){
-
-}
+StackLst<Data>::StackLst(const LinearContainer<Data>& Container):List<Data>::List(Container){}
 
 //Copy constructor 
 template <typename Data>
-StackLst<Data>::StackLst(const StackLst<Data>& StackLst): List<Data>::List(StackList){}
+StackLst<Data>::StackLst(const StackLst<Data>& StackLst): List<Data>::List(StackLst){}
 
 
 //Move constructor
 template <typename Data>
-StackLst<Data>::StackLst(StackLst<Data>&& StackList) noexcept: List<Data>::List(std::move(StackList)){}
+StackLst<Data>::StackLst(StackLst<Data>&& StackLst) noexcept: List<Data>::List(std::move(StackLst)){}
 
 //Copy assignment
 template <typename Data>
-StackLst<Data>& StackLst<Data>::operator=(const StackLst& listcpy){
+StackLst<Data>& StackLst<Data>::operator = (const StackLst& listcpy){
     List<Data>::operator =(listcpy);
     return *this;
 }
@@ -51,11 +49,10 @@ bool StackLst<Data>::operator!=(const StackLst& listcomp) const noexcept{
 
 //Top constant version
 template <typename Data>
-const Data& StackLst<Data>::Top() const{
+const Data& StackLst<Data>::Top(){
     if(Empty())
 	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
 
-  return List<Data>::Front();
 
 }
 

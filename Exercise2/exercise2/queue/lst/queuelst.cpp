@@ -52,10 +52,11 @@ bool QueueLst<Data>::operator!=(const QueueLst& q) const noexcept{
 //Specific member
 //Head constant version
 template <typename Data>
-const Data& QueueLst<Data>::Head() const{
+const Data& QueueLst<Data>::Head(){
      if(Empty())
 	    throw std::length_error("Impossibile rimuovere dalla Coda: la sua dimesione è 0!");
 
+        return List<Data>::Front();
 }
 
 //Head
