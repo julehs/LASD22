@@ -1,20 +1,10 @@
 #include <iostream>
 #include <iostream>
 #include <random>
-#include "../../container/container.hpp"
+#include "../../../container/container.hpp"
 #include "../../queue/queue.hpp"
-#include "../../queue/vec/queuevec.hpp"
-#include "queue.hpp"
-
-void OperazioniQueue(){
-  std::cout << "Scegli l'operazione che vuoi effettuare:\n "<< std::endl;
-  std::cout<< "\tInserimento (1)\n\tRimozione(2)\n\tRimozione con lettura(3)\n";
-  std::cout<< "\tLettura non distruttiva(4)\n\tControllo sulla vuotezza della struttura(5)\n\tInformazione sulla dimensione della struttura\n";
-  std::cout<< "\tSvuotamento(7)\n\tUscita(q)\n";
-}
-
-//VECTOR
-//Int
+#include "../../../queue/vec/queuevec.hpp"
+#include "../queue.hpp"
 
 void QueueVecInt(){
   uint dim, elemento;
