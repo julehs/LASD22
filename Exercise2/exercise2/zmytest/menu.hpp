@@ -1,5 +1,5 @@
-#ifndef MYTEST_HPP
-#define MYTEST_HPP
+#ifndef MYMENU_HPP
+#define MYMENU_HPP
 
 /* ************************************************************************** */
 

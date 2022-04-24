@@ -1,8 +1,6 @@
 #include "zlasdtest/test.hpp" 
 #include "zmytest/menu.hpp"
 
-
-
 /* ************************************************************************** */
 
 #include <iostream>
@@ -24,7 +22,7 @@ int main() {
    } 
    if(scelta == 2){ 
      std::cout<<""<<std::endl; 
-    menu(); 
+     menu();
    } 
    
 
