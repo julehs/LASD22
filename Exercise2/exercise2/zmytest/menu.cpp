@@ -1,10 +1,9 @@
 #include <iostream>
-#include "../zlasdtest/test.hpp"
-
+#include "menu.hpp"
 #include "test.hpp"
 #include "stack/stack.hpp"
 #include "queue/queue.hpp"
-
+#include "../zlasdtest/test.hpp"
 
 void menu(){
 	bool quit = false;
@@ -27,63 +26,51 @@ while (opzione != 'q'){
 
 
 if (opzione == '1') {
-      std::system("clear");
       StackVecInt();
     }
     if (opzione == '2') {
-      std::system("clear");
-      StackVecDouble();
+      StackVecFloat();
       quit = true;
     }
 
     if (opzione == '3') {
-      std::system("clear");
       StackVecString();
       quit = true;
     }
     if (opzione == '4') {
-      std::system("clear");
       StackListInt();
       quit = true;
     }
 
     if (opzione == '5') {
-      std::system("clear");
-      StackListDouble();
+      StackListFloat();
       quit = true;
     }
     if (opzione == '6') {
-      std::system("clear");
       StackListString();
       quit = true;
     }
     if (opzione == '7') {
-      std::system("clear");
       QueueVecInt();
       quit = true;
     }
     if (opzione == '8') {
-      std::system("clear");
-      QueueVecDouble();
+      QueueVecFloat();
       quit = true;
     }
     if (opzione == '9') {
-      std::system("clear");
       QueueVecString();
       quit = true;
     }
     if (opzione == '10') {
-      std::system("clear");
       QueueListInt();
       quit = true;
     }
     if (opzione == '11') {
-      std::system("clear");
-      QueueListDouble();
+      QueueListFloat();
       quit = true;
     }
     if (opzione == '12') {
-      std::system("clear");
       QueueListString();
       quit = true;
     }
