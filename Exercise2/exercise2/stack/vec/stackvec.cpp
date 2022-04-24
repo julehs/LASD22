@@ -8,7 +8,7 @@ namespace lasd {
 
 //Default and Specific constructor
 template<typename Data>
-StackVec<Data>::StackVec(): Vector<Data>::Vector(){}
+StackVec<Data>::StackVec(): Vector<Data>::Vector(1){}
 
 template <typename Data>
 StackVec<Data>::StackVec(const LinearContainer<Data>& Container){
@@ -84,6 +84,7 @@ template <typename Data>
 const Data& StackVec<Data>::Top(){
     if(Empty())
             throw std::length_error("Impossibile rimuovere dallo stack: la dimensione è 0");
+        
 }
 
 //Top
@@ -94,7 +95,7 @@ Data& StackVec<Data>::Top() const{
 
     return Vector<Data>::operator[](top-1);
 
-
+}
 
 //Pop
 template <typename Data>
@@ -127,7 +128,7 @@ Data StackVec<Data>::TopNPop(){
 //Push copy
 template <typename Data>
 void StackVec<Data>::Push(const Data& data){
-Vector<Data>::operator[](top++) = data;
+    Vector<Data>::operator[](top++) = data;
     if (top == dim)
         Expand();
     }
@@ -135,7 +136,7 @@ Vector<Data>::operator[](top++) = data;
 
 //Push move
 template <typename Data>
-void StackVec<Data>::Push(const Data& data){
+void StackVec<Data>::Push(Data&& data){
     Vector<Data>::operator[](top++)=std::move(data);
     if(top == dim);
         Expand();
@@ -146,20 +147,20 @@ void StackVec<Data>::Push(const Data& data){
 //Empty
 template <typename Data>
 bool StackVec<Data>::Empty() const noexcept{
-    return pop = 0;
+    return top == 0;
     }
 
 //Size
 template <typename Data>
 ulong StackVec<Data>::Size() const noexcept{
-    return pop;
+    return top;
     }
 
 //Clear
 template <typename Data>
 void StackVec<Data>::Clear() noexcept{
-    Vector<Data>::Resize();
-    top = 0;
+    Vector<Data>::Resize(1);
+    top == 0;
     }
 
 
@@ -177,8 +178,7 @@ void StackVec<Data>::Reduce(){
 
 
 
-}
 
 /* ************************************************************************** */
-
 }
+
