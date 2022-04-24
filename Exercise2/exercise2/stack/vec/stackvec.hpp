@@ -25,7 +25,7 @@ private:
 protected:
 
   using Vector<Data>::elemento;
-  using Vector<Data>::dimensione;
+  using Vector<Data>::dim;
   ulong top = 0;
 
   // ...

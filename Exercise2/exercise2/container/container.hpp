@@ -512,7 +512,7 @@ public:
 
     using typename FoldableContainer<Data>::FoldFunctor;
 
-    virtual void FoldInOrder (Fold, const void*, void*) = 0;
+    virtual void FoldInOrder (FoldFunctor, const void*, void*) = 0;
 
   /* ************************************************************************ */
 

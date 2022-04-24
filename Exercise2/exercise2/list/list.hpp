@@ -31,7 +31,7 @@ private:
 
 protected:
 
-   using LinearContainer<Data>::dimensione;
+   using LinearContainer<Data>::dim;
 
   struct Node {
 
