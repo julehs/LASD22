@@ -29,9 +29,14 @@ StackVec<Data>::StackVec(const StackVec<Data>& stackv): Vector<Data>::Vector(sta
 
 //Move constructor
 template<typename Data>
-StackVec<Data>::StackVec(StackVec<Data>&& stackv) : Vector<Data>::Vector(std::move(stackv)){
-    top = stackv.top;
-    stackv.Clear();
+StackVec<Data>::StackVec(StackVec<Data>&& stackv){
+    //top = stackv.top;
+    //stackv.Clear();
+    dim = 4;
+    elem = new Data[dim] {};
+    std::swap(dim, stackv.dim);
+    std::swap(elem,stackv.elem);
+    std::swap(top, stackv.top);
 } 
 
 
@@ -48,7 +53,7 @@ StackVec<Data>& StackVec<Data>::operator=(const StackVec<Data>& stackv){
 template <typename Data>
 StackVec<Data>& StackVec<Data>::operator=(StackVec<Data>&& stackv) noexcept{
     Vector<Data>::operator=(std::move(stackv));
-    std::swap(top, stackv.top);
+    top = stackv.top;
     return *this;
     
 }
@@ -65,7 +70,7 @@ bool StackVec<Data>::operator==(const StackVec& sv) const noexcept{
 
     ulong index = 0;
     while(index < top && Vector<Data>::operator[](index) == sv.Vector<Data>::operator[](index))
-    index++;
+        index++;
 
     return index == top;
 
@@ -92,7 +97,7 @@ const Data& StackVec<Data>::Top(){
 template <typename Data>
 Data& StackVec<Data>::Top() const{
     if(Empty())
-            throw std::length_error("Impossibile rimuovere dallo stack: la dimensione è 0");
+        throw std::length_error("Impossibile rimuovere dallo stack: la dimensione è 0");
 
     return Vector<Data>::operator[](top-1);
 
@@ -102,7 +107,7 @@ Data& StackVec<Data>::Top() const{
 template <typename Data>
 void StackVec<Data>::Pop(){
     if(Empty())
-            throw std::length_error("Impossibile rimuovere dallo stack: la dimensione è 0");
+        throw std::length_error("Impossibile rimuovere dallo stack: la dimensione è 0");
         
     Data eliminato = std::move(Vector<Data>::operator[](--top));
     (void)eliminato;

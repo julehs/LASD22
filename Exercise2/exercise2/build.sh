@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 g++ -O3 -o main \
   zlasdtest/exercise1/simpletest.cpp zlasdtest/exercise1/fulltest.cpp \

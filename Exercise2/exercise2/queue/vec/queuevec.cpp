@@ -4,7 +4,10 @@ namespace lasd {
 /* ************************************************************************** */
 //Default constructor
 template<typename Data>
-QueueVec<Data>::QueueVec():Vector<Data>(){}
+QueueVec<Data>::QueueVec(){
+  dim = 4;
+  elem = new Data[dim] {};
+}
 
 //Specific constructor
 template<typename Data>
@@ -54,6 +57,7 @@ QueueVec<Data>& QueueVec<Data>::operator = (QueueVec&& Tail) noexcept{
 //Comparision
 template <typename Data>
 bool QueueVec<Data>::operator==(const QueueVec& Tail) const noexcept{
+    
     if(this == &Tail)
       return true;
 

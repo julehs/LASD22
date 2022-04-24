@@ -33,23 +33,27 @@ void QueueVecInt(){
       std::cout << "ERRORE: opzione non valida\n";
     }
     if (opzione == '1') { // Inserimento
+      
       std::cout<< "Digita l'elemento da inserire nella struttura"<< std::endl;
       std::cin >> elemento;
       QueueVecInt.Enqueue(elemento);
       OperazioniQueue();
     }
     if (opzione == '2') { // Rimozione
+  
       QueueVecInt.Dequeue();
       quit = true;
       OperazioniQueue();
     }
 
     if (opzione == '3') { // Rimozione con lettura
+     
       QueueVecInt.HeadNDequeue();
       quit = true;
       OperazioniQueue();
     }
     if (opzione == '4') { // Lettura non distruttiva
+   
       elemento = QueueVecInt.Head();
       std::cout<< "L'elemento in lettura è: " << elemento << std::endl;
       quit = true;
@@ -57,6 +61,7 @@ void QueueVecInt(){
     }
 
     if (opzione == '5') { // Controllo sulla vuotezza della struttura
+    
       if (QueueVecInt.Empty()) {
 	std::cout<< "Lo stack è vuoto"<< std::endl;
 
@@ -67,12 +72,14 @@ void QueueVecInt(){
       OperazioniQueue();
     }
     if (opzione == '6') { // Informazione sulla dimensione della struttura
+
       elemento = QueueVecInt.Size();
       std::cout<< "La dimensione dello Stack è " << elemento << std::endl;
       quit = true;
       OperazioniQueue();
     }
     if (opzione == '7') { // Svuotamento
+
       quit = true;
       QueueVecInt.Clear();
       std::cout<< "Struttura svuotata" << std::endl;
@@ -127,23 +134,27 @@ void QueueVecFloat(){
       std::cout << "ERRORE: opzione non valida\n";
     }
     if (opzione == '1') { // Inserimento
+
       std::cout<< "Digita l'elemento da inserire nella struttura"<< std::endl;
       std::cin >> elemento;
       QueueVecFloat.Enqueue(elemento);
       OperazioniQueue();
     }
     if (opzione == '2') { // Rimozione
+   
       QueueVecFloat.Dequeue();
       quit = true;
       OperazioniQueue();
     }
 
     if (opzione == '3') { // Rimozione con lettura
+     
       QueueVecFloat.HeadNDequeue();
       quit = true;
       OperazioniQueue();
     }
     if (opzione == '4') { // Lettura non distruttiva
+      
       elemento = QueueVecFloat.Head();
       std::cout<< "L'elemento in lettura è: " << elemento << std::endl;
       quit = true;
@@ -151,6 +162,7 @@ void QueueVecFloat(){
     }
 
     if (opzione == '5') { // Controllo sulla vuotezza della struttura
+    
       if (QueueVecFloat.Empty()) {
 	std::cout<< "Lo stack è vuoto"<< std::endl;
 
@@ -161,12 +173,14 @@ void QueueVecFloat(){
       OperazioniQueue();
     }
     if (opzione == '6') { // Informazione sulla dimensione della struttura
+    
       elemento = QueueVecFloat.Size();
       std::cout<< "La dimensione dello Stack è " << elemento << std::endl;
       quit = true;
       OperazioniQueue();
     }
     if (opzione == '7') { // Svuotamento
+   
       quit = true;
       QueueVecFloat.Clear();
       std::cout<< "Struttura svuotata" << std::endl;
@@ -227,23 +241,27 @@ void QueueVecString(){
       std::cout << "ERRORE: opzione non valida\n";
     }
     if (opzione == '1') { // Inserimento
+     
       std::cout<< "Digita l'elemento da inserire nella struttura"<< std::endl;
       std::cin >> elemento;
       QueueVecString.Enqueue(elemento);
       OperazioniQueue();
     }
     if (opzione == '2') { // Rimozione
+     
       QueueVecString.Dequeue();
       quit = true;
       OperazioniQueue();
     }
 
     if (opzione == '3') { // Rimozione con lettura
+  
       QueueVecString.HeadNDequeue();
       quit = true;
       OperazioniQueue();
     }
     if (opzione == '4') { // Lettura non distruttiva
+     
       elemento = QueueVecString.Head();
       std::cout<< "L'elemento in lettura è: " << elemento << std::endl;
       quit = true;
@@ -251,6 +269,7 @@ void QueueVecString(){
     }
 
     if (opzione == '5') { // Controllo sulla vuotezza della struttura
+     
       if (QueueVecString.Empty()) {
 	std::cout<< "Lo stack è vuoto"<< std::endl;
 
@@ -261,12 +280,14 @@ void QueueVecString(){
       OperazioniQueue();
     }
     if (opzione == '6') { // Informazione sulla dimensione della struttura
+      
       elemento = QueueVecString.Size();
       std::cout<< "La dimensione dello Stack è " << elemento << std::endl;
       quit = true;
       OperazioniQueue();
     }
     if (opzione == '7') { // Svuotamento
+     
       quit = true;
       QueueVecString.Clear();
       std::cout<< "Struttura svuotata" << std::endl;

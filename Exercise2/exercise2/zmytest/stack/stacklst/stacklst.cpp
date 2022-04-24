@@ -32,23 +32,27 @@ void StackListInt(){
       std::cout << "ERRORE: opzione non valida\n";
     }
     if (opzione == '1') { // Inserimento
+     
       std::cout<< "Digita l'elemento da inserire nella struttura"<< std::endl;
       std::cin >> elemento;
       StackListInt.Push(elemento);
       OperazioniDaEseguire();
     }
     if (opzione == '2') { // Rimozione
+    
       StackListInt.Pop();
       quit = true;
       OperazioniDaEseguire();
     }
 
     if (opzione == '3') { // Rimozione con lettura
+     
       std::cout<< "L'elemento rimosso è " << StackListInt.TopNPop() << std::endl;
       quit = true;
       OperazioniDaEseguire();
     }
     if (opzione == '4') { // Lettura non distruttiva
+     
       elemento = StackListInt.Top();
       std::cout<< "L'elemento in lettura è: " << elemento << std::endl;
       quit = true;
@@ -56,6 +60,7 @@ void StackListInt(){
     }
 
     if (opzione == '5') { // Controllo sulla vuotezza della struttura
+      
       if (StackListInt.Empty()) {
 	std::cout<< "Lo stack è vuoto"<< std::endl;
 
@@ -66,12 +71,14 @@ void StackListInt(){
       OperazioniDaEseguire();
     }
     if (opzione == '6') { // Informazione sulla dimensione della struttura
+      
       elemento = StackListInt.Size();
       std::cout<< "La dimensione dello Stack è " << elemento << std::endl;
       quit = true;
       OperazioniDaEseguire();
     }
     if (opzione == '7') { // Svuotamento
+    
       quit = true;
       StackListInt.Clear();
       std::cout<< "Struttura svuotata" << std::endl;
@@ -125,23 +132,27 @@ void StackListFloat(){
       std::cout << "ERRORE: opzione non valida\n";
     }
     if (opzione == '1') { // Inserimento
+     
       std::cout<< "Digita l'elemento da inserire nella struttura"<< std::endl;
       std::cin >> elemento;
       StackListFloat.Push(elemento);
       OperazioniDaEseguire();
     }
     if (opzione == '2') { // Rimozione
+      
       StackListFloat.Pop();
       quit = true;
       OperazioniDaEseguire();
     }
 
     if (opzione == '3') { // Rimozione con lettura
+      
       std::cout<< "L'elemento rimosso è " << StackListFloat.TopNPop() << std::endl;
       quit = true;
       OperazioniDaEseguire();
     }
     if (opzione == '4') { // Lettura non distruttiva
+     
       elemento = StackListFloat.Top();
       std::cout<< "L'elemento in lettura è: " << elemento << std::endl;
       quit = true;
@@ -149,6 +160,7 @@ void StackListFloat(){
     }
 
     if (opzione == '5') { // Controllo sulla vuotezza della struttura
+   
       if (StackListFloat.Empty()) {
 	std::cout<< "Lo stack è vuoto"<< std::endl;
 
@@ -159,12 +171,14 @@ void StackListFloat(){
       OperazioniDaEseguire();
     }
     if (opzione == '6') { // Informazione sulla dimensione della struttura
+      
       elemento = StackListFloat.Size();
       std::cout<< "La dimensione dello Stack è " << elemento << std::endl;
       quit = true;
       OperazioniDaEseguire();
     }
     if (opzione == '7') { // Svuotamento
+      
       quit = true;
       StackListFloat.Clear();
       std::cout<< "Struttura svuotata" << std::endl;
@@ -217,23 +231,27 @@ void StackListString(){
       std::cout << "ERRORE: opzione non valida\n";
     }
     if (opzione == '1') { // Inserimento
+      
       std::cout<< "Digita l'elemento da inserire nella struttura"<< std::endl;
       std::cin >> elemento;
       StackListString.Push(elemento);
       OperazioniDaEseguire();
     }
     if (opzione == '2') { // Rimozione
+      
       StackListString.Pop();
       quit = true;
       OperazioniDaEseguire();
     }
 
     if (opzione == '3') { // Rimozione con lettura
+  
       std::cout<< "L'elemento rimosso è " << StackListString.TopNPop() << std::endl;
       quit = true;
       OperazioniDaEseguire();
     }
     if (opzione == '4') { // Lettura non distruttiva
+     
       elemento = StackListString.Top();
       std::cout<< "L'elemento in lettura è: " << elemento << std::endl;
       quit = true;
@@ -241,6 +259,7 @@ void StackListString(){
     }
 
     if (opzione == '5') { // Controllo sulla vuotezza della struttura
+  
       if (StackListString.Empty()) {
 	std::cout<< "Lo stack è vuoto"<< std::endl;
 
@@ -251,12 +270,14 @@ void StackListString(){
       OperazioniDaEseguire();
     }
     if (opzione == '6') { // Informazione sulla dimensione della struttura
+      
       elemento = StackListString.Size();
       std::cout<< "La dimensione dello Stack è " << elemento << std::endl;
       quit = true;
       OperazioniDaEseguire();
     }
     if (opzione == '7') { // Svuotamento
+     
       quit = true;
       StackListString.Clear();
       std::cout<< "Struttura svuotata" << std::endl;
