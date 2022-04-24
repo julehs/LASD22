@@ -1,38 +1,41 @@
 #include <iostream>
 #include <random>
 #include "../../container/container.hpp"
-#include "../../queue/queue.hpp"
-#include "../../queue/lst/queuelst.hpp"
-#include "queue.hpp"
-
-//QUEUE LIST
+#include "../../stack/stack.hpp"
+#include "../../stack/lst/stacklst.hpp"
+#include "stack.hpp"
 
 
-void OperazioniQueue(){
+
+void OperazioniDaEseguire(){
   std::cout << "Scegli l'operazione che vuoi effettuare:\n "<< std::endl;
   std::cout<< "\tInserimento (1)\n\tRimozione(2)\n\tRimozione con lettura(3)\n";
   std::cout<< "\tLettura non distruttiva(4)\n\tControllo sulla vuotezza della struttura(5)\n\tInformazione sulla dimensione della struttura\n";
   std::cout<< "\tSvuotamento(7)\n\tUscita(q)\n";
 }
 
+//STACK
+
 //Int
-void QueueListInt(){
+
+void StackListInt(){
+  
   uint dim, elemento;
   uint j = 0;
-  char opzione;
   bool quit = false;
-
-  std::cout << "Inserire la dimensione della coda di interi" << std::endl;
+  char opzione;
+  std::cout << "Inserire la dimensione dello stack di interi" << std::endl;
   std::cin >> dim;
 
   std::default_random_engine gen(std::random_device{}());
   std::uniform_int_distribution<unsigned int> dist(1, 100);
-  lasd::QueueLst<int> QueueListInt;
+  lasd::StackLst<int> StackListInt;
   while (j < dim){
-    QueueListInt.Enqueue(dist(gen));
+    StackListInt.Push(dist(gen));
     j++;
   }
-  OperazioniQueue();
+  OperazioniDaEseguire();
+
   while (opzione != 'q'){
     std::cin >> opzione;
 
@@ -45,54 +48,54 @@ void QueueListInt(){
       std::system("clear");
       std::cout<< "Digita l'elemento da inserire nella struttura"<< std::endl;
       std::cin >> elemento;
-      QueueListInt.Enqueue(elemento);
-      OperazioniQueue();
+      StackListInt.Push(elemento);
+      OperazioniDaEseguire();
     }
     if (opzione == '2') { // Rimozione
       std::system("clear");
-      QueueListInt.Dequeue();
+      StackListInt.Pop();
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
 
     if (opzione == '3') { // Rimozione con lettura
       std::system("clear");
-      std::cout<< "L'elemento rimosso è " << QueueListInt.HeadNDequeue() << std::endl;
+      std::cout<< "L'elemento rimosso è " << StackListInt.TopNPop() << std::endl;
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == '4') { // Lettura non distruttiva
       std::system("clear");
-      elemento = QueueListInt.Head();
+      elemento = StackListInt.Top();
       std::cout<< "L'elemento in lettura è: " << elemento << std::endl;
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
 
     if (opzione == '5') { // Controllo sulla vuotezza della struttura
       std::system("clear");
-      if (QueueListInt.Empty()) {
+      if (StackListInt.Empty()) {
 	std::cout<< "Lo stack è vuoto"<< std::endl;
 
       } else {
 	std::cout<< "Lo stack non è vuoto"<< std::endl;
       }
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == '6') { // Informazione sulla dimensione della struttura
       std::system("clear");
-      elemento = QueueListInt.Size();
+      elemento = StackListInt.Size();
       std::cout<< "La dimensione dello Stack è " << elemento << std::endl;
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == '7') { // Svuotamento
       std::system("clear");
       quit = true;
-      QueueListInt.Clear();
+      StackListInt.Clear();
       std::cout<< "Struttura svuotata" << std::endl;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == 'q') { // Uscita
       std::cout << "Scegli il tipo di struttura: " << std::endl;
@@ -111,32 +114,28 @@ void QueueListInt(){
       std::cout << "\t\t\t(premi q per uscire)" << std::endl;
     }
   }
-
-
-
 }
-
 
 //Float
 
-void QueueListFloat(){
-  uint dim, elemento;
-  uint j = 0;
-  char opzione;
+void StackListFloat(){
+  ulong dim, elemento;
+  ulong j = 0;
   bool quit = false;
-
-  std::cout << "Inserire la dimensione della coda di float" << std::endl;
+  char opzione;
+  std::cout << "Inserire la dimensione dello stack di float" << std::endl;
   std::cin >> dim;
+
 
   std::default_random_engine gen(std::random_device{}());
   std::uniform_real_distribution<float> dist(1.0, 100.0);
-  lasd::QueueLst<float> QueueListFloat;
+  lasd::StackLst<float> StackListFloat;
   while (j < dim){
-    QueueListFloat.Enqueue(dist(gen));
+    StackListFloat.Push(dist(gen));
     j++;
   }
+  OperazioniDaEseguire();
 
-  OperazioniQueue();
   while (opzione != 'q'){
     std::cin >> opzione;
 
@@ -149,85 +148,76 @@ void QueueListFloat(){
       std::system("clear");
       std::cout<< "Digita l'elemento da inserire nella struttura"<< std::endl;
       std::cin >> elemento;
-      QueueListFloat.Enqueue(elemento);
-      OperazioniQueue();
+      StackListFloat.Push(elemento);
+      OperazioniDaEseguire();
     }
     if (opzione == '2') { // Rimozione
       std::system("clear");
-      QueueListFloat.Dequeue();
+      StackListFloat.Pop();
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
 
     if (opzione == '3') { // Rimozione con lettura
       std::system("clear");
-      QueueListFloat.HeadNDequeue();
+      std::cout<< "L'elemento rimosso è " << StackListFloat.TopNPop() << std::endl;
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == '4') { // Lettura non distruttiva
       std::system("clear");
-      elemento = QueueListFloat.Head();
+      elemento = StackListFloat.Top();
       std::cout<< "L'elemento in lettura è: " << elemento << std::endl;
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
 
     if (opzione == '5') { // Controllo sulla vuotezza della struttura
       std::system("clear");
-      if (QueueListFloat.Empty()) {
+      if (StackListFloat.Empty()) {
 	std::cout<< "Lo stack è vuoto"<< std::endl;
 
       } else {
 	std::cout<< "Lo stack non è vuoto"<< std::endl;
       }
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == '6') { // Informazione sulla dimensione della struttura
       std::system("clear");
-      elemento = QueueListFloat.Size();
+      elemento = StackListFloat.Size();
       std::cout<< "La dimensione dello Stack è " << elemento << std::endl;
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == '7') { // Svuotamento
       std::system("clear");
       quit = true;
-      QueueListFloat.Clear();
+      StackListFloat.Clear();
       std::cout<< "Struttura svuotata" << std::endl;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == 'q') { // Uscita
-      std::cout << "Scegli il tipo di struttura: " << std::endl;
-      std::cout << "Stack implementato con vettori (1 -> int; 2 -> float; 3 "
-                   "-> string)"
-                << std::endl;
-      std::cout
-          << "Stack implementato con lista (4 -> int; 5 -> float; 6 -> string)"
-          << std::endl;
-      std::cout << "Queue implementata con vettori (a -> int; b -> float; c "
-                   "-> string)"
-                << std::endl;
-      std::cout
-          << "Queue implementato con lista (d -> int; e -> float; f -> string)"
-          << std::endl;
-      std::cout << "\t\t\t(premi q per uscire)" << std::endl;
+
+	std::cout << "Scegli il tipo di struttura: "<< std::endl;
+	std::cout<<"Stack implementato con vettori (1 -> int; 2 -> float; 3 -> string)"<< std::endl;
+	std::cout<<"Stack implementato con lista (4 -> int; 5 -> float; 6 -> string)"<< std::endl;
+	std::cout<<"Queue implementata con vettori (a -> int; b -> float; c -> string)"<< std::endl;
+	std::cout<<"Queue implementato con lista (d -> int; e -> float; f -> string)"<< std::endl;
+	std::cout<<"\t\t\t(premi q per uscire)"<< std::endl;
     }
   }
 }
 
+//List
 
-//String
-
-void QueueListString(){
+void StackListString(){
   ulong dim;
   std::string elemento;
-  uint j = 0;
-  char opzione;
+  ulong j = 0;
   bool quit = false;
-
-  std::cout << "Inserire la dimensione della coda di stringhe" << std::endl;
+  char opzione;
+  std::cout << "Inserire la dimensione dello stack di stringhe" << std::endl;
   std::cin >> dim;
 
   std::size_t length;
@@ -237,13 +227,14 @@ void QueueListString(){
   std::uniform_int_distribution<int> dist(0, characters.length() - 1);
   std::string randStr;
 
-  lasd::QueueLst<std::string> QueueListString;
+  lasd::StackLst<std::string> StackListString;
   while (j < dim){
     randStr = characters[dist(mt)];
-    QueueListString.Enqueue(randStr);
+    StackListString.Push(randStr);
     j++;
   }
-  OperazioniQueue();
+  OperazioniDaEseguire();
+
   while (opzione != 'q'){
     std::cin >> opzione;
 
@@ -256,71 +247,63 @@ void QueueListString(){
       std::system("clear");
       std::cout<< "Digita l'elemento da inserire nella struttura"<< std::endl;
       std::cin >> elemento;
-      QueueListString.Enqueue(elemento);
-      OperazioniQueue();
+      StackListString.Push(elemento);
+      OperazioniDaEseguire();
     }
     if (opzione == '2') { // Rimozione
       std::system("clear");
-      QueueListString.Dequeue();
+      StackListString.Pop();
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
 
     if (opzione == '3') { // Rimozione con lettura
       std::system("clear");
-      std::cout<< "L'elemento rimosso è " << QueueListString.HeadNDequeue() << std::endl;
-      QueueListString.HeadNDequeue();
+      std::cout<< "L'elemento rimosso è " << StackListString.TopNPop() << std::endl;
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == '4') { // Lettura non distruttiva
       std::system("clear");
-      elemento = QueueListString.Head();
+      elemento = StackListString.Top();
       std::cout<< "L'elemento in lettura è: " << elemento << std::endl;
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
 
     if (opzione == '5') { // Controllo sulla vuotezza della struttura
       std::system("clear");
-      if (QueueListString.Empty()) {
+      if (StackListString.Empty()) {
 	std::cout<< "Lo stack è vuoto"<< std::endl;
 
       } else {
 	std::cout<< "Lo stack non è vuoto"<< std::endl;
       }
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == '6') { // Informazione sulla dimensione della struttura
       std::system("clear");
-      elemento = QueueListString.Size();
+      elemento = StackListString.Size();
       std::cout<< "La dimensione dello Stack è " << elemento << std::endl;
       quit = true;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == '7') { // Svuotamento
       std::system("clear");
       quit = true;
-      QueueListString.Clear();
+      StackListString.Clear();
       std::cout<< "Struttura svuotata" << std::endl;
-      OperazioniQueue();
+      OperazioniDaEseguire();
     }
     if (opzione == 'q') { // Uscita
-      std::cout << "Scegli il tipo di struttura: " << std::endl;
-      std::cout << "Stack implementato con vettori (1 -> int; 2 -> float; 3 "
-                   "-> string)"
-                << std::endl;
-      std::cout
-          << "Stack implementato con lista (4 -> int; 5 -> float; 6 -> string)"
-          << std::endl;
-      std::cout << "Queue implementata con vettori (a -> int; b -> float; c "
-                   "-> string)"
-                << std::endl;
-      std::cout
-          << "Queue implementato con lista (d -> int; e -> float; f -> string)"
-          << std::endl;
-      std::cout << "\t\t\t(premi q per uscire)" << std::endl;
+
+	std::cout << "Scegli il tipo di struttura: "<< std::endl;
+	std::cout<<"Stack implementato con vettori (1 -> int; 2 -> float; 3 -> string)"<< std::endl;
+	std::cout<<"Stack implementato con lista (4 -> int; 5 -> float; 6 -> string)"<< std::endl;
+	std::cout<<"Queue implementata con vettori (a -> int; b -> float; c -> string)"<< std::endl;
+	std::cout<<"Queue implementato con lista (d -> int; e -> float; f -> string)"<< std::endl;
+	std::cout<<"\t\t\t(premi q per uscire)"<< std::endl;
     }
   }
 }

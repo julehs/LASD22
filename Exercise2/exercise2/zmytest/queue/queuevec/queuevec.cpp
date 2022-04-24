@@ -97,17 +97,17 @@ void QueueVecInt(){
     }
     if (opzione == 'q') { // Uscita
       std::cout << "Scegli il tipo di struttura: " << std::endl;
-      std::cout << "Stack implementato con vettori (1 -> int; 2 -> double; 3 "
+      std::cout << "Stack implementato con vettori (1 -> int; 2 -> float; 3 "
                    "-> string)"
                 << std::endl;
       std::cout
-          << "Stack implementato con lista (4 -> int; 5 -> double; 6 -> string)"
+          << "Stack implementato con lista (4 -> int; 5 -> float; 6 -> string)"
           << std::endl;
-      std::cout << "Queue implementata con vettori (a -> int; b -> double; c "
+      std::cout << "Queue implementata con vettori (a -> int; b -> float; c "
                    "-> string)"
                 << std::endl;
       std::cout
-          << "Queue implementato con lista (d -> int; e -> double; f -> string)"
+          << "Queue implementato con lista (d -> int; e -> float; f -> string)"
           << std::endl;
       std::cout << "\t\t\t(premi q per uscire)" << std::endl;
     }

@@ -2,12 +2,12 @@
 #define MYQUEUE_HPP
 
 void QueueVecInt();
-void QueueVecDouble();
+void QueueVecFloat();
 void QueueVecString();
 
 void OperazioniQueue();
 
 void QueueListInt();
-void QueueListDouble();
+void QueueListFloat();
 void QueueListString();
 #endif
