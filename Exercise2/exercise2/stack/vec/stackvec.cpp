@@ -84,7 +84,8 @@ template <typename Data>
 const Data& StackVec<Data>::Top(){
     if(Empty())
             throw std::length_error("Impossibile rimuovere dallo stack: la dimensione è 0");
-        
+            
+        return Vector<Data>::operator[](top-1);
 }
 
 //Top

@@ -53,6 +53,7 @@ const Data& StackLst<Data>::Top(){
     if(Empty())
 	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
 
+    return List<Data>::Front();
 
 }
 

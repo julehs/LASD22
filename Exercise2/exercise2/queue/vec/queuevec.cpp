@@ -87,6 +87,8 @@ const Data& QueueVec<Data>::Head(){
     if(Empty())
   	throw std::length_error("Impossibile rimuovere dalla Coda: la sua dimesione è 0!");
 
+    return Vector<Data>::operator[](testa);
+
 }
 
 //Head
