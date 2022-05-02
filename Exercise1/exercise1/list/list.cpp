@@ -3,13 +3,14 @@ namespace lasd {
 /* ************************************************************************** */
 /*                              NODE                                          */                     
 /* ************************************************************************** */
-//Specific constructor
+//Specific constructor Node
 template<typename Data>
 List<Data>::Node::Node(const Data& valore){
     elemento = valore;
     this->next = nullptr;
 }
 
+//Specific constructor Node (move)
 template<typename Data>
 List<Data>::Node::Node(Data&& valore) noexcept {
     std::swap(elemento, valore);
@@ -71,7 +72,7 @@ List<Data>::List(const LinearContainer<Data>& con){
         this->First = nullptr;
         this->Last = nullptr;
 
-        for (unsigned long i = 0; i < con.Size(); ++i) {
+        for (unsigned long i = 0; i < con.Size(); i++) {
             InsertAtBack(con[i]);
         }
         
@@ -178,7 +179,7 @@ bool List<Data>::operator!=(const List<Data>& list) const noexcept{
 }
 
 
-//InsertAtFront
+//InsertAtFront(copy)
 template<typename Data>
 void List<Data>::InsertAtFront(const Data& ival)noexcept {
 
@@ -227,28 +228,25 @@ void List<Data>::RemoveFromFront(){
 
 //FrontNRemove
 template<typename Data>
-Data List<Data>::FrontNRemove(){
-    Data current;
+Data& List<Data>::FrontNRemove(){
+    struct Node* current;
     if(First == nullptr)
         throw std::length_error("Lista vuota.");
     else if (this->First == this->Last){
         dim--;
-        current = this->First->elemento;
-				delete this->First;
+        current = this->First;
         this->First = nullptr;
         this->Last = nullptr;
-        return current;
+        return current->elemento;
     } else {
-				dim--;
-        current = this->First->elemento;
-				struct Node* toDel;
+                current = this->First;
 				this->First = this->First->next;
-				delete toDel;
-				return current;
+				dim--;
+				return current->elemento;
 		}
 }
 
-//InsertAtBack 
+//InsertAtBack (copy)
 template<typename Data>
 void List<Data>::InsertAtBack(const Data& ival) {
     struct Node* newNode;
@@ -268,28 +266,29 @@ else {
 
 }
 
-template<typename Data>
-void List<Data>::InsertAtBack(Data&& ival) noexcept{
-    struct Node* newNode;
-    newNode = new Node(std::move(ival));
-    if(!this->First){
-        this->First = newNode;
-        this->Last  = newNode;
-        dim++;
-    }  
-    else{
-        struct Node* tmp = First;
-        while (tmp->next) tmp = tmp->next;
-        tmp->next = newNode;
-        dim ++;
-        this->Last = tmp->next;
-    }
 
+//InsertAtBack (move)
+template <typename Data>
+void List<Data>::InsertAtBack(Data&& ivalue) noexcept{
+    struct Node* newNode;
+    newNode = new Node (ivalue);
+    if(!First){
+        this->First = newNode;
+        this->Last = newNode;
+        dim++;
+    }
+    else{
+        struct Node* tmp = this->First;
+        while(tmp->next) tmp = tmp->next;
+        tmp -> next = newNode;
+        dim++;
+        this->Last=tmp->next;
+    }
 }
 
 //Clear function
 template<typename Data>
-void List<Data>::Clear() noexcept{
+void List<Data>::Clear(){
     struct Node* tmp;
     while(First != nullptr){
         tmp = this->First;
@@ -360,6 +359,7 @@ void List<Data>::MapPostOrder(MapFunctor fun, void* par){
 //Fold function
 template<typename Data>
 void List<Data>::Fold(FoldFunctor fun, const void* par, void* acc) const{}
+
 //FoldPreOrder function
 template<typename Data>
 void List<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc) const{
