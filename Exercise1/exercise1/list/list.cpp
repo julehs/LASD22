@@ -53,12 +53,12 @@ bool List<Data>::Node::operator!=(const Node& nodo) const noexcept{
 /* ************************************************************************** */
 
 //Default Constructor
-/* template<typename Data> */
-/* List<Data>::List(){ */
-/*     /* this->First = nullptr; */
-/*     /* this->Last = nullptr; */ 
-/* } */
-/*  */
+ template<typename Data> 
+ List<Data>::List(){ 
+    this->First = nullptr;
+    this->Last = nullptr; 
+ } 
+
 
 //Specific Constructor
 template<typename Data>
