@@ -17,7 +17,14 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTree {
+class BinaryTree: virtual public PreOrderMappableContainer<Data>,
+                  virtual public PostOrderMappableContainer<Data>,
+                  virtual public InOrderMappableContainer<Data>,
+                  virtual public BreadthMappableContainer<Data>,
+                  virtual public PreOrderFoldableContainer<Data>,
+                  virtual public PostOrderFoldableContainer<Data>,
+                  virtual public InOrderFoldableContainer<Data>,
+                  virtual public BreadthFoldableContainer<Data> {
                    // Must extend PreOrderMappableContainer<Data>,
                    //             PostOrderMappableContainer<Data>,
                    //             InOrderMappableContainer<Data>,
@@ -56,15 +63,15 @@ public:
     /* ********************************************************************** */
 
     // Destructor
-    // ~Node() specifiers
+       virtual ~Node() = default;
 
     /* ********************************************************************** */
 
     // Copy assignment
-    // type operator=(argument); // Copy assignment of abstract types should not be possible.
+       Node& operator = (const Node&); // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-    // type operator=(argument); // Move assignment of abstract types should not be possible.
+      Node& operator = (Node&&) noexcept; // Move assignment of abstract types should not be possible.
 
     /* ********************************************************************** */
 
