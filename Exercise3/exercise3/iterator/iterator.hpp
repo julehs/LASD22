@@ -22,36 +22,36 @@ protected:
 public:
 
   // Destructor
-  // ~Iterator() specifiers
+    virtual ~Iterator() noexcept = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types should not be possible.
+    virtual Iterator& operator = (const Iterator&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types should not be possible.
+    virtual Iterator& operator = (Iterator&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types might not be possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract types might not be possible.
+    virtual bool operator == (const Iterator&) noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool opertator != (const Iterator&) noexcept = delete; // Comparison of abstract types might not be possible.
 
   /* ************************************************************************ */
 
   // Specific member functions
 
-  // type operator*() specifiers; // (concrete function must throw std::out_of_range when terminated)
+    virtual Data& operator*() const = 0; // (concrete function must throw std::out_of_range when terminated)
 
-  // type Terminated() specifiers; // (concrete function should not throw exceptions)
+    virtual bool Terminated() const noexcept = 0; // (concrete function should not throw exceptions)
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class ForwardIterator { // Must extend Iterator<Data>
+class ForwardIterator: virtual public Iterator<Data> { // Must extend Iterator<Data>
 
 private:
 
@@ -64,21 +64,21 @@ protected:
 public:
 
   // Destructor
-  // ~ForwardIterator() specifiers
+    virtual ~ForwardIterator() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types should not be possible.
+    virtual ForwardIterator& operator = (const ForwardIterator&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types should not be possible.
+    virtual ForwardIterator& operator = (ForwardIterator&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types might not be possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract types might not be possible.
+    bool operator == (const ForwardIterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
+    bool operator != (const ForwardIterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
 
   /* ************************************************************************ */
 
