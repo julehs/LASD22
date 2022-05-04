@@ -53,11 +53,11 @@ bool List<Data>::Node::operator!=(const Node& nodo) const noexcept{
 /* ************************************************************************** */
 
 //Default Constructor
- template<typename Data> 
- List<Data>::List(){ 
-    this->First = nullptr;
-    this->Last = nullptr; 
- } 
+//  template<typename Data> 
+//  List<Data>::List(){ 
+//     this->First = nullptr;
+//     this->Last = nullptr; 
+//  } 
 
 
 //Specific Constructor
@@ -342,7 +342,9 @@ Data& List<Data>::operator[](const unsigned long index) const{
 
 //Map function
 template<typename Data>
-void List<Data>::Map(MapFunctor fun, void* par){}
+void List<Data>::Map(MapFunctor fun, void* par){
+    MapPreOrder(fun, par);
+}
 
 //MapPreOrder function
 template<typename Data>
@@ -358,7 +360,9 @@ void List<Data>::MapPostOrder(MapFunctor fun, void* par){
 
 //Fold function
 template<typename Data>
-void List<Data>::Fold(FoldFunctor fun, const void* par, void* acc) const{}
+void List<Data>::Fold(FoldFunctor fun, const void* par, void* acc) const{
+    FoldPreOrder(fun, par, acc);
+}
 
 //FoldPreOrder function
 template<typename Data>
@@ -371,7 +375,6 @@ template<typename Data>
 void List<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc) const{
     FoldPostOrder(fun, par, acc, First);
 }
-
 
 //Auxiliary member function: MapPreOrder e MapPostOrder
 template<typename Data>

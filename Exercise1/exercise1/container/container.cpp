@@ -51,7 +51,7 @@ void ExtraFoldExist(const Data& data, const void* value, void* exists) {
     /* *(bool*)exists = true; */
 
     if(data == *((Data*)value))
-			*((bool*)exists) = true;
+		*((bool*)exists) = true;
 }
 
 template<typename Data>
