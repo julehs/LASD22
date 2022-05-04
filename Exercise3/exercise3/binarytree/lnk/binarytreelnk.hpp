@@ -26,7 +26,7 @@ protected:
 
   // ...
 
-  struct NodeLnk: virtual public Node { // Must extend Node
+  struct NodeLnk: virtual public BinaryTree<Data>::Node { // Must extend Node
 
   private:
 
@@ -42,9 +42,24 @@ protected:
     NodeLnk* leftchild = nullptr;
     NodeLnk* rightchild = nullptr;
 
-    //constructor?
+    //Constructor
+    NodeLnk(const Data&);
 
-  };
+
+    //Distructor
+    virtual ~NodeLnk();
+
+    //Specific member functions
+
+    Data& Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
+    const Data& Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
+
+    bool HasLeftChild() const noexcept override; // (concrete function should not throw exceptions)
+    bool HasRightChild() const noexcept override; // (concrete function should not throw exceptions)
+
+    NodeLnk& LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
+    NodeLnk& RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
+  }; 
 
   void funBuild(int, NodeLnk*, const LinearContainer<Data>&);
   NodeLnk* root = nullptr;

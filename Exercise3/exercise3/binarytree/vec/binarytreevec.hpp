@@ -56,15 +56,15 @@ protected:
 
     //Specific member functions
 
-    Data& Element() noexcept override; //mutable access
-    const Data& Element() const noexcept override; //immutable
+    Data& Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
+    const Data& Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
 
 
-    bool HasLeftChild() const noexcept override;
-    bool HasRightChild() const noexcept override;
+    bool HasLeftChild() const noexcept override; // (concrete function should not throw exceptions)
+    bool HasRightChild() const noexcept override; // (concrete function should not throw exceptions)
 
-    NodeVec& LeftChild() const override;
-    NodeVec& RightChild() const override;
+    NodeVec& LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
+    NodeVec& RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
 
   };
 
