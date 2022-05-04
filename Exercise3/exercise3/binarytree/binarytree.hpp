@@ -195,56 +195,57 @@ protected:
 
   // Auxiliary member functions (for PreOrderMappableContainer)
 
-  // type MapPreOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    void MapPreOrder(const MapFunctor, void*, Node*); // Accessory function executing from one node of the tree
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for PreOrderFoldableContainer)
 
-  // type FoldPreOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    void FoldPreOrder(const FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for PostOrderMappableContainer)
 
-  // type MapPostOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    void MapPostOrder(const MapFunctor, void*, Node*); // Accessory function executing from one node of the tree
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for PostOrderFoldableContainer)
 
-  // type FoldPostOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    void FoldPostOrder(const FoldFunctor, const void*, void*, Node*) const;// Accessory function executing from one node of the tree
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for InOrderMappableContainer)
 
-  // type MapInOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    void MapInOrder(const MapFunctor, void*, Node*); // Accessory function executing from one node of the tree
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for InOrderFoldableContainer)
 
-  // type FoldInOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    void FoldInOrder(const FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for BreadthMappableContainer)
 
-  // type MapBreadth(arguments) specifiers; // Accessory function executing from one node of the tree
+    void MapBreadth(const MapFunctor, void*, Node*); // Accessory function executing from one node of the tree
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for BreadthFoldableContainer)
 
-  // type FoldBreadth(arguments) specifiers; // Accessory function executing from one node of the tree
+    void FoldBreadth(const FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BTPreOrderIterator {
+class BTPreOrderIterator: virtual public ForwardIterator<Data>,
+                          virtual public ResettableIterator<Data> {
                            // Must extend ForwardIterator<Data>,
                            //             ResettableIterator<Data>
 
@@ -254,59 +255,61 @@ private:
 
 protected:
 
-  // ...
+  struct BinaryTree<Data>::Node* current = nullptr;
+  StackLst<struct BinaryTree<Data>::Node*> stk;
 
 public:
 
   // Specific constructors
-  // BTPreOrderIterator(argument) specifiers; // An iterator over a given binary tree
+   BTPreOrderIterator(const BinaryTree<Data>&); // An iterator over a given binary tree
 
   /* ************************************************************************ */
 
   // Copy constructor
-  // BTPreOrderIterator(argument) specifiers;
+    BTPreOrderIterator(const BTPreOrderIterator&);
 
   // Move constructor
-  // BTPreOrderIterator(argument) specifiers;
+    BTPreOrderIterator(BTPostOrderIterator&&) noexcept;
+  
 
   /* ************************************************************************ */
 
   // Destructor
-  // ~BTPreOrderIterator() specifiers;
+    virtual ~BTPreOrderIterator();
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument) specifiers;
+    BTPreOrderIterator& operator = (const BTPreOrderIterator&);
 
   // Move assignment
-  // type operator=(argument) specifiers;
+    BTPreOrderIterator& operator = (BTPreOrderIterator&&);
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
-
+    bool operator == (const BTPreOrderIterator&) const noexcept;
+    bool operator != (const BTPreOrderIterator&& const noexcept;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Iterator)
 
-  // type operator*() specifiers; // (throw std::out_of_range when terminated)
+    Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-  // type Terminated() specifiers; // (should not throw exceptions)
+    bool Terminated() const noexcept override; // (should not throw exceptions)
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from ForwardIterator)
 
-  // type operator++() specifiers; // (throw std::out_of_range when terminated)
+    BTPreOrderIterator operator++() override; // (throw std::out_of_range when terminated)
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from ResettableIterator)
 
-  // type Reset() specifiers; // (should not throw exceptions)
+  // type Reset() specifiers; // (should not throw exceptions) 
+  //void Reset() const override; ??
 
 };
 
