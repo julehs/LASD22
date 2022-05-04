@@ -22,7 +22,7 @@ private:
 
 protected:
 
-  using BinaryTree<Data>::Node::isLeaf; //credo
+  using BinaryTree<Data>::dim; 
 
   // ...
 
@@ -38,14 +38,21 @@ protected:
 
   public:
 
-    // ...
+    Data elem;
+    NodeLnk* leftchild = nullptr;
+    NodeLnk* rightchild = nullptr;
+
+    //constructor?
 
   };
+
+  void funBuild(int, NodeLnk*, const LinearContainer<Data>&);
+  NodeLnk* root = nullptr;
 
 public:
 
   // Default constructor
-    BinaryTreeLnk() noexcept = default;
+    BinaryTreeLnk() = default;
 
   /* ************************************************************************ */
 
@@ -63,7 +70,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-    virtual ~BinaryTreeLnk() = default;
+    virtual ~BinaryTreeLnk();
 
   /* ************************************************************************ */
 
@@ -83,13 +90,13 @@ public:
 
   // Specific member functions (inherited from BinaryTree)
 
-  // type Root() specifiers; // Override BinaryTree member (throw std::length_error when empty)
+    NodeLnk& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
 
-  // type Clear() specifiers; // Override Container member
+    void Clear() override; // Override Container member
 
 };
 
