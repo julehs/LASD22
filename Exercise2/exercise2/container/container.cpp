@@ -3,6 +3,30 @@ namespace lasd {
 
 /* ************************************************************************** */
 
+//LinearContainer
+//TODO: CAncellare
+// ERROR: Non era cancellato?
+/* bool LinearContainer<Data>::operator==(const LinearContainer<Data>& lc) const noexcept{ */
+/*     if(dim == lc.dim){ */
+/*         for(unsigned long i; i < dim; ++i){ */
+/*             if (operator[][i] != lc[i]) */
+/*             { */
+/*                 return false; */
+/*             } */
+/*             return true; */
+/*         } */
+/*         else{ */
+/*             return false; */
+/*         } */
+/*     } */
+/* } */
+
+//Operator function
+/* template<typename Data>  */
+/* bool LinearContainer<Data>::operator!=(const LinearContainer<Data>& lc) const noexcept{ */
+/*     return !(*this == lc); */
+/* } */
+
 //Front function
 template <typename Data>
 Data& LinearContainer<Data>::Front()const {
@@ -28,7 +52,7 @@ void ExtraFoldExist(const Data& data, const void* value, void* exists) {
     /* *(bool*)exists = true; */
 
     if(data == *((Data*)value))
-			*((bool*)exists) = true;
+		*((bool*)exists) = true;
 }
 
 template<typename Data>
@@ -55,7 +79,7 @@ void PreOrderFoldableContainer<Data>::Fold(FoldFunctor fun, const void* par, voi
 
 //PostOrderMappableContainer
 	template <typename Data>
-	void PostOrderMappableContainer<Data>::Map(MapFunctor fun, void* par){
+	void PostOrderMappableContainer<Data>::Map(MapFunctor fun, void* par) {
 		MapPostOrder(fun, par);
 	}
 	/* ************************************************************************** */
@@ -94,7 +118,6 @@ void PreOrderFoldableContainer<Data>::Fold(FoldFunctor fun, const void* par, voi
 	//void BreadthFoldableContainer<Data>::Fold(FoldFunctor fun, const void* par, void* acc) const {
 	//	FoldBreadth(fun, par, acc);
 	//}
-
 
 
 
