@@ -8,7 +8,9 @@
 
 #include "../iterator/iterator.hpp"
 
-// #include "..."
+#include "../queue/lst/queuelst.hpp"
+
+#include "../stack/lst/stacklst.hpp"
 
 /* ************************************************************************** */
 
@@ -40,7 +42,7 @@ private:
 
 protected:
 
-  // using InOrder/BreadthMappableContainer<Data>::???;
+   using InOrderMappableContainer<Data>::dim;
 
   // ...
 
@@ -54,7 +56,9 @@ public:
 
   protected:
 
-    // ...
+    //Comparision operators
+    bool operator == (const Node&) const noexcept;
+    bool operator != (const Node&&) const noexcept;
 
   public:
 
@@ -83,113 +87,109 @@ public:
 
     // Specific member functions
 
-    // type Element() specifiers; // Mutable access to the element (concrete function should not throw exceptions)
-    // type Element() specifiers; // Immutable access to the element (concrete function should not throw exceptions)
-
-
-    virtual bool IsLeaf() const noexcept = 0;
-    virtual bool HasLeftChild() const noexcept = 0;
-    virtual bool HasRightChild() const noexcept = 0;
-    // type IsLeaf() specifiers; // (concrete function should not throw exceptions)
-    // type HasLeftChild() specifiers; // (concrete function should not throw exceptions)
-    // type HasRightChild() specifiers; // (concrete function should not throw exceptions)
-
+      virtual Data& Element() noexcept = 0; // Mutable access to the element (concrete function should not throw exceptions)
+      virtual const Data& Element() const noexcept = 0; // Immutable access to the element (concrete function should not throw exceptions)
     
-    virtual Node& LeftChild() const = 0;
-    virtual Node& RightChild() const = 0;
-    // type LeftChild() specifiers; // (concrete function must throw std::out_of_range when not existent)
-    // type RightChild() specifiers; // (concrete function must throw std::out_of_range when not existent)
+
+      virtual bool IsLeaf() const noexcept = 0; // (concrete function should not throw exceptions)
+      virtual bool HasLeftChild() const noexcept = 0; // (concrete function should not throw exceptions)
+      virtual bool HasRightChild() const noexcept = 0; // (concrete function should not throw exceptions)
+  
+    
+      virtual Node& LeftChild() const = 0; // (concrete function must throw std::out_of_range when not existent)
+      virtual Node& RightChild() const = 0; // (concrete function must throw std::out_of_range when not existent)
+    
 
   };
 
   /* ************************************************************************ */
 
   // Destructor
-  // ~BinaryTree() specifiers
+    virtual ~BinaryTree() default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types should not be possible.
+    BinaryTree& operator = (const BinaryTree&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types should not be possible.
+    BinaryTree& operator = (BinaryTree&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract binary tree is possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract binary tree is possible.
+    bool operator == (const BinaryTree&) const noexcept; // Comparison of abstract binary tree is possible.
+    bool operator != (const BinaryTree&) const noexcept; // Comparison of abstract binary tree is possible.
 
   /* ************************************************************************ */
 
   // Specific member functions
 
-  // type Root() specifiers; // (concrete function must throw std::length_error when empty)
+    virtual Node& Root() const = 0 ; // (concrete function must throw std::length_error when empty)
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from MappableContainer)
 
-  // using typename MappableContainer<Data>::MapFunctor;
+   using typename MappableContainer<Data>::MapFunctor;
 
-  // type Map(arguments) specifiers; // Override MappableContainer member
+   void Map(MapFunctor, void*) override; // Override MappableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from FoldableContainer)
 
-  // using typename FoldableContainer<Data>::FoldFunctor;
+   using typename FoldableContainer<Data>::FoldFunctor;
 
-  // type Fold(arguments) specifiers; // Override FoldableContainer member
+   void Fold(FoldFunctor, const void*, void*) const override; // Override FoldableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from PreOrderMappableContainer)
 
-  // type MapPreOrder(arguments) specifiers; // Override PreOrderMappableContainer member
+   void MapPreOrder(const MapFunctor, void*) override; // Override PreOrderMappableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from PreOrderFoldableContainer)
 
-  // type FoldPreOrder(arguments) specifiers; // Override PreOrderFoldableContainer member
+   void FoldPreOrder(const FoldFunctor, const void*, void*) const override; // Override PreOrderFoldableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from PostOrderMappableContainer)
 
-  // type MapPostOrder(arguments) specifiers; // Override PostOrderMappableContainer member
+   void MapPostOrder(const MapFunctor, void*) override; // Override PostOrderMappableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from PostOrderFoldableContainer)
 
-  // type FoldPostOrder(arguments) specifiers; // Override PostOrderFoldableContainer member
+   void FoldPostOrder(const FoldFunctor, const void*, void*) const override; // Override PostOrderFoldableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from InOrderMappableContainer)
 
-  // type MapInOrder(arguments) specifiers; // Override InOrderMappableContainer member
+   void MapInOrder(const MapFunctor, void*) override; // Override InOrderMappableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from InOrderFoldableContainer)
 
-  // type FoldInOrder(arguments) specifiers; // Override InOrderFoldableContainer member
+   void FoldInOrder(const FoldFunctor, const void*, void*) const override; // Override InOrderFoldableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BreadthMappableContainer)
 
-  // type MapBreadth(arguments) specifiers; // Override BreadthMappableContainer member
+   void MapBreadth(const MapFunctor, void*) override; // Override BreadthMappableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BreadthFoldableContainer)
 
-  // type FoldBreadth(arguments) specifiers; // Override BreadthFoldableContainer member
+   void FoldBreadth(const FoldFunctor, const void*, void*) const override; // Override BreadthFoldableContainer member
 
 protected:
 
