@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeLnk {
+class BinaryTreeLnk: virtual public BinaryTree<Data> {
                       // Must extend BinaryTree<Data>
 
 private:
@@ -22,11 +22,11 @@ private:
 
 protected:
 
-  // using BinaryTree<Data>::???;
+  using BinaryTree<Data>::Node::isLeaf; //credo
 
   // ...
 
-  struct NodeLnk { // Must extend Node
+  struct NodeLnk: virtual public Node { // Must extend Node
 
   private:
 
@@ -45,39 +45,39 @@ protected:
 public:
 
   // Default constructor
-  // BinaryTreeLnk() specifiers;
+    BinaryTreeLnk() noexcept = default;
 
   /* ************************************************************************ */
 
   // Specific constructors
-  // BinaryTreeLnk(argument) specifiers; // A binary tree obtained from a LinearContainer
+    BinaryTreeLnk(const LinearContainer<Data>&); // A binary tree obtained from a LinearContainer
 
   /* ************************************************************************ */
 
   // Copy constructor
-  // BinaryTreeLnk(argument) specifiers;
+    BinaryTreeLnk(const BinaryTreeLnk&);
 
   // Move constructor
-  // BinaryTreeLnk(argument) specifiers;
+    BinaryTreeLnk(BinaryTreeLnk&&) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
-  // ~BinaryTreeLnk() specifiers;
+    virtual ~BinaryTreeLnk() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument) specifiers;
+    BinaryTreeLnk& operator = (const BinaryTreeLnk&);// type operator=(argument) specifiers;
 
   // Move assignment
-  // type operator=(argument) specifiers;
+    BinaryTreeLnk& operator = (BinaryTreeLnk&&) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
+    bool operator == (const BinaryTreeLnk&) const noexcept;
+    bool operator != (const BinaryTreeLnk&) const noexcept;
 
   /* ************************************************************************ */
 

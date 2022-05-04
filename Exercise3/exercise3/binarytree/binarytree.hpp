@@ -58,7 +58,7 @@ public:
 
   public:
 
-    // friend class BinaryTree<Data>;
+     friend class BinaryTree<Data>;
 
     /* ********************************************************************** */
 
@@ -76,8 +76,8 @@ public:
     /* ********************************************************************** */
 
     // Comparison operators
-    // type operator==(argument) specifiers; // Comparison of abstract types is possible, but should not be visible.
-    // type operator!=(argument) specifiers; // Comparison of abstract types is possible, but should not be visible.
+    bool operator == (const Node&) const noexcept; // Comparison of abstract types is possible, but should not be visible.
+    bool operator != (const Node&) const noexcept;// Comparison of abstract types is possible, but should not be visible.
 
     /* ********************************************************************** */
 
@@ -86,10 +86,17 @@ public:
     // type Element() specifiers; // Mutable access to the element (concrete function should not throw exceptions)
     // type Element() specifiers; // Immutable access to the element (concrete function should not throw exceptions)
 
+
+    virtual bool IsLeaf() const noexcept = 0;
+    virtual bool HasLeftChild() const noexcept = 0;
+    virtual bool HasRightChild() const noexcept = 0;
     // type IsLeaf() specifiers; // (concrete function should not throw exceptions)
     // type HasLeftChild() specifiers; // (concrete function should not throw exceptions)
     // type HasRightChild() specifiers; // (concrete function should not throw exceptions)
 
+    
+    virtual Node& LeftChild() const = 0;
+    virtual Node& RightChild() const = 0;
     // type LeftChild() specifiers; // (concrete function must throw std::out_of_range when not existent)
     // type RightChild() specifiers; // (concrete function must throw std::out_of_range when not existent)
 
