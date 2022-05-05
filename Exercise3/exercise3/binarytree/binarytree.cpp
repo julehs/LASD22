@@ -1,5 +1,5 @@
 
-// #include "..."
+#include <stdexcept>
 
 namespace lasd {
 
@@ -171,6 +171,40 @@ void BinaryTree<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void*)cons
         if (node->HasRightChild())
             FoldPreOrder(fun, par, acc, &(node->RightChild()));
     }
+}
+
+
+template <typename Data>
+void BinaryTree<Data>::MapPostOrder(MapFunctor fun,void* par, Node* node){
+    if(node!=nullptr){
+        if(node->HasLeftChild())
+            MapPostOrder(fun, par, &(node->LeftChild()));
+
+        
+        if(node->HasRightChild())
+            MapPostOrder(fun,par,&(node->RightChild()));
+
+        
+        fun(node->Element(),par);
+    }
+}
+
+
+
+template <typename Data>
+void BinaryTree<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc, Node* node) const{
+    if(node!=nullptr){
+        if(node->HasLeftChild())
+            FoldPostOrder(fun, par, acc, &(node->LeftChild()));
+
+        if(node->HasRightChild())
+            FoldPostOrder(fun, par, acc, &(node->RightChild()));
+
+        fun(node->Element(), par, acc);
+    }
+
+
+    //map in order
 }
 /* ************************************************************************** */
 
