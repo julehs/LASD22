@@ -6,7 +6,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 
-//Node
+//NODE
 
 
 //Comparision operators
@@ -40,6 +40,35 @@ bool BinaryTree<Data>::Node::operator==(const Node &compareNode) const noexcept{
     }
     return false;
 }
+
+template <typename Data>
+bool BinaryTree<Data>::Node::operator!=(const Node &compareNode) const noexcept{
+    return !(*this == compareNode);
+
+}
+
+//BINARY TREE
+
+//Comparision operators
+template <typename Data>
+bool BinaryTree<Data>::operator==(const BinaryTree<Data> &compareBT) const noexcept{
+    if(dim == compareBT.dim){
+        if(dim != 0)
+            return Root() == compareBT.Root();
+        else
+            return true;
+    }else{
+        return false;
+    }
+} 
+
+
+template <typename Data>
+bool BinaryTree<Data>::operator!=(const BinaryTree<Data> &compareBT) const noexcept{
+    return !(*this == compareBT);
+}
+
+
 
 /* ************************************************************************** */
 
