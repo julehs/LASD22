@@ -308,8 +308,8 @@ public:
 
   // Specific member functions (inherited from ResettableIterator)
 
-  // type Reset() specifiers; // (should not throw exceptions) 
-  //void Reset() const override; ??
+    bool Reset() const noexcept override; // (should not throw exceptions) 
+
 
 };
 
@@ -379,8 +379,7 @@ public:
 
   // Specific member functions (inherited from ResettableIterator)
 
-    //void Reset() const override; ??
-  // type Reset() specifiers; // (should not throw exceptions)
+    bool Reset() const noexcept override; // (should not throw exceptions)
 
 };
 
@@ -451,8 +450,8 @@ public:
 
   // Specific member functions (inherited from ResettableIterator)
 
-  //void Reset() const override; ??
-  // type Reset() specifiers; // (should not throw exceptions)
+  
+    bool Reset() const noexcept override;// (should not throw exceptions)
 
 };
 
@@ -525,8 +524,8 @@ public:
 
   // Specific member functions (inherited from ResettableIterator)
 
-  //void Reset() const noex override;
-  // type Reset() specifiers; // (should not throw exceptions)
+  
+    bool Reset() const noexcept override;// (should not throw exceptions)
 
 };
 

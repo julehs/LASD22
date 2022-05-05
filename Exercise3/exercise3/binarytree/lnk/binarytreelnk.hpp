@@ -90,7 +90,7 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    BinaryTreeLnk& operator = (const BinaryTreeLnk&);// type operator=(argument) specifiers;
+    BinaryTreeLnk& operator = (const BinaryTreeLnk&);
 
   // Move assignment
     BinaryTreeLnk& operator = (BinaryTreeLnk&&) noexcept;
