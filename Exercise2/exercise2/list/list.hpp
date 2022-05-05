@@ -12,7 +12,6 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-
 template <typename Data>
 class List :virtual public LinearContainer<Data>, 
 	virtual public PreOrderMappableContainer<Data>, 
@@ -75,7 +74,6 @@ protected:
 	
 	Node* First = nullptr;
 	Node* Last = nullptr;
-  
 public:
 
   // Default constructor
@@ -116,7 +114,7 @@ public:
     void InsertAtFront(const Data&) noexcept; // Copy of the value
     void InsertAtFront(Data&&) noexcept; // Move of the value
     void RemoveFromFront(); // (must throw std::length_error when empty)
-    Data FrontNRemove(); // (must throw std::length_error when empty)
+    Data& FrontNRemove(); // (must throw std::length_error when empty)
 
     void InsertAtBack(const Data&); // Copy of the value
     void InsertAtBack(Data&&) noexcept; // Move of the value
@@ -125,7 +123,7 @@ public:
 
   // Specific member functions (inherited from Container)
 
-    void Clear() noexcept override; // Override Container member
+    void Clear() override; // Override Container member
 
   /* ************************************************************************ */
 

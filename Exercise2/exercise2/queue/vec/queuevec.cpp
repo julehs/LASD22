@@ -12,16 +12,24 @@ QueueVec<Data>::QueueVec(){
 //Specific constructor
 template<typename Data>
 QueueVec<Data>::QueueVec(const LinearContainer<Data>& Container): Vector<Data>::Vector(Container){
-    dim = Container.Size();
-    elem = new Data[dim];
-    for (ulong i = 0; i < Container.Size(); ){
-        Enqueue(Container[i]);
+    
+     if(Container.Size() == 0) {
+        dim = 4;
+        elem = new Data[dim] {};
+    }else{
+
+        dim = Container.Size()*2;
+        elem = new Data[dim] {};
+
+        for (ulong i = 0; i < Container.Size(); ++i){ 
+            Enqueue(Container[i]);
+        }
     }
 }
 
 //Copy constructor
 template<typename Data>
-QueueVec<Data>::QueueVec(const QueueVec& Tail): Vector<Data>(Tail){
+QueueVec<Data>::QueueVec(const QueueVec& Tail): Vector<Data>(Tail) {
     testa = Tail.testa;
     coda = Tail.coda;
 } 
