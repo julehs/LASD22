@@ -299,8 +299,8 @@ BTPreOrderIterator<Data>::BTPreOrderIterator(const BTPreOrderIterator<Data> &ite
 
 //Move Constructor
 template <typename Data>
-BTPreOrderIterator<Data>::BTPreOrderIterator(BTPreOrderIterator<Data> &&iter) noexcept{
-    std::swap(current,iter,current);
+BTPreOrderIterator<Data>::BTPreOrderIterator(BTPreOrderIterator<Data> &&iter)  noexcept{
+    std::swap(current,iter.current);
     stk = std::move(iter.stk);
 }
 
@@ -313,6 +313,434 @@ BTPreOrderIterator<Data>::~BTPreOrderIterator(){
 }
 
 
+//Copy assignment
+template <typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(const BTPreOrderIterator<Data> &iter){
+    BTPreOrderIterator<Data> *tmp = new BTPreOrderIterator<Data>(iter);
+    std::swap(*tmp, *this);
+    delete (tmp);
+    return *this;
+}
+
+
+//Move assignment
+template <typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(BTPreOrderIterator<Data> &&iter) noexcept{
+    std::swap(current, iter.current);
+    stk = std::move(iter.stk);
+    return *this;
+}
+
+
+//Comparision Operators
+template <typename Data>
+bool BTPreOrderIterator<Data>::operator==(const BTPreOrderIterator<Data> &iter) const noexcept{
+    if(current!=iter.current)
+        return false;
+
+    
+    if(stk!=iter.stk)
+        return false;
+
+    return true;
+}
+
+template <typename Data>
+bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator<Data> &&iter) const noexcept{
+    return!(*this==iter);
+}
+
+
+//Specific Member functions
+
+template<typename Data>
+Data& BTPreOrderIterator<Data>::operator*()const{
+    if(Terminated())
+        throw std::out_of_range("Terminated");
+
+    return current->Elements();
+}
+
+
+template<typename Data>
+bool BTPreOrderIterator<Data>::Terminated()const noexcept{
+    return (current == nullptr);
+}
+
+template<typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>:: operator++() {
+
+    if(Terminated())
+        throw std::out_of_range("Iterator PreOrder terminated.");
+
+    if(current->HasRightChild())
+        stk.Push(&(current->RightChild()));
+
+    if(current->HasLeftChild())
+        stk.Push(&(current->LeftChild()));
+
+    if(stk.Empty())
+        current = nullptr; 
+
+    else
+        current = stk.TopNPop();
+
+    return(*this);
+    
+
+
+//PostOrderIterator TODO
+//Function GetMostLeftLeaf
+template <typename Data>
+void BTPostOrderIterator<Data>::getMostLeftLeaf() {
+    while (current->HasLeftChild()) {
+        stk.Push(current);
+        current = &(current->LeftChild());
+    }
+
+    if(current->HasRightChild()) {
+        stk.Push(current);
+        current = &(current->RightChild());
+        getMostLeftLeaf();
+    }
+}
+
+// Specific constructors
+template <typename Data>
+BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data> &bt) {
+    current = &bt.Root();
+    getMostLeftLeaf();
+    last = current;
+}
+
+// Copy constructor
+template <typename Data>
+BTPostOrderIterator<Data>::BTPostOrderIterator(const BTPostOrderIterator<Data> &iter) {
+    current = iter.current;
+    last = iter.last;
+    stk = iter.stk;
+}
+
+// Move constructor
+template <typename Data>
+BTPostOrderIterator<Data>::BTPostOrderIterator(BTPostOrderIterator<Data> &&iter) noexcept {
+    std::swap(current,iter.current);
+    std::swap(last,iter.last);
+    stk = std::move(iter.stk);
+}
+
+// Destructor
+template <typename Data>
+BTPostOrderIterator<Data>::~BTPostOrderIterator() {
+    stk.Clear();
+    delete current;
+    delete last;
+    current = nullptr;
+    last = nullptr;
+}
+
+// Copy assignment
+template <typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(const BTPostOrderIterator<Data> &iter) {
+    BTPostOrderIterator<Data> *tmp = new BTPostOrderIterator<Data>(iter);
+    std::swap(*tmp, *this);
+    delete (tmp);
+    return *this;
+}
+
+// Move assignment
+template <typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(BTPostOrderIterator<Data> &&iter) noexcept {
+    std::swap(current, iter.current);
+    std::swap(last,iter.last);
+    stk = std::move(iter.stk);
+    return *this;
+}
+
+
+// Comparison operators
+template <typename Data>
+bool BTPostOrderIterator<Data>::operator==(const BTPostOrderIterator<Data> &iter) const noexcept {
+    if(current!=iter.current)
+        return false;
+
+    if(last!=iter.last)
+        return false;
+    
+    if(stk!=iter.stk)
+        return false;
+    
+    return true;
+}
+
+template <typename Data>
+bool BTPostOrderIterator<Data>::operator!=(const BTPostOrderIterator<Data> &iter) const noexcept {
+    return !(*this==iter);
+}
+
+template <typename Data>
+Data& BTPostOrderIterator<Data>::operator*() const {
+    if(Terminated())
+        throw std::out_of_range("Terminated");
+
+    return current->Element();
+}
+
+
+
+template <typename Data>
+bool BTPostOrderIterator<Data>::Terminated() const noexcept {
+    return (current==nullptr);
+}
+
+
+template <typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++() {
+    if(Terminated())
+        throw std::out_of_range("Iterator PostOrder terminated.");
+
+    if(stk.Empty()){
+        current = nullptr;
+        last = nullptr;
+    }else{
+        current = stk.TopNPop();
+        if(current->HasRightChild() && !(&(current->RightChild())==last)){
+            stk.Push(current);
+            current = &(current->RightChild());
+            getMostLeftLeaf();
+        }
+    }
+    last = current;
+    return (*this);
+}
+
+//Reset() TODO
+
+
+
+//InOrderIterator
+//Function GetMostLeftNode
+template <typename Data>
+void BTInOrderIterator<Data>::getMostLeftNode(){
+    while (current->HasLeftChild()){
+        stk.Push(current);
+        current = &(current->LeftChild());
+    }
+}
+
+//Specific Constructor
+template <typename Data>
+BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>  &bt){
+    current = &bt.Root();
+    getMostLeftNode();
+}
+
+//Copy Constructor
+template <typename Data>
+BTInOrderIterator<Data>::BTInOrderIterator(const BTInOrderIterator<Data> &iter){
+    current = iter.current;
+    stk = iter.stk;
+}
+
+//Move Constructor
+template <typename Data>
+BTInOrderIterator<Data>::BTInOrderIterator(BTInOrderIterator<Data> &&iter)noexcept{
+    std::swap(current,iter.current);
+    stk = std::move(iter.stk);
+}
+
+//Destructor
+template <typename Data>
+BTInOrderIterator<Data>::~BTInOrderIterator(){
+    stk.Clear();
+    delete current;
+    current = nullptr;
+}
+
+//Copy assignment
+template <typename Data>
+BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(const BTInOrderIterator<Data> &iter){
+    BTInOrderIterator<Data> *tmp = new BTInOrderIterator<Data>(iter);
+    std::swap(*tmp, *this);
+    delete (tmp);
+    return *this;
+}
+
+//Move assignment
+template <typename Data>
+BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(BTInOrderIterator<Data> &&iter)noexcept{
+    std::swap(current,iter.current);
+    stk = std::move(iter.stk);
+    return *this;
+}
+
+
+//Comparision Operators
+template <typename Data>
+bool BTInOrderIterator<Data>::operator==(const BTInOrderIterator<Data> &iter) const noexcept {
+    if(current!=iter.current)
+        return false;
+    
+    if(stk!=iter.stk)
+        return false;
+    
+    return true;
+}
+
+template <typename Data>
+bool BTInOrderIterator<Data>::operator!=(const BTInOrderIterator<Data> &iter) const noexcept {
+    return !(*this==iter);
+}
+
+//Specif member function
+
+template <typename Data>
+Data& BTInOrderIterator<Data>::operator*() const {
+    if(Terminated())
+        throw std::out_of_range("Terminated");
+
+    return current->Element();
+}
+
+
+template <typename Data>
+bool BTInOrderIterator<Data>::Terminated() const noexcept {
+    return (current==nullptr);
+}
+
+
+
+template <typename Data>
+BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++() {
+    if(Terminated())
+        throw std::out_of_range("Iterator InOrder terminated.");
+        
+    if(current->HasRightChild()){
+        current = &(current->RightChild());
+        getMostLeftNode();
+    }else{
+        if(stk.Empty())
+            current = nullptr;
+        else
+            current = stk.TopNPop(); 
+    }
+    return (*this);
+}
+
+
+
+//Reset (da implementare) TODO
+   
+}
+
+//BreadthIterator
+// Specific constructors
+template <typename Data>
+BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data> &bt) {
+    current = &bt.Root();
+}
+
+
+// Copy constructor
+template <typename Data>
+BTBreadthIterator<Data>::BTBreadthIterator(const BTBreadthIterator<Data> &iter) {
+    current = iter.current;
+    que = iter.que;
+}
+
+// Move constructor
+template <typename Data>
+BTBreadthIterator<Data>::BTBreadthIterator(BTBreadthIterator<Data> &&iter) noexcept {
+    std::swap(current,iter.current);
+    que = std::move(iter.que);
+}
+
+
+// Destructor
+template <typename Data>
+BTBreadthIterator<Data>::~BTBreadthIterator() {
+    que.Clear();
+    delete current;
+    current = nullptr;
+}
+
+
+// Copy assignment
+template <typename Data>
+BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(const BTBreadthIterator<Data> &iter) {
+    BTBreadthIterator<Data> *tmp = new BTBreadthIterator<Data>(iter);
+    std::swap(*tmp, *this);
+    delete (tmp);
+    return *this;
+}
+
+// Move assignment
+template <typename Data>
+BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(BTBreadthIterator<Data> &&iter) noexcept {
+    std::swap(current, iter.current);
+    que = std::move(iter.que);
+    return *this;
+}
+
+
+
+// Comparison operators
+template <typename Data>
+bool BTBreadthIterator<Data>::operator==(const BTBreadthIterator<Data> &iter) const noexcept {
+    if(current!=iter.current)
+        return false;
+    
+    if(que!=iter.que)
+        return false;
+    
+    return true;
+}
+
+template <typename Data>
+bool BTBreadthIterator<Data>::operator!=(const BTBreadthIterator<Data> &iter) const noexcept {
+    return !(*this==iter);
+}
+
+
+// Specific member functions (inherited from Iterator)
+template <typename Data>
+Data& BTBreadthIterator<Data>::operator*() const {
+    if(Terminated())
+        throw std::out_of_range("Terminated");
+
+    return current->Element();
+}
+
+template <typename Data>
+bool BTBreadthIterator<Data>::Terminated() const noexcept {
+    return (current==nullptr);
+}
+
+
+
+template <typename Data>
+BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator++() {
+    
+    if(Terminated())
+        throw std::out_of_range("Iterator Ampiezza terminated.");
+    
+    if(current->HasLeftChild())
+        que.Enqueue(&(current->LeftChild()));
+    
+    if(current->HasRightChild())
+        que.Enqueue(&(current->RightChild()));
+    
+    if(que.Empty())
+        current = nullptr;
+    else
+        current = que.HeadNDequeue();
+
+    return (*this);
+
+}
+
+
+//Reset() TODO
 /* ************************************************************************** */
 
 }

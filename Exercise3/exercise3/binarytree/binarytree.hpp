@@ -269,7 +269,7 @@ public:
     BTPreOrderIterator(const BTPreOrderIterator&);
 
   // Move constructor
-    BTPreOrderIterator(BTPostOrderIterator&&) noexcept;
+    BTPreOrderIterator(BTPreOrderIterator&&) noexcept;
   
 
   /* ************************************************************************ */
@@ -330,6 +330,7 @@ protected:
   struct BinaryTree<Data>::Node* current = nullptr;
   struct BinaryTree<Data>::Node* last = nullptr;
   StackLst<struct BinaryTree<Data>::Node*> stk;
+  
 public:
 
   // Specific constructors
