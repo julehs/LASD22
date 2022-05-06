@@ -289,7 +289,7 @@ public:
 
   // Comparison operators
     bool operator == (const BTPreOrderIterator&) const noexcept;
-    bool operator != (const BTPreOrderIterator&& const noexcept;
+    bool operator != (const BTPreOrderIterator&&) const noexcept;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Iterator)

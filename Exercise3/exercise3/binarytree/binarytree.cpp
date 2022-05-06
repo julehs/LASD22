@@ -260,7 +260,58 @@ void BinaryTree<Data>::FoldBreadth(FoldFunctor fun, const void* par, void* acc, 
     lasd::QueueLst<const Node*> coda;
     coda.Enqueue(node);
     const Node* tmp;
+
+
+    while(!(coda.Empty())){
+        tmp = coda.HeadNDequeue();
+        fun(tmp->Element(),par,acc);
+
+
+        if(tmp->HasLeftChild())
+            coda.Enqueue(&(tmp->LeftChild()));
+
+
+        if(tmp->HasRightChild())
+            coda.Enqueue(&(tmp->RightChild()));
+    }
 }
+
+
+
+
+
+//ITERATOR
+//PreOrder
+
+template <typename Data>
+BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data> &bt){
+    current = &bt.Root();
+}
+
+
+//Copy Constructor
+template <typename Data>
+BTPreOrderIterator<Data>::BTPreOrderIterator(const BTPreOrderIterator<Data> &iter){
+    current = iter.current;
+    stk = iter.stk;
+}
+
+
+//Move Constructor
+template <typename Data>
+BTPreOrderIterator<Data>::BTPreOrderIterator(BTPreOrderIterator<Data> &&iter) noexcept{
+    std::swap(current,iter,current);
+    stk = std::move(iter.stk);
+}
+
+//Destructor
+template <typename Data>
+BTPreOrderIterator<Data>::~BTPreOrderIterator(){
+    stk.Clear();
+    delete current;
+    current = nullptr;
+}
+
 
 /* ************************************************************************** */
 
