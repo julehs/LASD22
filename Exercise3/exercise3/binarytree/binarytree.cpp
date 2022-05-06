@@ -203,9 +203,65 @@ void BinaryTree<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc
         fun(node->Element(), par, acc);
     }
 
+ }
 
-    //map in order
+template <typename Data>
+void BinaryTree<Data>::MapInOrder(MapFunctor fun, void* par, Node* node){
+    if(node!= nullptr){
+        if(node->HasLeftChild())
+            MapInOrder(fun, par, &(node->LeftChild()));
+
+            fun(node->Element(), par);
+
+            if(node->HasRightChild())
+                MapInOrder(fun, par, &(node->RightChild()));
+        }
 }
+
+
+template <typename Data>
+void BinaryTree<Data>::FoldInOrder(FoldFunctor fun, const void* par, void* acc, Node* node) const{
+    if(node!= nullptr){
+        if(node->HasLeftChild())
+            FoldInOrder(fun, par, acc, &(node->LeftChild()))
+
+        fun(node->Element(), par, acc);
+
+        if(node->HasRightChild())
+            FoldInOrder(fun, par, acc, &(node->RightChild()))
+    }
+}
+
+template <typename Data>
+void BinaryTree<Data>::MapBreadth(MapFunctor fun, void* par, Node* node){
+    lasd::QueueLst<Node*> coda;
+    coda.Enqueue(node);
+    Node* tmp;
+
+
+    while(!(coda.Empty())){
+        tmp = coda.HeadNDequeue();
+        fun(tmp->Element(), par);
+
+
+        if(tmp->HasLeftChild())
+            coda.Enqueue(&(tmp->LeftChild()));
+
+
+        if(tmp->RightChild())
+            coda.Enqueue(&(tmp->RightChild()));
+    }
+}
+
+
+
+template <typename Data>
+void BinaryTree<Data>::FoldBreadth(FoldFunctor fun, const void* par, void* acc, Node* node) const{
+    lasd::QueueLst<const Node*> coda;
+    coda.Enqueue(node);
+    const Node* tmp;
+}
+
 /* ************************************************************************** */
 
 }
