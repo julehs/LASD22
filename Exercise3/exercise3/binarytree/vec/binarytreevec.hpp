@@ -130,7 +130,7 @@ public:
 
   // Specific member functions (inherited from BreadthFoldableContainer)
     using typename BreadthFoldableContainer<Data>::FoldFunctor;
-    void MapBreadth(const MapFunctor, void*) override; // Override BreadthFoldableContainer member
+    void FoldBreadth(const FoldFunctor,const void*, void*) const override; // Override BreadthFoldableContainer member
 
 };
 
