@@ -46,7 +46,7 @@ protected:
     NodeLnk(const Data&);
 
 
-    //Distructor
+    //Destructor
     virtual ~NodeLnk();
 
     //Specific member functions
@@ -62,6 +62,7 @@ protected:
   }; 
 
   void funBuild(int, NodeLnk*, const LinearContainer<Data>&);
+  NodeLnk* copyTree(NodeLnk*);
   NodeLnk* root = nullptr;
 
 public:
