@@ -35,7 +35,7 @@ bool BinaryTreeVec<Data>::NodeVec::HasRightChild() const noexcept{
 
 template <typename Data>
 struct BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild() const{
-    if(!=HasLeftChild())
+    if(!HasLeftChild())
         throw std::out_of_range("Access to an empty child.");
 
     return *(vectorPointer->operator[](indexNode*2+1));
@@ -43,7 +43,7 @@ struct BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild() c
 
 template <typename Data>
 struct BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild()const{
-    if(!=HasRightChild)
+    if(!HasRightChild())
         throw std::out_of_range("Access to an empty child.");
 
     return *(vectorPointer->operator[](indexNode*2+2));
@@ -56,9 +56,9 @@ template<typename Data>
 BinaryTreeVec<Data>::BinaryTreeVec(const LinearContainer<Data> &con){
     if(con.Size()){
         dim = con.Size();
-        treevector = new Vector<NodeVec*>(size);
+        treevector = new Vector<NodeVec*>(dim);
 
-        for(uint i = 0; i<size; i++){
+        for(uint i = 0; i<dim; i++){
             NodeVec* node = new NodeVec(con[i],i,treevector);
             treevector->operator[](i)=node;
         }
@@ -71,7 +71,7 @@ template <typename Data>
 BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data> &bt){
     dim = bt.dim;
     treevector = new Vector<NodeVec*>(dim);
-    for(uint i = 0; i<size; i++){
+    for(uint i = 0; i<dim; i++){
         NodeVec* node = new NodeVec(bt.treevector->operator[](i)->Element(),i,treevector);
         treevector->operator[](i) = node;
     
@@ -143,12 +143,12 @@ struct BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::Root() const {
 
 template <typename Data>
 void BinaryTreeVec<Data>::Clear() {
-    if(size > 0) {
-        for(uint i = 0; i < size; i++) {
+    if(dim > 0) {
+        for(uint i = 0; i < dim; i++) {
             delete (*treevector)[i];
         }
         treevector->Clear();
-        size = 0;
+        dim = 0;
     }
 }
 

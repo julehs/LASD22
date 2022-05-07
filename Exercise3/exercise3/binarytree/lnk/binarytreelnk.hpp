@@ -63,6 +63,7 @@ protected:
 
   void funBuild(int, NodeLnk*, const LinearContainer<Data>&);
   NodeLnk* copyTree(NodeLnk*);
+  
   NodeLnk* root = nullptr;
 
 public:

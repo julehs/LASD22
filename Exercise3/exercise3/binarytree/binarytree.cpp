@@ -4,9 +4,8 @@
 namespace lasd {
 
 /* ************************************************************************** */
-
-
-//NODE
+/*                                  NODE                                      */
+/* ************************************************************************** */
 
 
 //Comparision operators
@@ -18,7 +17,7 @@ bool BinaryTree<Data>::Node::operator==(const Node &compareNode) const noexcept{
         bool thisLC = this->HasLeftChild();
 
         bool hisRC = compareNode.HasRightChild();
-        bool hisLF = compareNode.HasLeftChild();
+        bool hisLC = compareNode.HasLeftChild();
 
         bool right = (thisRC == thisLC);
         bool left = (thisLC == thisRC);
@@ -47,7 +46,11 @@ bool BinaryTree<Data>::Node::operator!=(const Node &compareNode) const noexcept{
 
 }
 
-//BINARY TREE
+
+/* ************************************************************************** */
+/*                              BINARY TREE                                   */
+/* ************************************************************************** */
+
 
 //Comparision operators
 template <typename Data>
@@ -69,9 +72,15 @@ bool BinaryTree<Data>::operator!=(const BinaryTree<Data> &compareBT) const noexc
 }
 
 
-//SPECIFIC FUNCTION
 
-//Specific member function
+/* ************************************************************************** */
+/*                              SPECIFIC FUNCTION                             */
+/* ************************************************************************** */
+
+
+
+//Specific member function (inherited from MappableContainer,FoldableContainer)
+
 //Map,Fold,MapPreOrder,FoldPreOrder,MapPostOrder,FoldPostOrder,MapInOrder,FoldInOrder,MapBreadth,FoldBreadth
 
 template <typename Data>
@@ -87,7 +96,9 @@ void BinaryTree<Data>::Fold(FoldFunctor fun, const void* par, void* acc) const{
         Fold(fun,par,acc,&(Root()));
 
 }
-
+ 
+/* ************************************************************************** */
+// Specific member functions (inherited from PreOrderMappableContainer, PreOrderFoldableContainer)
 
 template <typename Data>
 void BinaryTree<Data>::MapPreOrder(MapFunctor fun, void* par){
@@ -101,10 +112,15 @@ void BinaryTree<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc)
         FoldPreOrder(fun,par,acc,&(Root()));
 }
 
+
+/* ************************************************************************** */
+//Specific member functions (inherited from PostOrderMappableContainer,PostOrderFoldableContainer)
+
 template <typename Data>
 void BinaryTree<Data>::MapPostOrder(MapFunctor fun, void* par){
     if(dim!=0)
         MapPostOrder(fun,par, &(Root()));
+
 }
 
 template <typename Data>
@@ -113,9 +129,13 @@ void BinaryTree<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc
         FoldPostOrder(fun, par, acc, &(Root()));
 }
 
+
+/* ************************************************************************** */
+//Specific member functions (inherited from InOrderMappableContainer,InOrderFoldableContainer)
+
 template <typename Data>
 void BinaryTree<Data>::MapInOrder(MapFunctor fun, void* par){
-    if(size!=0)
+    if(dim!=0)
         MapInOrder(fun, par, &(Root()));
 }
 
@@ -124,7 +144,8 @@ void BinaryTree<Data>::FoldInOrder(FoldFunctor fun, const void* par, void* acc) 
     if(dim!=0)
         FoldInOrder(fun, par, acc, &(Root()));
 }
-
+ /* ************************************************************************ */
+// Specific member functions (inherited from BreadthMappableContainer, BreadthFoldableContainer)
 
 template <typename Data>
 void BinaryTree<Data>::MapBreadth(MapFunctor fun, void* par){
@@ -139,7 +160,10 @@ void BinaryTree<Data>::FoldBreadth(FoldFunctor fun, const void* par, void* acc)c
         FoldBreadth(fun, par, acc, &(Root()));
 }
 
-//AUXILIARY FUNCTIONS
+/* ************************************************************************** */
+/*                            AUXILIARY FUNCTION                              */
+/* ************************************************************************** */
+
 
 //MapPreOrder,FoldPreOrder,MapPostOrder,FoldPostOrder,MapInOrder,FoldInOrder,MapBreadth,FoldBreadth
 
@@ -161,7 +185,7 @@ void BinaryTree<Data>::MapPreOrder(MapFunctor fun, void* par, Node* node){
 
 
 template<typename Data>
-void BinaryTree<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void*)const{
+void BinaryTree<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc, Node* node)const{
     if(node!=nullptr){
         fun(node->Element(),par,acc);
 
@@ -173,6 +197,7 @@ void BinaryTree<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void*)cons
     }
 }
 
+ /* ************************************************************************ */
 
 template <typename Data>
 void BinaryTree<Data>::MapPostOrder(MapFunctor fun,void* par, Node* node){
@@ -194,16 +219,20 @@ void BinaryTree<Data>::MapPostOrder(MapFunctor fun,void* par, Node* node){
 template <typename Data>
 void BinaryTree<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc, Node* node) const{
     if(node!=nullptr){
+        fun(node->Element(), par, acc);
+
         if(node->HasLeftChild())
             FoldPostOrder(fun, par, acc, &(node->LeftChild()));
 
         if(node->HasRightChild())
             FoldPostOrder(fun, par, acc, &(node->RightChild()));
 
-        fun(node->Element(), par, acc);
+       
     }
 
  }
+
+ /* ************************************************************************ */
 
 template <typename Data>
 void BinaryTree<Data>::MapInOrder(MapFunctor fun, void* par, Node* node){
@@ -223,14 +252,16 @@ template <typename Data>
 void BinaryTree<Data>::FoldInOrder(FoldFunctor fun, const void* par, void* acc, Node* node) const{
     if(node!= nullptr){
         if(node->HasLeftChild())
-            FoldInOrder(fun, par, acc, &(node->LeftChild()))
+            FoldInOrder(fun, par, acc, &(node->LeftChild()));
 
         fun(node->Element(), par, acc);
 
         if(node->HasRightChild())
-            FoldInOrder(fun, par, acc, &(node->RightChild()))
+            FoldInOrder(fun, par, acc, &(node->RightChild()));
     }
 }
+
+ /* ************************************************************************ */
 
 template <typename Data>
 void BinaryTree<Data>::MapBreadth(MapFunctor fun, void* par, Node* node){
@@ -275,13 +306,14 @@ void BinaryTree<Data>::FoldBreadth(FoldFunctor fun, const void* par, void* acc, 
             coda.Enqueue(&(tmp->RightChild()));
     }
 }
+ /* ************************************************************************ */
 
 
+/* ************************************************************************** */
+/*                              Iterator PreOrder                             */
+/* ************************************************************************** */
 
 
-
-//ITERATOR
-//PreOrder
 
 template <typename Data>
 BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data> &bt){
@@ -332,7 +364,7 @@ BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(BTPreOrderIterator
 }
 
 
-//Comparision Operators
+//Comparision operators
 template <typename Data>
 bool BTPreOrderIterator<Data>::operator==(const BTPreOrderIterator<Data> &iter) const noexcept{
     if(current!=iter.current)
@@ -350,6 +382,7 @@ bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator<Data> &&iter)
     return!(*this==iter);
 }
 
+ /* ************************************************************************ */
 
 //Specific Member functions
 
@@ -366,6 +399,8 @@ template<typename Data>
 bool BTPreOrderIterator<Data>::Terminated()const noexcept{
     return (current == nullptr);
 }
+
+ /* ************************************************************************ */
 
 template<typename Data>
 BTPreOrderIterator<Data>& BTPreOrderIterator<Data>:: operator++() {
@@ -387,9 +422,29 @@ BTPreOrderIterator<Data>& BTPreOrderIterator<Data>:: operator++() {
 
     return(*this);
     
+}
+ /* ************************************************************************ */
+
+template <typename Data>
+void BTPreOrderIterator<Data>::Reset() const noexcept {
+    stk.Clear();
+    current = nullptr;
+    current = rif_radice;
+}
 
 
-//PostOrderIterator TODO
+
+
+
+
+
+
+
+/* ************************************************************************** */
+/*                              Iterator PostOrder                             */
+/* ************************************************************************** */
+
+
 //Function GetMostLeftLeaf
 template <typename Data>
 void BTPostOrderIterator<Data>::getMostLeftLeaf() {
@@ -404,7 +459,6 @@ void BTPostOrderIterator<Data>::getMostLeftLeaf() {
         getMostLeftLeaf();
     }
 }
-
 // Specific constructors
 template <typename Data>
 BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data> &bt) {
@@ -478,6 +532,9 @@ bool BTPostOrderIterator<Data>::operator!=(const BTPostOrderIterator<Data> &iter
     return !(*this==iter);
 }
 
+
+/* ************************************************************************** */
+
 template <typename Data>
 Data& BTPostOrderIterator<Data>::operator*() const {
     if(Terminated())
@@ -494,6 +551,7 @@ bool BTPostOrderIterator<Data>::Terminated() const noexcept {
 }
 
 
+/* ************************************************************************** */
 template <typename Data>
 BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++() {
     if(Terminated())
@@ -514,11 +572,30 @@ BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++() {
     return (*this);
 }
 
-//Reset() TODO
+
+
+template <typename Data>
+void BTPostOrderIterator<Data>::Reset() const noexcept {
+    stk.Clear();
+    current=nullptr;
+    last=nullptr;
+    current = rif_radice;
+    getMostLeftLeaf();
+    last = current;
+
+}
+
+
+/* ************************************************************************** */
 
 
 
-//InOrderIterator
+
+/* ************************************************************************** */
+/*                              Iterator  InOrder                             */
+/* ************************************************************************** */
+
+
 //Function GetMostLeftNode
 template <typename Data>
 void BTInOrderIterator<Data>::getMostLeftNode(){
@@ -575,7 +652,7 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(BTInOrderIterator<Da
 }
 
 
-//Comparision Operators
+//Comparision operators
 template <typename Data>
 bool BTInOrderIterator<Data>::operator==(const BTInOrderIterator<Data> &iter) const noexcept {
     if(current!=iter.current)
@@ -592,6 +669,7 @@ bool BTInOrderIterator<Data>::operator!=(const BTInOrderIterator<Data> &iter) co
     return !(*this==iter);
 }
 
+
 //Specif member function
 
 template <typename Data>
@@ -607,8 +685,6 @@ template <typename Data>
 bool BTInOrderIterator<Data>::Terminated() const noexcept {
     return (current==nullptr);
 }
-
-
 
 template <typename Data>
 BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++() {
@@ -629,11 +705,21 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++() {
 
 
 
-//Reset (da implementare) TODO
-   
+template <typename Data>
+void BTInOrderIterator<Data>::Reset() const noexcept {
+    stk.Clear();
+    current=nullptr;
+    current = rif_radice;
+    getMostLeftNode();
 }
 
-//BreadthIterator
+/* ************************************************************************** */
+
+
+/* ************************************************************************** */
+/*                              Iterator Breadth                              */
+/* ************************************************************************** */
+
 // Specific constructors
 template <typename Data>
 BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data> &bt) {
@@ -716,8 +802,6 @@ bool BTBreadthIterator<Data>::Terminated() const noexcept {
     return (current==nullptr);
 }
 
-
-
 template <typename Data>
 BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator++() {
     
@@ -740,7 +824,11 @@ BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator++() {
 }
 
 
-//Reset() TODO
+//RESET
+
+
+
+
 /* ************************************************************************** */
 
 }

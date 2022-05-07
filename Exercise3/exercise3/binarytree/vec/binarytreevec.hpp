@@ -14,7 +14,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec : virtual public BinaryTree<Data> {
+class BinaryTreeVec : public virtual BinaryTree<Data> {
                       // Must extend BinaryTree<Data>
 
 private:
@@ -51,7 +51,7 @@ protected:
 
 
     //Destructor
-    virtual ~NodeVec = default;
+    virtual ~NodeVec() = default;
 
 
     //Specific member functions
@@ -111,7 +111,7 @@ public:
 
   // Specific member functions (inherited from BinaryTree)
 
-    NodoVec& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
+    NodeVec& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
 
   /* ************************************************************************ */
 

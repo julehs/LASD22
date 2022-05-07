@@ -316,11 +316,11 @@ public:
 
      using typename FoldableContainer<Data>::FoldFunctor;
 
-     virtual void FoldPreOrder(FoldFunctor, const void*, void*) const = 0;
+     virtual void FoldPreOrder(const FoldFunctor, const void*, void*) const = 0;
 
   // Specific member functions (inherited from FoldableContainer)
 
-    virtual void Fold (FoldFunctor, const void*, void*) const override; //Override FoldableContainer member
+    virtual void Fold (const FoldFunctor, const void*, void*) const override; //Override FoldableContainer member
 
 };
 
@@ -406,11 +406,11 @@ public:
 
      using typename FoldableContainer<Data>::FoldFunctor;
 
-     virtual void FoldPostOrder(FoldFunctor, const void*, void*) const = 0;
+     virtual void FoldPostOrder(const FoldFunctor, const void*, void*) const = 0;
 
   // Specific member functions (inherited from FoldableContainer)
 
-    virtual void Fold (FoldFunctor, const void*, void*) const override; //Override FoldableContainer member
+    virtual void Fold (const FoldFunctor, const void*, void*) const override; //Override FoldableContainer member
 
 };
 
@@ -498,11 +498,11 @@ class InOrderFoldableContainer :virtual public FoldableContainer<Data> { // Must
 
       using typename FoldableContainer<Data>::FoldFunctor;
 
-      virtual void FoldInOrder (FoldFunctor, const void*, void*) = 0;
+      virtual void FoldInOrder (const FoldFunctor, const void*, void*) = 0;
 
    // Specific member functions (inherited from FoldableContainer)
 
-     virtual void Fold(FoldFunctor, const void*, void*) const override; //Override MappableContainer member
+     virtual void Fold(const FoldFunctor, const void*, void*) const override; //Override MappableContainer member
 
 };
 
@@ -588,12 +588,12 @@ class InOrderFoldableContainer :virtual public FoldableContainer<Data> { // Must
 
      using typename FoldableContainer<Data>::FoldFunctor;
 
-     virtual void FoldBreadth(FoldFunctor,const void*, void*) = 0;
+     virtual void FoldBreadth(const FoldFunctor,const void*, void*) = 0;
 
 
    // Specific member functions (inherited from FoldableContainer)
    
-      virtual void Fold (FoldFunctor, const void*, void*) const override; //Override FoldableContainer member
+      virtual void Fold (const FoldFunctor, const void*, void*) const override; //Override FoldableContainer member
  };
 
 

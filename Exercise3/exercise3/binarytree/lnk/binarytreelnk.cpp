@@ -1,9 +1,11 @@
 #include <stdexcept>
+
 namespace lasd {
 
 /* ************************************************************************** */
 
 //NodeLink
+
 template<typename Data>
 BinaryTreeLnk<Data>::NodeLnk::NodeLnk(const Data &dato){
     elem = dato;
@@ -108,7 +110,7 @@ BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk<Data> &bt) {
 template <typename Data>
 BinaryTreeLnk<Data>::BinaryTreeLnk(BinaryTreeLnk<Data> &&bt) noexcept : BinaryTreeLnk<Data>()  {
     std::swap(root,bt.root);
-    std::swap(size,bt.dim);
+    std::swap(dim,bt.dim);
 }
 
 
@@ -137,7 +139,7 @@ BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk<Data> &b
 template <typename Data>
 BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk<Data> &&bt) noexcept {
     std::swap(root,bt.root);
-    std::swap(size,bt.dim);
+    std::swap(dim,bt.dim);
     return *this;
 }
 
@@ -166,7 +168,7 @@ struct BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::Root() const {
 
 template <typename Data>
 void BinaryTreeLnk<Data>::Clear() {
-    size=0;
+    dim=0;
     delete root;
     root = nullptr;
 }

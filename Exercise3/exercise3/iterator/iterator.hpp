@@ -35,8 +35,8 @@ public:
   /* ************************************************************************ */
 
   // Comparison operators
-    virtual bool operator == (const Iterator&) noexcept = delete; // Comparison of abstract types might not be possible.
-    virtual bool opertator != (const Iterator&) noexcept = delete; // Comparison of abstract types might not be possible.
+    bool operator == (const Iterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
+    bool operator != (const Iterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
 
   /* ************************************************************************ */
 
@@ -178,7 +178,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class ResettableIterator: virtual public Iterator<Data>, { // Must extend Iterator<Data>
+class ResettableIterator: virtual public Iterator<Data> { // Must extend Iterator<Data>
 
 private:
 
@@ -207,7 +207,7 @@ public:
 
   // Specific member functions
 
-    virtual bool Reset() const noexcept = 0; // (concrete function should not throw exceptions)
+    virtual void Reset() const noexcept = 0; // (concrete function should not throw exceptions)
 
 };
 

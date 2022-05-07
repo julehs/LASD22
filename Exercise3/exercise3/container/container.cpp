@@ -76,7 +76,7 @@ void PreOrderFoldableContainer<Data>::Fold(FoldFunctor fun, const void* par, voi
 
 	template <typename Data>
 	void InOrderMappableContainer<Data>::Map(MapFunctor fun, void* par) {
-		MapInOrder(fun, par)
+		MapInOrder(fun, par);
 	}
 	/* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void PreOrderFoldableContainer<Data>::Fold(FoldFunctor fun, const void* par, voi
 	//BreadthMappableContainer
 	template <typename Data>
 	void BreadthMappableContainer<Data>::Map(MapFunctor fun, void* par) {
-		MapBreadth(fun, par)
+		MapBreadth(fun, par);
 	}
 	/* ************************************************************************** */
 	

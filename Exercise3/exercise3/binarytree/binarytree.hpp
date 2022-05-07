@@ -42,7 +42,7 @@ private:
 
 protected:
 
-   using InOrderMappableContainer<Data>::dim;
+   using InOrderFoldableContainer<Data>::dim;
 
   // ...
 
@@ -57,8 +57,8 @@ public:
   protected:
 
     //Comparision operators
-    bool operator == (const Node&) const noexcept;
-    bool operator != (const Node&&) const noexcept;
+    bool operator==(const Node&) const noexcept;
+    bool operator!=(const Node&) const noexcept;
 
   public:
 
@@ -72,18 +72,13 @@ public:
     /* ********************************************************************** */
 
     // Copy assignment
-       Node& operator = (const Node&); // Copy assignment of abstract types should not be possible.
+       Node& operator = (const Node&) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-      Node& operator = (Node&&) noexcept; // Move assignment of abstract types should not be possible.
+      Node& operator = (Node&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
     /* ********************************************************************** */
 
-    // Comparison operators
-    bool operator == (const Node&) const noexcept; // Comparison of abstract types is possible, but should not be visible.
-    bool operator != (const Node&) const noexcept;// Comparison of abstract types is possible, but should not be visible.
-
-    /* ********************************************************************** */
 
     // Specific member functions
 
@@ -105,7 +100,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-    virtual ~BinaryTree() default;
+    virtual ~BinaryTree() = default;
 
   /* ************************************************************************ */
 
@@ -118,8 +113,8 @@ public:
   /* ************************************************************************ */
 
   // Comparison operators
-    bool operator == (const BinaryTree&) const noexcept; // Comparison of abstract binary tree is possible.
-    bool operator != (const BinaryTree&) const noexcept; // Comparison of abstract binary tree is possible.
+    bool operator==(const BinaryTree&) const noexcept; // Comparison of abstract binary tree is possible.
+    bool operator!=(const BinaryTree&) const noexcept; // Comparison of abstract binary tree is possible.
 
   /* ************************************************************************ */
 
@@ -141,13 +136,13 @@ public:
 
    using typename FoldableContainer<Data>::FoldFunctor;
 
-   void Fold(FoldFunctor, const void*, void*) const override; // Override FoldableContainer member
+   void Fold(const FoldFunctor, const void*, void*) const override; // Override FoldableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from PreOrderMappableContainer)
 
-   void MapPreOrder(const MapFunctor, void*) override; // Override PreOrderMappableContainer member
+   void MapPreOrder(MapFunctor, void*) override; // Override PreOrderMappableContainer member
 
   /* ************************************************************************ */
 
@@ -283,13 +278,13 @@ public:
     BTPreOrderIterator& operator = (const BTPreOrderIterator&);
 
   // Move assignment
-    BTPreOrderIterator& operator = (BTPreOrderIterator&&);
+    BTPreOrderIterator& operator = (BTPreOrderIterator&&) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
-    bool operator == (const BTPreOrderIterator&) const noexcept;
-    bool operator != (const BTPreOrderIterator&&) const noexcept;
+    bool operator==(const BTPreOrderIterator&) const noexcept;
+    bool operator!=(const BTPreOrderIterator&&) const noexcept;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Iterator)
@@ -302,7 +297,7 @@ public:
 
   // Specific member functions (inherited from ForwardIterator)
 
-    BTPreOrderIterator operator++() override; // (throw std::out_of_range when terminated)
+    BTPreOrderIterator& operator++() override; // (throw std::out_of_range when terminated)
 
   /* ************************************************************************ */
 
