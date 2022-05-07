@@ -86,7 +86,7 @@ public:
       virtual const Data& Element() const noexcept = 0; // Immutable access to the element (concrete function should not throw exceptions)
     
 
-      virtual bool IsLeaf() const noexcept = 0; // (concrete function should not throw exceptions)
+      virtual inline bool IsLeaf() const noexcept { return !(HasLeftChild() || HasRightChild()); };// (concrete function should not throw exceptions)
       virtual bool HasLeftChild() const noexcept = 0; // (concrete function should not throw exceptions)
       virtual bool HasRightChild() const noexcept = 0; // (concrete function should not throw exceptions)
   
@@ -128,7 +128,7 @@ public:
 
    using typename MappableContainer<Data>::MapFunctor;
 
-   void Map(MapFunctor, void*) override; // Override MappableContainer member
+   void Map(const MapFunctor, void*) override; // Override MappableContainer member
 
   /* ************************************************************************ */
 
@@ -142,7 +142,7 @@ public:
 
   // Specific member functions (inherited from PreOrderMappableContainer)
 
-   void MapPreOrder(MapFunctor, void*) override; // Override PreOrderMappableContainer member
+   void MapPreOrder(const MapFunctor, void*) override; // Override PreOrderMappableContainer member
 
   /* ************************************************************************ */
 
@@ -284,7 +284,7 @@ public:
 
   // Comparison operators
     bool operator==(const BTPreOrderIterator&) const noexcept;
-    bool operator!=(const BTPreOrderIterator&&) const noexcept;
+    bool operator!=(const BTPreOrderIterator&) const noexcept;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Iterator)

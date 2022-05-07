@@ -12,25 +12,25 @@ namespace lasd {
 template <typename Data>
 bool BinaryTree<Data>::Node::operator==(const Node &compareNode) const noexcept{
 
-    if (compareNode.Element()== this->Element()){
+    if (compareNode.Element() == this->Element()){
         bool thisRC = this->HasRightChild();
         bool thisLC = this->HasLeftChild();
 
         bool hisRC = compareNode.HasRightChild();
         bool hisLC = compareNode.HasLeftChild();
 
-        bool right = (thisRC == thisLC);
-        bool left = (thisLC == thisRC);
+        bool right = (thisRC == hisLC);
+        bool left = (thisLC == hisRC);
 
         if(left && right){
             if(thisLC && thisRC){
-                return ((compareNode.LeftChild()== LeftChild()) && (compareNode.RightChild()==RightChild()));
+                return ((compareNode.LeftChild() == LeftChild()) && (compareNode.RightChild() == RightChild()));
             }
             else if(thisLC){
-                return(compareNode.LeftChild()== LeftChild());
+                return(compareNode.LeftChild() == LeftChild());
             }
             else if(thisRC){
-                return(compareNode.RightChild()==RightChild()); 
+                return(compareNode.RightChild()== RightChild()); 
             }else{
                 return true;
             }
@@ -186,8 +186,8 @@ void BinaryTree<Data>::MapPreOrder(MapFunctor fun, void* par, Node* node){
 
 template<typename Data>
 void BinaryTree<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc, Node* node)const{
-    if(node!=nullptr){
-        fun(node->Element(),par,acc);
+    if(node != nullptr){
+        fun(node->Element(), par, acc);
 
         if(node->HasLeftChild())
             FoldPreOrder(fun, par, acc, &(node->LeftChild()));
@@ -219,8 +219,7 @@ void BinaryTree<Data>::MapPostOrder(MapFunctor fun,void* par, Node* node){
 template <typename Data>
 void BinaryTree<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc, Node* node) const{
     if(node!=nullptr){
-        fun(node->Element(), par, acc);
-
+        
         if(node->HasLeftChild())
             FoldPostOrder(fun, par, acc, &(node->LeftChild()));
 
@@ -228,6 +227,8 @@ void BinaryTree<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc
             FoldPostOrder(fun, par, acc, &(node->RightChild()));
 
        
+       fun(node->Element(), par, acc);
+
     }
 
  }
@@ -240,7 +241,9 @@ void BinaryTree<Data>::MapInOrder(MapFunctor fun, void* par, Node* node){
         if(node->HasLeftChild())
             MapInOrder(fun, par, &(node->LeftChild()));
 
+
             fun(node->Element(), par);
+
 
             if(node->HasRightChild())
                 MapInOrder(fun, par, &(node->RightChild()));
@@ -295,7 +298,7 @@ void BinaryTree<Data>::FoldBreadth(FoldFunctor fun, const void* par, void* acc, 
 
     while(!(coda.Empty())){
         tmp = coda.HeadNDequeue();
-        fun(tmp->Element(),par,acc);
+        fun(tmp->Element(), par, acc);
 
 
         if(tmp->HasLeftChild())
@@ -332,7 +335,7 @@ BTPreOrderIterator<Data>::BTPreOrderIterator(const BTPreOrderIterator<Data> &ite
 //Move Constructor
 template <typename Data>
 BTPreOrderIterator<Data>::BTPreOrderIterator(BTPreOrderIterator<Data> &&iter)  noexcept{
-    std::swap(current,iter.current);
+    std::swap(current, iter.current);
     stk = std::move(iter.stk);
 }
 
@@ -378,7 +381,7 @@ bool BTPreOrderIterator<Data>::operator==(const BTPreOrderIterator<Data> &iter) 
 }
 
 template <typename Data>
-bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator<Data> &&iter) const noexcept{
+bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator<Data> &iter) const noexcept{
     return!(*this==iter);
 }
 
@@ -387,16 +390,16 @@ bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator<Data> &&iter)
 //Specific Member functions
 
 template<typename Data>
-Data& BTPreOrderIterator<Data>::operator*()const{
+Data& BTPreOrderIterator<Data>::operator*() const{
     if(Terminated())
         throw std::out_of_range("Terminated");
 
-    return current->Elements();
+    return current->Element();
 }
 
 
 template<typename Data>
-bool BTPreOrderIterator<Data>::Terminated()const noexcept{
+bool BTPreOrderIterator<Data>::Terminated() const noexcept{
     return (current == nullptr);
 }
 
@@ -420,7 +423,7 @@ BTPreOrderIterator<Data>& BTPreOrderIterator<Data>:: operator++() {
     else
         current = stk.TopNPop();
 
-    return(*this);
+    return (*this);
     
 }
  /* ************************************************************************ */
@@ -429,7 +432,7 @@ template <typename Data>
 void BTPreOrderIterator<Data>::Reset() const noexcept {
     stk.Clear();
     current = nullptr;
-    current = rif_radice;
+    current = &(bt.Root());
 }
 
 
@@ -579,7 +582,7 @@ void BTPostOrderIterator<Data>::Reset() const noexcept {
     stk.Clear();
     current=nullptr;
     last=nullptr;
-    current = rif_radice;
+    current = &(bt.Root());
     getMostLeftLeaf();
     last = current;
 
@@ -621,8 +624,8 @@ BTInOrderIterator<Data>::BTInOrderIterator(const BTInOrderIterator<Data> &iter){
 
 //Move Constructor
 template <typename Data>
-BTInOrderIterator<Data>::BTInOrderIterator(BTInOrderIterator<Data> &&iter)noexcept{
-    std::swap(current,iter.current);
+BTInOrderIterator<Data>::BTInOrderIterator(BTInOrderIterator<Data> &&iter) noexcept{
+    std::swap(current, iter.current);
     stk = std::move(iter.stk);
 }
 
@@ -645,8 +648,8 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(const BTInOrderItera
 
 //Move assignment
 template <typename Data>
-BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(BTInOrderIterator<Data> &&iter)noexcept{
-    std::swap(current,iter.current);
+BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(BTInOrderIterator<Data> &&iter) noexcept{
+    std::swap(current, iter.current);
     stk = std::move(iter.stk);
     return *this;
 }
@@ -709,7 +712,7 @@ template <typename Data>
 void BTInOrderIterator<Data>::Reset() const noexcept {
     stk.Clear();
     current=nullptr;
-    current = rif_radice;
+    current = (&(bt.Root()));
     getMostLeftNode();
 }
 
