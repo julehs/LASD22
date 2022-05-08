@@ -251,6 +251,7 @@ private:
 protected:
 
   struct BinaryTree<Data>::Node* current = nullptr;
+  struct BinaryTree<Data>::Node* refBTRoot = nullptr;
   StackLst<struct BinaryTree<Data>::Node*> stk;
 
 public:
@@ -270,7 +271,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-    virtual ~BTPreOrderIterator();
+    virtual ~BTPreOrderIterator() = default;
 
   /* ************************************************************************ */
 
@@ -303,8 +304,7 @@ public:
 
   // Specific member functions (inherited from ResettableIterator)
 
-    void Reset() const noexcept override; // (should not throw exceptions) 
-
+    void Reset() noexcept override; // (should not throw exceptions) 
 
 };
 
@@ -323,6 +323,7 @@ private:
 protected:
 
   struct BinaryTree<Data>::Node* current = nullptr;
+  struct BinaryTree<Data>::Node* refBTRoot = nullptr;
   struct BinaryTree<Data>::Node* last = nullptr;
   StackLst<struct BinaryTree<Data>::Node*> stk;
   
@@ -342,7 +343,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-      virtual ~BTPostOrderIterator();
+      virtual ~BTPostOrderIterator() = default;
 
   /* ************************************************************************ */
 
@@ -375,7 +376,7 @@ public:
 
   // Specific member functions (inherited from ResettableIterator)
 
-    void Reset() const noexcept override; // (should not throw exceptions)
+    void Reset() noexcept override; // (should not throw exceptions)
 
 };
 
@@ -394,6 +395,7 @@ private:
 protected:
 
   struct BinaryTree<Data>::Node* current = nullptr;
+  struct BinaryTree<Data>::Node* refBTRoot = nullptr;
   StackLst<struct BinaryTree<Data>::Node*> stk;
 
 public:
@@ -412,7 +414,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-      virtual ~BTInOrderIterator() ;
+      virtual ~BTInOrderIterator() = default;
 
   /* ************************************************************************ */
 
@@ -447,7 +449,7 @@ public:
   // Specific member functions (inherited from ResettableIterator)
 
   
-    void Reset() const noexcept override;// (should not throw exceptions)
+    void Reset() noexcept override;// (should not throw exceptions)
 
 };
 
@@ -465,7 +467,8 @@ private:
 
 protected:
 
-    struct BTBreadthIterator<Data>::Node* current = nullptr;
+    struct BinaryTree<Data>::Node* current = nullptr;
+    struct BinaryTree<Data>::Node* refBTRoot = nullptr;
     QueueLst<struct BinaryTree<Data>::Node*> que; 
 
 public:
@@ -486,7 +489,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-    virtual ~BTBreadthIterator();
+    virtual ~BTBreadthIterator() = default;
 
   /* ************************************************************************ */
 
@@ -521,7 +524,7 @@ public:
   // Specific member functions (inherited from ResettableIterator)
 
   
-    void Reset() const noexcept override;// (should not throw exceptions)
+    void Reset() noexcept override;// (should not throw exceptions)
 
 };
 

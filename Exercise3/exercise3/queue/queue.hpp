@@ -32,10 +32,10 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    Container& operator = (const Queue&) = delete; // Copy assignment of abstract types should not be possible.
+    virtual Container& operator = (const Queue&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-    Container& operator = (Queue&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+    virtual Container& operator = (Queue&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
