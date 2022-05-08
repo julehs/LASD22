@@ -14,7 +14,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec : public virtual BinaryTree<Data> {
+class BinaryTreeVec : virtual public BinaryTree<Data> {
                       // Must extend BinaryTree<Data>
 
 private:
@@ -25,9 +25,8 @@ protected:
 
     using BinaryTree<Data>::dim;
 
-  // ...
 
-  struct NodeVec: virtual public BinaryTree<Data>::Node { // Must extend Node
+   struct NodeVec: virtual public BinaryTree<Data>::Node { // Must extend Node
 
   private:
 
@@ -97,16 +96,16 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    BinaryTreeVec<Data>& operator = (const BinaryTreeVec<Data>&);
+    BinaryTreeVec<Data>& operator=(const BinaryTreeVec<Data>&);
 
   // Move assignment
-    BinaryTreeVec<Data>& operator = (BinaryTreeVec<Data>&&) noexcept;
+    BinaryTreeVec<Data>& operator=(BinaryTreeVec<Data>&&) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
-    bool operator == (const BinaryTreeVec<Data>&) const noexcept;
-    bool operator != (const BinaryTreeVec<Data>&) const noexcept;
+    bool operator==(const BinaryTreeVec<Data>&) const noexcept;
+    bool operator!=(const BinaryTreeVec<Data>&) const noexcept;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BinaryTree)

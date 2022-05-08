@@ -57,8 +57,8 @@ public:
   protected:
 
     //Comparision operators
-    bool operator==(const Node&) const noexcept;
-    bool operator!=(const Node&) const noexcept;
+    bool operator==(const Node&) const noexcept; // Comparison of abstract types is possible, but should not be visible.
+    bool operator!=(const Node&) const noexcept; // Comparison of abstract types is possible, but should not be visible.
 
   public:
 
@@ -72,10 +72,10 @@ public:
     /* ********************************************************************** */
 
     // Copy assignment
-       Node& operator = (const Node&) = delete; // Copy assignment of abstract types should not be possible.
+       Node& operator=(const Node&) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-      Node& operator = (Node&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+      Node& operator=(Node&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
     /* ********************************************************************** */
 
@@ -105,10 +105,10 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    BinaryTree& operator = (const BinaryTree&) = delete; // Copy assignment of abstract types should not be possible.
+    BinaryTree& operator=(const BinaryTree&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-    BinaryTree& operator = (BinaryTree&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+    BinaryTree& operator=(BinaryTree&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
@@ -220,7 +220,7 @@ protected:
 
   // Auxiliary member functions (for InOrderFoldableContainer)
 
-    void FoldInOrder(FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
+    void FoldInOrder(const FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
 
   /* ************************************************************************ */
 
@@ -232,7 +232,7 @@ protected:
 
   // Auxiliary member functions (for BreadthFoldableContainer)
 
-    void FoldBreadth(FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
+    void FoldBreadth(const FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
 
 };
 

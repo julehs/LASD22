@@ -1,3 +1,4 @@
+#include <stdexcept>
 
 namespace lasd {
 
@@ -84,7 +85,7 @@ template <typename Data>
 BinaryTreeVec<Data>::BinaryTreeVec(BinaryTreeVec<Data> &&bt) noexcept{
     treevector = new Vector<NodeVec*>();
     std::swap(dim,bt.dim);
-    std::swap(treevector,bt.treevector);
+    std::swap(treevector, bt.treevector);
 }
 
 
@@ -162,7 +163,7 @@ void BinaryTreeVec<Data>::MapBreadth(const MapFunctor fun, void *par) {
 
 //FoldBreadth
 template <typename Data>
-void BinaryTreeVec<Data>::FoldBreadth(FoldFunctor fun, const void *par, void *acc) const {
+void BinaryTreeVec<Data>::FoldBreadth(const FoldFunctor fun, const void *par, void *acc) const {
     for(uint i = 0; i < dim; i++) {
         fun(treevector->operator[](i)->Element(), par, acc);
     }

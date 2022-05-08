@@ -140,7 +140,7 @@ void BinaryTree<Data>::MapInOrder(const MapFunctor fun, void* par){
 }
 
 template <typename Data>
-void BinaryTree<Data>::FoldInOrder(FoldFunctor fun, const void* par, void* acc) const{
+void BinaryTree<Data>::FoldInOrder(const FoldFunctor fun, const void* par, void* acc) const{
     if(dim!=0)
         FoldInOrder(fun, par, acc, &(Root()));
 }
@@ -155,7 +155,7 @@ void BinaryTree<Data>::MapBreadth(const MapFunctor fun, void* par){
 
 
 template <typename Data>
-void BinaryTree<Data>::FoldBreadth(FoldFunctor fun, const void* par, void* acc)const{
+void BinaryTree<Data>::FoldBreadth(const FoldFunctor fun, const void* par, void* acc)const{
     if(dim!=0)
         FoldBreadth(fun, par, acc, &(Root()));
 }
@@ -317,7 +317,7 @@ void BinaryTree<Data>::FoldBreadth(const FoldFunctor fun, const void* par, void*
 /* ************************************************************************** */
 
 
-
+//Specific Constructor
 template <typename Data>
 BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data> &bt){
     current = &bt.Root();
@@ -469,6 +469,7 @@ BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data> &bt) {
     current = &bt.Root();
     getMostLeftLeaf();
     last = current;
+    refBTRoot = &bt.Root();
 }
 
 // Copy constructor
@@ -583,9 +584,9 @@ void BTPostOrderIterator<Data>::Reset() const noexcept {
     stk.Clear();
     current=nullptr;
     last=nullptr;
-    current = refBTRoot;
     getMostLeftLeaf();
     last = current;
+    current = refBTRoot;
 
 }
 
@@ -614,6 +615,7 @@ template <typename Data>
 BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>  &bt){
     current = &bt.Root();
     getMostLeftNode();
+    refBTRoot = &bt.Root();
 }
 
 //Copy Constructor
