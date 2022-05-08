@@ -72,7 +72,7 @@ BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data> &bt){
     dim = bt.dim;
     treevector = new Vector<NodeVec*>(dim);
     for(uint i = 0; i<dim; i++){
-        NodeVec* node = new NodeVec(bt.treevector->operator[](i)->Element(),i,treevector);
+        NodeVec* node = new NodeVec(bt.treevector->operator[](i)->Element(), i,treevector);
         treevector->operator[](i) = node;
     
     }
@@ -100,9 +100,9 @@ BinaryTreeVec<Data>::~BinaryTreeVec(){
 //Copy assignment
 template<typename Data>
 BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(const BinaryTreeVec<Data> &bt){
-    BinaryTreeVec<Data>* tmp_bt = new BinaryTreeVec<Data>(bt);
-    std::swap(*this,*tmp_bt);
-    delete tmp_bt;
+    BinaryTreeVec<Data>* tmpbt = new BinaryTreeVec<Data>(bt);
+    std::swap(*this,*tmpbt);
+    delete tmpbt;
 
 return *this;
 }
@@ -111,8 +111,8 @@ return *this;
 //Move assignment
 template<typename Data>
 BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(BinaryTreeVec<Data> &&bt) noexcept{
-    std::swap(dim,bt.dim);
-    std::swap(treevector,bt.treevector);
+    std::swap(dim, bt.dim);
+    std::swap(treevector, bt.treevector);
     return *this;
 }
 
@@ -162,7 +162,7 @@ void BinaryTreeVec<Data>::MapBreadth(const MapFunctor fun, void *par) {
 
 //FoldBreadth
 template <typename Data>
-void BinaryTreeVec<Data>::FoldBreadth(const FoldFunctor fun, const void *par, void *acc) const {
+void BinaryTreeVec<Data>::FoldBreadth(FoldFunctor fun, const void *par, void *acc) const {
     for(uint i = 0; i < dim; i++) {
         fun(treevector->operator[](i)->Element(), par, acc);
     }

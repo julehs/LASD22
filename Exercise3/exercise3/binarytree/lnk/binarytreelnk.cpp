@@ -2,9 +2,12 @@
 
 namespace lasd {
 
+
+
+/* ************************************************************************** */
+/*                              NODE  LINK                                    */
 /* ************************************************************************** */
 
-//NodeLink
 
 template<typename Data>
 BinaryTreeLnk<Data>::NodeLnk::NodeLnk(const Data &dato){
@@ -57,7 +60,14 @@ struct BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::RightChild() 
     return *rightchild;
 }
 
-//TreeLink
+
+
+/* ************************************************************************** */
+/*                              TREE  LINK                                    */
+/* ************************************************************************** */
+
+
+
 template <typename Data>
 void BinaryTreeLnk<Data>::funBuild(int indice, struct BinaryTreeLnk<Data>::NodeLnk *nodo, const LinearContainer<Data> &con) {
      if( (indice*2 + 1) <= (con.Size()-1)){
@@ -76,7 +86,7 @@ struct BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::copyTree(NodeLnk *toBe
     NodeLnk* nodo = nullptr;
 
     if(toBeCopied!=nullptr){
-        nodo = new NodeLnk(toBeCopied->element);
+        nodo = new NodeLnk(toBeCopied->elem);
 
         if(toBeCopied->leftchild!=nullptr)
             nodo->leftchild = copyTree(toBeCopied->leftchild);
@@ -109,8 +119,8 @@ BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk<Data> &bt) {
 //Move constructor
 template <typename Data>
 BinaryTreeLnk<Data>::BinaryTreeLnk(BinaryTreeLnk<Data> &&bt) noexcept : BinaryTreeLnk<Data>()  {
-    std::swap(root,bt.root);
-    std::swap(dim,bt.dim);
+    std::swap(root, bt.root);
+    std::swap(dim, bt.dim);
 }
 
 
@@ -125,9 +135,9 @@ BinaryTreeLnk<Data>::~BinaryTreeLnk() {
 template <typename Data>
 BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk<Data> &bt) {
     if(bt.dim!=0){
-        BinaryTreeLnk<Data>* tmp_bt = new BinaryTreeLnk<Data>(bt);
-	    std::swap(*tmp_bt, *this);
-	    delete tmp_bt;
+        BinaryTreeLnk<Data>* tmpbt = new BinaryTreeLnk<Data>(bt);
+	    std::swap(*tmpbt, *this);
+	    delete tmpbt;
     }else{
         Clear();
     }
@@ -138,8 +148,8 @@ BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk<Data> &b
 //Move assignment
 template <typename Data>
 BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk<Data> &&bt) noexcept {
-    std::swap(root,bt.root);
-    std::swap(dim,bt.dim);
+    std::swap(root, bt.root);
+    std::swap(dim, bt.dim);
     return *this;
 }
 

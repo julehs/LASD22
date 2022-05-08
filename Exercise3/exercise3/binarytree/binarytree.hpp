@@ -220,7 +220,7 @@ protected:
 
   // Auxiliary member functions (for InOrderFoldableContainer)
 
-    void FoldInOrder(const FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
+    void FoldInOrder(FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
 
   /* ************************************************************************ */
 
@@ -232,7 +232,7 @@ protected:
 
   // Auxiliary member functions (for BreadthFoldableContainer)
 
-    void FoldBreadth(const FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
+    void FoldBreadth(FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one node of the tree
 
 };
 
