@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BST { // Must extend BinaryTreeLnk<Data>
+class BST : virtual public BinaryTreeLnk<Data> { // Must extend BinaryTreeLnk<Data>
 
 private:
 
@@ -21,50 +21,66 @@ private:
 
 protected:
 
-  // using BinaryTreeLnk<Data>::???;
+   using BinaryTreeLnk<Data>::dim;
+   using BinaryTreeLnk<Data>::root;
 
-  // ...
+  
 
 public:
 
   // Default constructor
-  // BST() specifiers;
+     BST() = default;
 
   /* ************************************************************************ */
 
-  // Specific constructors
-  // BST(argument) specifiers; // A bst obtained from a LinearContainer
+  // Specific constructors  
+    BST(const LinearContainer<Data>&); // A bst obtained from a LinearContainer
+
 
   /* ************************************************************************ */
 
   // Copy constructor
-  // BST(argument) specifiers;
+     BST(const BST&);
 
   // Move constructor
-  // BST(argument) specifiers;
+     BST(BST&&) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
-  // ~BST() specifiers;
+    virtual ~BST() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument) specifiers;
+    BST& operator =(const BST&);
 
   // Move assignment
-  // type operator=(argument) specifiers;
-
+    BST& operator = (BST&&) noexcept;
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
-
+    bool operator == (const BST&) const noexcept;
+    bool operator != (const BST&) const noexcept;
   /* ************************************************************************ */
 
   // Specific member functions
+
+    const  Data& Min() const;
+    Data MinNRemove();
+    void RemoveMin();
+
+    const Data& Max() const;
+    Data MaxNRemove();
+    void RemoveMax();
+
+    const Data& Predecessor(const Data&) const;
+    Data PredecessorNRemove(const Data&);
+    void RemovePredecessor(const Data&);
+
+    const Data& Successor(const Data&) const;
+    Data SuccessorNRemove (const Data&);
+    void RemoveSuccessor(const Data&);
 
   // type Min(argument) specifiers; // (concrete function must throw std::length_error when empty)
   // type MinNRemove(argument) specifiers; // (concrete function must throw std::length_error when empty)
@@ -86,6 +102,9 @@ public:
 
   // Specific member functions (inherited from DictionaryContainer)
 
+    void Insert(const Data&) noexcept override;
+    void Insert(Data&&) noexcept override;
+    void Remove (const Data&) noexcept override;
   // type Insert(argument) specifiers; // Override DictionaryContainer member (Copy of the value)
   // type Insert(argument) specifiers; // Override DictionaryContainer member (Move of the value)
   // type Remove(argument) specifiers; // Override DictionaryContainer member
@@ -94,21 +113,73 @@ public:
 
   // Specific member functions (inherited from TestableContainer)
 
+    bool Exists(const Data&) const noexcept override;
   // type Exists(argument) specifiers; // Override TestableContainer member
 
 protected:
 
   // Auxiliary member functions
-
+    Data DataNDelete(struct BST<Data>::NodeLnk*);
   // type DataNDelete(argument) specifiers;
 
   // type Detach(argument) specifiers;
+    struct BST<Data>::NodeLnk* Detach(struct BST<Data>::NodeLnk*&) noexcept;
 
   // type DetachMin(argument) specifiers;
+    struct BST<Data>::NodeLnk* DetachMin(struct BST<Data>::NodeLnk*&) noexcept;
   // type DetachMax(argument) specifiers;
+    struct BST<Data>::NodeLnk* DetachMax(struct BST<Data>::NodeLnk*&) noexcept;
+
+
 
   // type Skip2Left(argument) specifiers;
-  // type Skip2Left(argument) specifiers;
+    struct BST<Data>::NodeLnk* Skip2Left(struct BST<Data>::NodeLnk*&) noexcept;
+  // type Skip2Right(argument) specifiers;
+    struct BST<Data>::NodeLnk* Skip2Right(struct BST<Data>::NodeLnk*&) noexcept; 
+
+//FindPointerToMin mutable NOT CONST
+  struct BST<Data>::NodeLnk*& FindPointerToMin(struct BST<Data>::NodeLnk*&) noexcept;
+
+//FindPointerToMin unmutable
+struct BST<Data>::NodeLnk* FindPointerToMin (struct BST<Data>::NodeLnk* const&) const noexcept;
+
+//FindPointerToMax mutable NOT CONST
+struct BST<Data>::NodeLnk*& FindPointerToMax (struct BST<Data>)
+
+//FindPointerToMax unmutable
+struct BST<Data>::NodeLnk*
+
+//FindPointerTo mutable NOT CONST
+struct BST<Data>::NodeLnk*&
+
+//FindPointerTo unmutable
+struct BST<Data>::NodeLnk*
+
+
+//FindPointerToPredecessor mutable NOT CONST
+struct BST<Data>::NodeLnk*&
+
+
+//FindPointerToPredecessor unmutable
+struct BST<Data>::NodeLnk*
+
+
+//FindPointerToSuccessor mutable NOT CONST
+struct BST<Data>::NodeLnk*&
+
+
+
+//FindPointerToSuccessor unmutable
+struct BST<Data>::NodeLnk*
+
+
+
+
+
+
+
+
+
 
   // type FindPointerToMin(argument) specifiers; // Both mutable & unmutable versions
   // type FindPointerToMax(argument) specifiers; // Both mutable & unmutable versions

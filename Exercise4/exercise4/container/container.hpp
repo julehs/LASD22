@@ -21,7 +21,7 @@ private:
 
 protected:
 
-  ulong dim = 0;
+   ulong dim = 0;
 
 public:
   // Destructor
@@ -59,8 +59,98 @@ virtual void Clear() = 0;
 
 
 };
+/* ************************************************************************** */
+
+template <typename Data>
+class TestableContainer :virtual public Container { // Must extend Container
+
+private:
+
+  // ...
+
+protected:
+
+  // ...
+
+public:
+
+  // Destructor
+
+    virtual ~TestableContainer() = default;
+
+  // Copy assignment
+
+    TestableContainer& operator = (const TestableContainer&) = delete; // Copy assignment of abstract types should not be possible.
+
+  // Move assignment
+
+    TestableContainer& operator = (TestableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+  
+  // Comparison operators
+  //of abstract types might not be possible.
+
+    bool operator == (const TestableContainer&) const noexcept = delete;
+    bool operator != (const TestableContainer&) const noexcept = delete;
+
+  // Specific member functions
+ 
+    virtual bool Exists(const Data&) const noexcept = 0; // Exists(): returns true if the container exists, false otherwise
+  
+};
+
 
 /* ************************************************************************** */
+
+template <typename Data>
+class DictionaryContainer: virtual public TestableContainer<Data> { // Must extend TestableContainer<Data>
+
+private:
+
+  // ...
+
+protected:
+
+  // ...
+
+public:
+
+  // Destructor
+    virtual ~DictionaryContainer() = 0;
+
+  /* ************************************************************************ */
+
+  // Copy assignment
+    DictionaryContainer& operator = (const DictionaryContainer&) = delete; // Copy assignment of abstract types should not be possible.
+
+  // Move assignment
+    DictionaryContainer& operator = (DictionaryContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+
+  /* ************************************************************************ */
+
+  // Comparison operators
+    bool operator == (const DictionaryContainer&) const noexcept = delete; // Comparison of abstract types might not be possible.
+    bool operator != (const DictionaryContainer&) const noexcept = delete; // Comparison of abstract types might not be possible.
+  
+  /* ************************************************************************ */
+
+  // Specific member functions
+
+    // typedef std::function<void(const Data&)> Insert; //non lo so
+    // typedef std::function<void(Data&&)noexcept> Insert; // non lo so
+
+    // virtual void Insert (Data&) = 0;
+    // virtual void Insert (Data&&) = 0;
+    // virtual void Remove;
+
+
+  // type Insert(argument) specifiers; // Copy of the value
+  // type Insert(argument) specifiers; // Move of the value
+  // type Remove(argument) specifiers;
+
+};
+
+/* ************************************************************************** */
+
 
 template <typename Data>
 class LinearContainer :virtual public Container { // Must extend Container
@@ -104,48 +194,7 @@ public:
   
   
 };
-
 /* ************************************************************************** */
-
-template <typename Data>
-class TestableContainer :virtual public Container { // Must extend Container
-
-private:
-
-  // ...
-
-protected:
-
-  // ...
-
-public:
-
-  // Destructor
-
-    virtual ~TestableContainer() = default;
-
-  // Copy assignment
-
-    TestableContainer& operator = (const TestableContainer&) = delete; // Copy assignment of abstract types should not be possible.
-
-  // Move assignment
-
-    TestableContainer& operator = (TestableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
-  
-  // Comparison operators
-  //of abstract types might not be possible.
-
-    bool operator == (const TestableContainer&) const noexcept = delete;
-    bool operator != (const TestableContainer&) const noexcept = delete;
-
-  // Specific member functions
- 
-    virtual bool Exists(const Data&) const noexcept = 0; // Exists(): returns true if the container exists, false otherwise
-  
-};
-
-/* ************************************************************************** */
-
 
 template <typename Data>
 class MappableContainer :virtual public Container { // Must extend Container
@@ -188,8 +237,8 @@ public:
 
 };
 
-/* ************************************************************************** */
 
+/* ************************************************************************** */
 
 template <typename Data>
 class FoldableContainer :virtual public TestableContainer<Data> { // Must extend TestableContainer<Data>
@@ -233,9 +282,7 @@ public:
     virtual bool Exists(const Data&) const noexcept override; // Override TestableContainer member
   
 };
-
 /* ************************************************************************** */
-
 
 template <typename Data>
 class PreOrderMappableContainer :virtual public MappableContainer<Data> { // Must extend MappableContainer<Data>
