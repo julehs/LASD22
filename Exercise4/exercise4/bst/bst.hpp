@@ -144,33 +144,33 @@ protected:
 struct BST<Data>::NodeLnk* FindPointerToMin (struct BST<Data>::NodeLnk* const&) const noexcept;
 
 //FindPointerToMax mutable NOT CONST
-struct BST<Data>::NodeLnk*& FindPointerToMax (struct BST<Data>)
+struct BST<Data>::NodeLnk*& FindPointerToMax (struct BST<Data>::NodeLnk*&) noexcept;
 
 //FindPointerToMax unmutable
-struct BST<Data>::NodeLnk*
+struct BST<Data>::NodeLnk* FindPointerToMax (struct BST<Data>::NodeLnk* const&) const noexcept;
 
 //FindPointerTo mutable NOT CONST
-struct BST<Data>::NodeLnk*&
+struct BST<Data>::NodeLnk*& FindPointerTo (struct BST<Data>::NodeLnk*&) noexcept;
 
 //FindPointerTo unmutable
-struct BST<Data>::NodeLnk*
+struct BST<Data>::NodeLnk* FindPointerTo (struct BST<Data>::NodeLnk* const&) const noexcept;
 
 
 //FindPointerToPredecessor mutable NOT CONST
-struct BST<Data>::NodeLnk*&
+struct BST<Data>::NodeLnk*& FindPointerToPredecessor (struct BST<Data>::NodeLnk*&) noexcept;
 
-
+Pointer
 //FindPointerToPredecessor unmutable
-struct BST<Data>::NodeLnk*
+struct BST<Data>::NodeLnk* FindPointerToPredecessor(struct BST<Data>::NodeLnk* const&) const noexcept;
 
 
 //FindPointerToSuccessor mutable NOT CONST
-struct BST<Data>::NodeLnk*&
+struct BST<Data>::NodeLnk*& FindPointerToSuccessor (struct BST<Data>::NodeLnk*&) noexcept;
 
 
 
 //FindPointerToSuccessor unmutable
-struct BST<Data>::NodeLnk*
+struct BST<Data>::NodeLnk* FindPointerToSuccessor (struct BST<Data>::NodeLnk* const&) const noexcept;
 
 
 
