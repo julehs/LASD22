@@ -7,7 +7,7 @@ namespace lasd {
 //Specific constructors
 template <typename Data>
 BST<Data>::BST(const LinearContainer<Data> &con){
-    for(ulong i = 0; i< con.Size(); i++){
+    for(ulong i = 0; i < con.Size(); i++){
         Insert(con[i]);
     }
 }
@@ -66,6 +66,79 @@ bool BST<Data>::operator==(const BST &bt) const noexcept{
 template <typename Data>
 bool BST<Data>::operator!=(const BST &bt) const noexcept{
     return !(*this == bt);
+}
+
+
+
+//Specific member functions
+//Min function
+
+template<typename Data>
+const Data& BST<Data>::Min() const{
+    if(root==nullptr)
+        throw std::length_error("Access to an empty BST.");
+    
+    return FindPointerToMin(root)->elem;
+}
+
+
+template <typename Data>
+Data BST<Data>::MinNRemove(){
+    if(root==nullptr)
+        throw std::length_error("Access to an empty BST.")
+    
+    return DataNDelete(DetachMin(root));
+}
+
+
+template <typename Data>
+void BST<Data>::RemoveMin(){
+    if(root==nullptr)
+        throw std::length_error("Access to an empty BST.");
+
+   delete DetachMin(root); 
+}
+
+
+//Max function
+template <typename Data>
+const Data& BST<Data>::Max() const{
+    if(root==nullptr)
+        throw std::length_error("Access to an empty BST.");
+    
+    return FindPointerToMax(root)->elem;
+}
+
+template <typename Data>
+Data BST<Data>::MaxNRemove(){
+    if(root == nullptr)
+        throw std::length_error("Access to an empty BST.");
+
+    return DataNDelete(DetachMax(root));
+}
+
+template <typename Data>
+void BST<Data>::RemoveMax(){
+    if(root == nullptr)
+        throw std::length_error("Access to an empty BST.");
+    
+    delete DetachMax(root);
+}
+
+
+//Predecessor function
+template<typename Data>
+const Data& BST<Data>::Predecessor(const Data &dato) const{
+    struct BST<Data>::NodeLnk* const* pointer = &FindPointerToPredecessor(root, dato);
+    if(*pointer == nullptr)
+        throw std::length_error("Predecessor not found.");
+    
+    return DataNDelete(Detach(*pointer));
+}
+
+template <typename Data>
+Data BST<Data>::PredecessorNRemove(const Data &dato){
+    struct BST<Data>::NodeLnk
 }
 /* ************************************************************************** */
 

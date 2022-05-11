@@ -35,7 +35,7 @@ public:
 
   // Specific constructors  
     BST(const LinearContainer<Data>&); // A bst obtained from a LinearContainer
-
+template <typename Data>
 
   /* ************************************************************************ */
 
