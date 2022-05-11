@@ -135,17 +135,10 @@ public:
 
   // Specific member functions
 
-    // typedef std::function<void(const Data&)> Insert; //non lo so
-    // typedef std::function<void(Data&&)noexcept> Insert; // non lo so
+    virtual void Insert (const Data&) noexcept; // Copy of the value
+    virtual void Insert (Data&&) noexcept; // Move of the value
+    virtual void Remove(const Data&) noexcept;
 
-    // virtual void Insert (Data&) = 0;
-    // virtual void Insert (Data&&) = 0;
-    // virtual void Remove;
-
-
-  // type Insert(argument) specifiers; // Copy of the value
-  // type Insert(argument) specifiers; // Move of the value
-  // type Remove(argument) specifiers;
 
 };
 

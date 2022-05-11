@@ -66,76 +66,58 @@ public:
 
   // Specific member functions
 
-    const  Data& Min() const;
-    Data MinNRemove();
-    void RemoveMin();
+    const  Data& Min() const; // (concrete function must throw std::length_error when empty)
+    Data MinNRemove(); // (concrete function must throw std::length_error when empty)
+    void RemoveMin(); // (concrete function must throw std::length_error when empty)
 
-    const Data& Max() const;
-    Data MaxNRemove();
-    void RemoveMax();
+    const Data& Max() const; // (concrete function must throw std::length_error when empty)
+    Data MaxNRemove(); // (concrete function must throw std::length_error when empty)
+    void RemoveMax(); // (concrete function must throw std::length_error when empty)
 
-    const Data& Predecessor(const Data&) const;
-    Data PredecessorNRemove(const Data&);
-    void RemovePredecessor(const Data&);
+    const Data& Predecessor(const Data&) const; // (concrete function must throw std::length_error when empty)
+    Data PredecessorNRemove(const Data&); // (concrete function must throw std::length_error when empty)
+    void RemovePredecessor(const Data&); // (concrete function must throw std::length_error when empty)
 
-    const Data& Successor(const Data&) const;
-    Data SuccessorNRemove (const Data&);
-    void RemoveSuccessor(const Data&);
-
-  // type Min(argument) specifiers; // (concrete function must throw std::length_error when empty)
-  // type MinNRemove(argument) specifiers; // (concrete function must throw std::length_error when empty)
-  // type RemoveMin(argument) specifiers; // (concrete function must throw std::length_error when empty)
-
-  // type Max(argument) specifiers; // (concrete function must throw std::length_error when empty)
-  // type MaxNRemove(argument) specifiers; // (concrete function must throw std::length_error when empty)
-  // type RemoveMax(argument) specifiers; // (concrete function must throw std::length_error when empty)
-
-  // type Predecessor(argument) specifiers; // (concrete function must throw std::length_error when not found)
-  // type PredecessorNRemove(argument) specifiers; // (concrete function must throw std::length_error when not found)
-  // type RemovePredecessor(argument) specifiers; // (concrete function must throw std::length_error when not found)
-
-  // type Successor(argument) specifiers; // (concrete function must throw std::length_error when not found)
-  // type SuccessorNRemove(argument) specifiers; // (concrete function must throw std::length_error when not found)
-  // type RemoveSuccessor(argument) specifiers; // (concrete function must throw std::length_error when not found)
+    const Data& Successor(const Data&) const; // (concrete function must throw std::length_error when empty)
+    Data SuccessorNRemove (const Data&); // (concrete function must throw std::length_error when empty)
+    void RemoveSuccessor(const Data&); // (concrete function must throw std::length_error when empty)
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from DictionaryContainer)
 
-    void Insert(const Data&) noexcept override;
-    void Insert(Data&&) noexcept override;
-    void Remove (const Data&) noexcept override;
-  // type Insert(argument) specifiers; // Override DictionaryContainer member (Copy of the value)
-  // type Insert(argument) specifiers; // Override DictionaryContainer member (Move of the value)
-  // type Remove(argument) specifiers; // Override DictionaryContainer member
+    void Insert(const Data&) noexcept override; // Override DictionaryContainer member (Copy of the value)
+    void Insert(Data&&) noexcept override; // Override DictionaryContainer member (Move of the value)
+    void Remove (const Data&) noexcept override; // Override DictionaryContainer member
+
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from TestableContainer)
 
-    bool Exists(const Data&) const noexcept override;
-  // type Exists(argument) specifiers; // Override TestableContainer member
+    bool Exists(const Data&) const noexcept override; // Override TestableContainer member
+
 
 protected:
 
   // Auxiliary member functions
     Data DataNDelete(struct BST<Data>::NodeLnk*);
-  // type DataNDelete(argument) specifiers;
-
+  
   // type Detach(argument) specifiers;
     struct BST<Data>::NodeLnk* Detach(struct BST<Data>::NodeLnk*&) noexcept;
 
   // type DetachMin(argument) specifiers;
     struct BST<Data>::NodeLnk* DetachMin(struct BST<Data>::NodeLnk*&) noexcept;
+
   // type DetachMax(argument) specifiers;
     struct BST<Data>::NodeLnk* DetachMax(struct BST<Data>::NodeLnk*&) noexcept;
-
 
 
   // type Skip2Left(argument) specifiers;
     struct BST<Data>::NodeLnk* Skip2Left(struct BST<Data>::NodeLnk*&) noexcept;
   // type Skip2Right(argument) specifiers;
     struct BST<Data>::NodeLnk* Skip2Right(struct BST<Data>::NodeLnk*&) noexcept; 
+
 
 //FindPointerToMin mutable NOT CONST
   struct BST<Data>::NodeLnk*& FindPointerToMin(struct BST<Data>::NodeLnk*&) noexcept;
@@ -155,11 +137,10 @@ struct BST<Data>::NodeLnk*& FindPointerTo (struct BST<Data>::NodeLnk*&) noexcept
 //FindPointerTo unmutable
 struct BST<Data>::NodeLnk* FindPointerTo (struct BST<Data>::NodeLnk* const&) const noexcept;
 
-
 //FindPointerToPredecessor mutable NOT CONST
 struct BST<Data>::NodeLnk*& FindPointerToPredecessor (struct BST<Data>::NodeLnk*&) noexcept;
 
-Pointer
+
 //FindPointerToPredecessor unmutable
 struct BST<Data>::NodeLnk* FindPointerToPredecessor(struct BST<Data>::NodeLnk* const&) const noexcept;
 
@@ -168,13 +149,8 @@ struct BST<Data>::NodeLnk* FindPointerToPredecessor(struct BST<Data>::NodeLnk* c
 struct BST<Data>::NodeLnk*& FindPointerToSuccessor (struct BST<Data>::NodeLnk*&) noexcept;
 
 
-
 //FindPointerToSuccessor unmutable
 struct BST<Data>::NodeLnk* FindPointerToSuccessor (struct BST<Data>::NodeLnk* const&) const noexcept;
-
-
-
-
 
 
 
