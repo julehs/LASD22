@@ -4,6 +4,7 @@ namespace lasd {
 
 /* ************************************************************************** */
 
+
 //Specific constructors
 template <typename Data>
 BST<Data>::BST(const LinearContainer<Data> &con){
@@ -13,10 +14,10 @@ BST<Data>::BST(const LinearContainer<Data> &con){
 }
 
 
-
 //Copy constructor
 template <typename Data>
 BST<Data>::BST(const BST<Data> &bt): BinaryTreeLnk<Data>(bt){}
+
 
 //Move constructor
 template <typename Data>
@@ -32,7 +33,7 @@ BST<Data>& BST<Data>::operator=(const BST &bt){
 }
 
 //Move assignment
-template<typename Data>
+template <typename Data>
 BST<Data>& BST<Data>::operator=(BST &&bt) noexcept{
     BinaryTreeLnk<Data>::operator=(std::move(bt));
     return *this;
@@ -53,8 +54,8 @@ bool BST<Data>::operator==(const BST &bt) const noexcept{
             return false;
         ++iterThis;
         ++iterOther;
-    }template <typename Data>
-    if(iterThis.Terminated() && iterOther.Terminated())
+    }
+        if(iterThis.Terminated() && iterOther.Terminated())
         return true;
 
     }
@@ -133,18 +134,27 @@ const Data& BST<Data>::Predecessor(const Data &dato) const{
     if(*pointer == nullptr)
         throw std::length_error("Predecessor not found.");
     
-    return DataNDelete(Detach(*pointer));
+    return (*pointer)->elem;
 }
 
 template <typename Data>
 Data BST<Data>::PredecessorNRemove(const Data &dato){
     struct BST<Data>::NodeLnk** pointer = &FindPointerToPredecessor(root, dato);
-    if(pointer == nullptr)
+    if(&pointer == nullptr)
         throw std::length_error("Predecessor not found.");
 
-    delete Detach(*pointer);
+    delete DataNDelete(Detach(*pointer));
 }
 
+
+template <typename Data>
+void BST<Data>::RemovePredecessor(const Data &dato) {
+    struct BST<Data>::NodeLnk** pointer = &FindPointerToPredecessor(root, dato);
+    if(pointer==nullptr)
+        throw std::length_error("Predecessor not found.");
+    
+    delete Detach(*pointer);
+}
 
 //Successor function
 template <typename Data>
@@ -175,6 +185,8 @@ void BST<Data>::RemoveSuccessor(const Data &dato){
     delete Detach(*pointer);
 }
 
+
+//TODO
 //Specific member function (inherited from DictionaryContainer)
 
 
@@ -222,6 +234,17 @@ struct BST<Data>::NodeLnk* BST<Data>::DetachMax(struct BST<Data>::NodeLnk *&node
 }
 
 
+template<typename Data>
+struct BST<Data>::NodeLnk* BST<Data>::Skip2Left(struct BST<Data>::NodeLnk *&node) noexcept{
+    struct BST<Data>::NodeLnk* skip_left = nullptr;
+    if(node!=nullptr){
+        std:swap(skip_left,node->leftchild);
+        std::swap(skip_left,node);
+        dim--;
+    }
+    return skip_left;
+}
+
 template <typename Data>
 struct BST<Data>::NodeLnk* BST<Data>::Skip2Right(struct BST<Data>::NodeLnk *&node) noexcept{
     struct BST<Data>::NodeLnk* skip_right = nullptr;
@@ -266,9 +289,10 @@ struct BST<Data>::NodeLnk*  BST<Data>::FindPointerToMax(struct BST<Data>::NodeLn
     return *pointer;
 }
 
+//unmutable
 template <typename Data>
 struct BST<Data>::NodeLnk*& BST<Data>::FindPointerToMin(struct BST<Data>::NodeLnk*& node) noexcept{
-    return const_cast<struct BST<Data>::NodeLnk*&>*(static_cast<const BST<Data> *> (this)->FindPointerToMin(node));
+    return const_cast<struct BST<Data>::NodeLnk*&>(static_cast<const BST<Data> *>(this)->FindPointerToMin(node));
 }
 
 
@@ -277,6 +301,33 @@ struct BST<Data>::NodeLnk*& BST<Data>::FindPointerToMax(struct BST<Data>::NodeLn
     return const_cast<struct BST<Data>::NodeLnk*&>(static_cast<const BST<Data> *>(this)->FindPointerToMax(node));
 }
 
+
+template <typename Data>
+struct BST<Data>::NodeLnk* BST<Data>::FindPointerTo(struct BST<Data>::NodeLnk* const&node, const Data& dato) const noexcept{ //const&
+    struct BST<Data>::NodeLnk* const* pointer = &node;
+    struct BST<Data>::NodeLnk* current = node;
+
+    if(current != nullptr){
+        while (current!=nullptr && current->elem != dato){
+            if(current -> elem > dato){
+                pointer = &current ->leftchild;
+                current = current -> leftchild;
+            } else if(current -> elem < dato){
+                pointer = &current ->rightchild;
+                current = current -> rightchild;
+                }
+            }
+        }
+        return *pointer;
+}
+
+
+
+
+template <typename Data>
+struct BST<Data>::NodeLnk*& BST<Data>::FindPointerTo(struct BST<Data>::NodeLnk*& node, const Data& dato) noexcept{
+    return const_cast<struct BST<Data>::NodeLnk*&>(static_cast<cast BST<Data *>(this)->FindPointerTo(node,dato));
+}
 
 /* ************************************************************************** */
 
