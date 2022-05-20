@@ -86,7 +86,7 @@ const Data& BST<Data>::Min() const{
 template <typename Data>
 Data BST<Data>::MinNRemove(){
     if(root==nullptr)
-        throw std::length_error("Access to an empty BST.")
+        throw std::length_error("Access to an empty BST.");
     
     return DataNDelete(DetachMin(root));
 }
@@ -161,7 +161,7 @@ template <typename Data>
 const Data& BST<Data>::Successor(const Data &dato) const{
     struct BST<Data>::NodeLnk* const* pointer = &FindPointerToSuccessor(root, dato);
     if(pointer == nullptr)
-        throw std::length_error("Successor not found.")
+        throw std::length_error("Successor not found.");
     
     return(*pointer)->elem;
 }
@@ -385,10 +385,10 @@ struct BST<Data>::NodeLnk* const& BST<Data>::FindPointerToSuccessor(struct BST<D
     struct BST<Data>::NodeLnk* const* candidate = nullptr;
     struct BST<Data>::NodeLnk* const* current = &node;
     
-    while(*current!=nullptr && (*current)->element!=dato) {
-        if((*current)->element < dato)
+    while(*current!=nullptr && (*current)->elem!=dato) {
+        if((*current)->elem < dato)
             current = &((*current)->rightchild);
-        else if((*current)->element > dato){
+        else if((*current)->elem > dato){
             candidate = current;
             current = &((*current)->leftchild);
         }

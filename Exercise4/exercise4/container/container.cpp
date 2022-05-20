@@ -102,35 +102,8 @@ void PreOrderFoldableContainer<Data>::Fold(FoldFunctor fun, const void* par, voi
 	}
 
 
-//DictionaryContainer
+//DictionaryContainer??
 
-//Insert Copy
-template <typename Data>
-void DictionaryContainer<Data>::Insert(const Data &dato) noexcept {
-    // struct BST<Data>::NodeLnk*& pointer = FindPointerTo(root, dato);
-    // if(pointer==nullptr){
-    //     pointer = new struct BST<Data>::NodeLnk(dato);
-    //     dim++;
-    // }
-}
-
-
-//Insert Move
-template <typename Data>
-void DictionaryContainer<Data>::Insert(Data &&dato) noexcept {
-    // struct BST<Data>::NodeLnk*& pointer = FindPointerTo(root, dato);
-    // if(pointer==nullptr){
-    //     pointer = new struct BST<Data>::NodeLnk(std::move(dato));
-    //     dim++;
-    // }
-}
-
-
-//Remove
-template <typename Data>
-void DictionaryContainer<Data>::Remove(const Data &dato) noexcept {
-    // delete Detach(FindPointerTo(root, dato));
-}
 
 /* ************************************************************************** */
 

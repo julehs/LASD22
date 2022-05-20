@@ -135,9 +135,9 @@ public:
 
   // Specific member functions
 
-    virtual void Insert (const Data&) noexcept; // Copy of the value
-    virtual void Insert (Data&&) noexcept; // Move of the value
-    virtual void Remove(const Data&) noexcept;
+    virtual void Insert (const Data&) noexcept = delete; // Copy of the value
+    virtual void Insert (Data&&) noexcept =  delete; // Move of the value
+    virtual void Remove(const Data&) noexcept = delete;
 
 
 };
