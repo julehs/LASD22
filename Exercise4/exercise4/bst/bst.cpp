@@ -352,7 +352,7 @@ struct BST<Data>::NodeLnk* const& BST<Data>::FindPointerTo(struct BST<Data>::Nod
 
 template <typename Data>
 struct BST<Data>::NodeLnk*& BST<Data>::FindPointerTo(struct BST<Data>::NodeLnk*& node, const Data& dato) noexcept{
-    return const_cast<struct BST<Data>::NodeLnk*&>(static_cast<cast BST<Data *>(this)->FindPointerTo(node,dato));
+    return const_cast<struct BST<Data>::NodeLnk*&>(static_cast<const BST<Data> *>(this)->FindPointerTo(node,dato));
 }
 
 
