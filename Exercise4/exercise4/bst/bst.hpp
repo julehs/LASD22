@@ -106,57 +106,45 @@ protected:
   // type Detach(argument) specifiers;
     struct BST<Data>::NodeLnk* Detach(struct BST<Data>::NodeLnk*&) noexcept;
 
-  // type DetachMin(argument) specifiers;
+  //Detach Max/Min
     struct BST<Data>::NodeLnk* DetachMin(struct BST<Data>::NodeLnk*&) noexcept;
-
-  // type DetachMax(argument) specifiers;
     struct BST<Data>::NodeLnk* DetachMax(struct BST<Data>::NodeLnk*&) noexcept;
 
-  // type Skip2Left(argument) specifiers;
+  //Skip
     struct BST<Data>::NodeLnk* Skip2Left(struct BST<Data>::NodeLnk*&) noexcept;
-
-  // type Skip2Right(argument) specifiers;
     struct BST<Data>::NodeLnk* Skip2Right(struct BST<Data>::NodeLnk*&) noexcept; 
 
-  //FindPointerToMin mutable NOT CONST
+
+  //FindPointerToMax/Min (mutable) NOT CONST
    struct BST<Data>::NodeLnk*& FindPointerToMin(struct BST<Data>::NodeLnk*&) noexcept; // type FindPointerToMin(argument) specifiers; // Both mutable & unmutable versions
+   struct BST<Data>::NodeLnk*& FindPointerToMax (struct BST<Data>::NodeLnk*&) noexcept; // type FindPointerToMax(argument) specifiers; // Both mutable & unmutable versions
+
+
+  //FindPointerToMax/Min (unmutable) CONST
+    struct BST<Data>::NodeLnk* const& FindPointerToMin (struct BST<Data>::NodeLnk* const&) const noexcept; // type FindPointerToMin(argument) specifiers; // Both mutable & unmutable versions
+    struct BST<Data>::NodeLnk* const& FindPointerToMax (struct BST<Data>::NodeLnk* const&) const noexcept; // type FindPointerToMax(argument) specifiers; // Both mutable & unmutable versions
+
+
+
+  //FindPointerTo (mutable) NOT CONST
+    struct BST<Data>::NodeLnk*& FindPointerTo(struct BST<Data>::NodeLnk*&, const Data&) noexcept; // type FindPointerTo(argument) specifiers; // Both mutable & unmutable versions
+
+
+  //FindPointerTo (unmutable) CONST
+    struct BST<Data>::NodeLnk* const& FindPointerTo(struct BST<Data>::NodeLnk* const&, const Data&) const noexcept; // type FindPointerTo(argument) specifiers; // Both mutable & unmutable versions
+
+
+  //FindPointerToPredecessor/Successor (mutable) NOT CONST
+    struct BST<Data>::NodeLnk*& FindPointerToPredecessor (struct BST<Data>::NodeLnk*&, const Data&) noexcept;  // type FindPointerToPredecessor(argument) specifiers; // Both mutable & unmutable versions
+    struct BST<Data>::NodeLnk*& FindPointerToSuccessor (struct BST<Data>::NodeLnk*&, const Data&) noexcept; // type FindPointerToSuccessor(argument) specifiers; // Both mutable & unmutable versions
+
+
+  //FindPointerToPredecessor/Successor (unmutable) CONST
+    struct BST<Data>::NodeLnk* const& FindPointerToPredecessor(struct BST<Data>::NodeLnk* const&, const Data&) const noexcept;  // type FindPointerToPredecessor(argument) specifiers; // Both mutable & unmutable versions
+    struct BST<Data>::NodeLnk* const& FindPointerToSuccessor(struct BST<Data>::NodeLnk* const&, const Data&) const noexcept; // type FindPointerToSuccessor(argument) specifiers; // Both mutable & unmutable versions
+
+
   
-
-  //FindPointerToMin unmutable
-    struct BST<Data>::NodeLnk* FindPointerToMin (struct BST<Data>::NodeLnk* const&) const noexcept; // type FindPointerToMin(argument) specifiers; // Both mutable & unmutable versions
-  
-
-  //FindPointerToMax mutable NOT CONST
-    struct BST<Data>::NodeLnk*& FindPointerToMax (struct BST<Data>::NodeLnk*&) noexcept; // type FindPointerToMax(argument) specifiers; // Both mutable & unmutable versions
-
-
-  //FindPointerToMax unmutable
-    struct BST<Data>::NodeLnk* FindPointerToMax (struct BST<Data>::NodeLnk* const&) const noexcept; // type FindPointerToMax(argument) specifiers; // Both mutable & unmutable versions
-
-
-  //FindPointerTo mutable NOT CONST
-    struct BST<Data>::NodeLnk*& FindPointerTo (struct BST<Data>::NodeLnk*&) noexcept; // type FindPointerTo(argument) specifiers; // Both mutable & unmutable versions
-
-
-  //FindPointerTo unmutable
-    struct BST<Data>::NodeLnk* FindPointerTo (struct BST<Data>::NodeLnk* const&) const noexcept; // type FindPointerTo(argument) specifiers; // Both mutable & unmutable versions
-
-
-  //FindPointerToPredecessor mutable NOT CONST
-    struct BST<Data>::NodeLnk*& FindPointerToPredecessor (struct BST<Data>::NodeLnk*&) noexcept;  // type FindPointerToPredecessor(argument) specifiers; // Both mutable & unmutable versions
-
-  //FindPointerToPredecessor unmutable
-    struct BST<Data>::NodeLnk* FindPointerToPredecessor(struct BST<Data>::NodeLnk* const&) const noexcept;  // type FindPointerToPredecessor(argument) specifiers; // Both mutable & unmutable versions
-
-
-  //FindPointerToSuccessor mutable NOT CONST
-    struct BST<Data>::NodeLnk*& FindPointerToSuccessor (struct BST<Data>::NodeLnk*&) noexcept; // type FindPointerToSuccessor(argument) specifiers; // Both mutable & unmutable versions
-
-
-  //FindPointerToSuccessor unmutable
-    struct BST<Data>::NodeLnk* FindPointerToSuccessor (struct BST<Data>::NodeLnk* const&) const noexcept; // type FindPointerToSuccessor(argument) specifiers; // Both mutable & unmutable versions
-
-
 
 
 };
