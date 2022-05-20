@@ -263,7 +263,7 @@ template<typename Data>
 struct BST<Data>::NodeLnk* BST<Data>::Skip2Left(struct BST<Data>::NodeLnk *&node) noexcept{
     struct BST<Data>::NodeLnk* skip_left = nullptr;
     if(node!=nullptr){
-        std:swap(skip_left,node->leftchild);
+        std::swap(skip_left,node->leftchild);
         std::swap(skip_left,node);
         dim--;
     }

@@ -173,7 +173,7 @@ public:
   // Comparison operators
   //of abstract types might not be possible.
 
-		// ERROR: Non sono sicuro, sembrano cancellati questi metodi
+		// ERROR: sembrano cancellati questi metodi
     bool operator == (const LinearContainer&) const noexcept = delete;
     bool operator != (const LinearContainer&) const noexcept = delete;
 
