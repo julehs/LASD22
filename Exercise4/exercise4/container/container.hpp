@@ -115,7 +115,7 @@ protected:
 public:
 
   // Destructor
-    virtual ~DictionaryContainer() = 0;
+    virtual ~DictionaryContainer() = default;
 
   /* ************************************************************************ */
 

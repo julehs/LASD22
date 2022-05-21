@@ -217,7 +217,7 @@ void BST<Data>::Remove(const Data &dato){
 
 //Specific member functions (inherited from TestableContainer)
 template <typename Data>
-bool BST<Data>::Exists(const Data &dato) const noexcept{
+bool BST<Data>::Exists(const Data& dato) const noexcept{
     return (FindPointerTo(root,dato)!=nullptr);
 }
 
