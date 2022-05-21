@@ -102,7 +102,7 @@ void PreOrderFoldableContainer<Data>::Fold(FoldFunctor fun, const void* par, voi
 	}
 
 
-//DictionaryContainer??
+
 
 
 /* ************************************************************************** */
