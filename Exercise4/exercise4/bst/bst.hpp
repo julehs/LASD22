@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BST : virtual public TestableContainer<Data>,
+class BST : 
             virtual public DictionaryContainer<Data>,
             virtual public BinaryTreeLnk<Data>
              { // Must extend BinaryTreeLnk<Data>
@@ -93,7 +93,7 @@ public:
     void Insert(Data &&) noexcept override; // Override DictionaryContainer member (Move of the value)
     void Remove (const Data&) override; // Override DictionaryContainer member
 
-*
+
   /* *********************************************************************** */
 
   // Specific member functions (inherited from TestableContainer)
