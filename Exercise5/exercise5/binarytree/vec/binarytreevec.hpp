@@ -14,7 +14,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec {
+class BinaryTreeVec : virtual public BinaryTree<Data> {
                       // Must extend BinaryTree<Data>
 
 private:
@@ -23,11 +23,10 @@ private:
 
 protected:
 
-  // using BinaryTree<Data>::???;
+    using BinaryTree<Data>::dim;
 
-  // ...
 
-  struct NodeVec { // Must extend Node
+   struct NodeVec: virtual public BinaryTree<Data>::Node { // Must extend Node
 
   private:
 
@@ -39,70 +38,98 @@ protected:
 
   public:
 
-    // ...
+    Vector<NodeVec*> *vectorPointer = nullptr;
+    Data elem;
+    ulong indexNode;
+
+
+    //Constructor
+    NodeVec() = default;
+
+    NodeVec(Data&, ulong, Vector<NodeVec*>*);
+
+
+    //Destructor
+    virtual ~NodeVec() = default;
+
+
+    //Specific member functions
+
+    Data& Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
+    const Data& Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
+
+
+    bool HasLeftChild() const noexcept override; // (concrete function should not throw exceptions)
+    bool HasRightChild() const noexcept override; // (concrete function should not throw exceptions)
+
+    NodeVec& LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
+    NodeVec& RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
 
   };
+
+  Vector<NodeVec*> *treevector = nullptr;
 
 public:
 
   // Default constructor
-  // BinaryTreeVec() specifiers;
+  
+    BinaryTreeVec() = default;
 
   /* ************************************************************************ */
 
   // Specific constructors
-  // BinaryTreeVec(argument) specifiers; // A binary tree obtained from a LinearContainer
+    BinaryTreeVec(const LinearContainer<Data>&); // A binary tree obtained from a LinearContainer
 
   /* ************************************************************************ */
 
   // Copy constructor
-  // BinaryTreeVec(argument) specifiers;
+    BinaryTreeVec(const BinaryTreeVec&);
 
   // Move constructor
-  // BinaryTreeVec(argument) specifiers;
+    BinaryTreeVec(BinaryTreeVec&&) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
-  // ~BinaryTreeVec() specifiers;
+    virtual ~BinaryTreeVec();
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument) specifiers;
+    BinaryTreeVec<Data>& operator=(const BinaryTreeVec<Data>&);
 
   // Move assignment
-  // type operator=(argument) specifiers;
+    BinaryTreeVec<Data>& operator=(BinaryTreeVec<Data>&&) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
-
+    bool operator==(const BinaryTreeVec<Data>&) const noexcept;
+    bool operator!=(const BinaryTreeVec<Data>&) const noexcept;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BinaryTree)
 
-  // type Root() specifiers; // Override BinaryTree member (throw std::length_error when empty)
+    NodeVec& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
 
-  // type Clear() specifiers; // Override Container member
+    void Clear () override; // Override Container member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BreadthMappableContainer)
 
-  // type MapBreadth(arguments) specifiers; // Override BreadthMappableContainer member
+    using typename BreadthMappableContainer<Data>::MapFunctor;
+    void MapBreadth(const MapFunctor, void*) override; // Override BreadthMappableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BreadthFoldableContainer)
-
-  // type FoldBreadth(arguments) specifiers; // Override BreadthFoldableContainer member
+    using typename BreadthFoldableContainer<Data>::FoldFunctor;
+    void FoldBreadth(const FoldFunctor,const void*, void*) const override; // Override BreadthFoldableContainer member
 
 };
 
