@@ -20,7 +20,7 @@ template <typename Data>
 class Hash {
 
 public:
-
+  // ulong operator() (const Data&) const noexcept;
   // type operator()(argument) specifiers; // (concrete function should not throw exceptions)
 
 };
@@ -38,7 +38,7 @@ private:
 
 protected:
 
-  // using DictionaryContainer<Data>::???;
+  // using DictionaryContainer<Data>::dim;
 
   // ...
 

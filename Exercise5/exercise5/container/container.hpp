@@ -140,6 +140,13 @@ public:
    virtual void Remove (const Data&) = 0;
 
 
+  //TODO Insert & Remove from Linear Container
+  //type Insert(argument) specifiers; // Copy of the value; From LinearContainer
+  //type Insert(argument) specifiers; // Move of the value; From LinearContainer
+  //type Remove(argument) specifiers; // From LinearContainer
+
+
+
 };
 
 /* ************************************************************************** */
