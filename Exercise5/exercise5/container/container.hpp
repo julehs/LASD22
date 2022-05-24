@@ -141,6 +141,16 @@ public:
 
 
   //TODO Insert & Remove from Linear Container
+
+  using typename LinearContainer<Data>::Insert; // Copy of the value; From LinearContainer
+  virtual void Insert(const Data&) = 0;
+
+  using typename LinearContainer<Data>::Insert;
+  virtual void Insert(Data&&) = 0;
+
+  using typename LinearContainer<Data>::Remove;
+  virtual void Remove(const Data&) = 0;
+
   //type Insert(argument) specifiers; // Copy of the value; From LinearContainer
   //type Insert(argument) specifiers; // Move of the value; From LinearContainer
   //type Remove(argument) specifiers; // From LinearContainer

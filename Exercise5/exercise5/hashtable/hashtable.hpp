@@ -28,9 +28,11 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class HashTable { // Must extend DictionaryContainer<Data>,
-                  //             MappableContainer<Data>,
-                  //             FoldableContainer<Data>
+class HashTable:virtual public DictionaryContainer,
+                virtual public MappableContainer,
+                virtual public FoldableContainer { // Must extend DictionaryContainer<Data>,
+                                                   //             MappableContainer<Data>,
+                                                   //             FoldableContainer<Data>
 
 private:
 
@@ -81,6 +83,7 @@ protected:
 
   // Auxiliary member functions
 
+    void HashKey(ulong) noexcept;
   // type HashKey(argument) specifiers;
 
 };
