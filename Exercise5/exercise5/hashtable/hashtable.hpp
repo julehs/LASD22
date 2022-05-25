@@ -41,6 +41,7 @@ private:
 protected:
 
    using DictionaryContainer<Data>::dim;
+   using HashTable<Data>; //??
 
   //TODO aggiunta di un hash<data>
   // ...

@@ -151,6 +151,13 @@ public:
   using typename LinearContainer<Data>::Remove;
   virtual void Remove(const Data&) = 0;
 
+
+  //oppure
+   virtual void Insert (const LinearContainer<Data>&) = 0;
+   virtual void Insert (LinearContainer<Data>&&) noexcept = 0; 
+   virtual void Remove (const LinearContainer<Data>&) = 0;
+   
+
   //type Insert(argument) specifiers; // Copy of the value; From LinearContainer
   //type Insert(argument) specifiers; // Move of the value; From LinearContainer
   //type Remove(argument) specifiers; // From LinearContainer
