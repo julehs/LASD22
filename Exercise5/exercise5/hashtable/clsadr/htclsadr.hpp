@@ -5,7 +5,8 @@
 /* ************************************************************************** */
 
 #include "../hashtable.hpp"
-// #include ...
+#include "list.hpp"
+// #include ... list,vector o bst
 
 /* ************************************************************************** */
 
@@ -35,11 +36,11 @@ public:
 
   // Specific constructors
 
-    HashTableClsAdr(const ulong);
+    HashTableClsAdr(const ulong); //utile per resize
 
     HashTableClsAdr(const LinearContainer<Data>&);
 
-    HashTableClsAdr(const ulong LinearContainer<Data>&);
+    HashTableClsAdr(const ulong LinearContainer<Data>&); //unione di entrambi i costruttori
   // HashTableClsAdr(argument) specifiers; // A hash table of a given size
   // HashTableClsAdr(argument) specifiers; // A hash table obtained from a LinearContainer
   // HashTableClsAdr(argument) specifiers; // A hash table of a given size obtained from a LinearContainer
@@ -61,7 +62,8 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-   virtual ~HashTableClsAdr() = default; ;
+   virtual ~HashTableClsAdr() = default; 
+   
 
   /* ************************************************************************ */
 
@@ -98,7 +100,7 @@ public:
 
     virtual void Insert(const Data&) override;
     virtual void Insert(Data&&) noexcept override;
-    virtual void Remove(consrt Data&) override;
+    virtual void Remove(const Data&) override;
 
   /* ************************************************************************ */
 
