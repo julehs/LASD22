@@ -54,7 +54,8 @@ public:
 //TODO indirizzamento con gen. random di valori per le funzioni universali (valore A,primo, sarà un numero che va da 1 a un certo numero scelto. B,uno escluso, da 0 a numero scelto )
 // mettere un numero primo e def come const
 
-
+  void srand(uint);
+  bool isPrime(const ulong &p);
 
   
   /* ************************************************************************ */

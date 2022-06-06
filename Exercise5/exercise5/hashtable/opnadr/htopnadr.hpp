@@ -127,10 +127,12 @@ public:
 
   // Auxiliary member functions
 
+  void HashKey(ulong) noexcept;
   void Find();
-  void FindEmpty(); //bool?
+  void FindEmpty(); //ulong
   void Remove();
-
+  
+  // type HashKey(argument)specifiers;
   // type Find(argument) specifiers;
   // type FindEmpty(argument) specifiers;
   // type Remove(argument) specifiers;

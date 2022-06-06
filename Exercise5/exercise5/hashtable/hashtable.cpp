@@ -49,5 +49,85 @@ public:
 
 
 
+
+
+// unsigned long Dictionary::hash(int key){
+// 	return (M * fmod(key * A, 1));
+// }
+
+
+
+// bool isPrime(unlong &p)
+// {
+//     if (n <= 1)  return false;
+
+//     for (uint i = 2; i < n; ++i)
+//         if (n % i == 0)
+//             return false;
+
+//     return true;
+// }
+
+
+template <typename Data>
+Data &validateInput(Data &val){
+    while(true){
+        cout<< "Inserisci un numero: ";
+        if(cin>>val) {
+            break;
+
+        } else{
+            if(cin.eof())
+            exit(EXIT_SUCCESS);
+
+            cout<<"Inserisci un numero valido!\n";
+            cin.clear();
+            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+    return val;
+}
+
+//Comparision Operators
+template <typename Data>
+bool HashTable<Data>::operator==(const HashTable &ht) const noexcept{
+    if(dim==ht.dim){
+        if(dim==0)
+            return true;
+
+            //TODO CONTINUARE
+    }
+}
+
+
+
+template<typename Data>
+bool HashTable<Data>::operator!=(const HashTable &ht) const noexcept{
+    return !(*this == ht);
+}
+
+//Resize
+template<typename Data>
+void HashTable<Data>::Resize(const ulong){}
+
+
+//Copy Assignment
+template <typename Data>
+HashTable<Data>& HashTable<Data>::operator = (const HashTable &ht){
+
+}
+
+//Move Assignment
+template <typename Data>
+HashTable<Data>& HashTable<Data>::operator = (HashTable &&ht) noexcept{
+
+}
+
+//AUX FUNC
+template <typename Data>
+void HashTable<Data>::HashKey(ulong) noexcept{
+    
+}
+
 /* ************************************************************************** */
 }
