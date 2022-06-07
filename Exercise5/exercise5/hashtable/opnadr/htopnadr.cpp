@@ -80,6 +80,11 @@ void HashTableOpnAdr<Data>::Insert(const Data &dato){
 //Insert Move
 template <typename Data>
 void HashTableOpnAdr<Data>::Insert(Data &&dato) noexcept{
+    if(!Exists(dato)) {
+        ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
+        if(existVector.operator[](tmp)=='E' || existVector.operator[](tmp)== 'R'){ //when empty
+        //std::swap
+    }
 
 }
 
