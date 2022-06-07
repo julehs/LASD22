@@ -11,8 +11,8 @@ template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr(const LinearContainer<Data> &con){}
 
 template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(const ulong LinearContainer<Data> &con){}
-Schermata del 2022-06-07 16-02-57
+HashTableOpnAdr<Data>::HashTableOpnAdr(size_t, const LinearContainer<Data> &con){}
+
 
 //Copy Constructor 
 template <typename Data>
@@ -51,8 +51,7 @@ void HashTableOpnAdr<Data>::Resize(ulong newSize) noexcept{
 
 //Insert Copy
 template <typename Data>
-void HashTableOpnAdr<Data>::Insert(const Data &dato){ 
-    //TODO scegli struttura dati!!
+void HashTableOpnAdr<Data>::Insert(const Data &dato) noexcept{ 
     ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
     if(!Exists(data)){
         ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
@@ -83,22 +82,45 @@ void HashTableOpnAdr<Data>::Insert(Data &&dato) noexcept{
     if(!Exists(dato)) {
         ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
         if(existVector.operator[](tmp)=='E' || existVector.operator[](tmp)== 'R'){ //when empty
-        //std::swap
+            std::swap(vector.operator[](tmp),dato);
+            existVector.operator[](tmp) = 'F';
+            dim++;
+            return true;
     }
+    return false;
 
 }
 
 //Remove
 template <typename Data>
 void HashTableOpnAdr<Data>::Remove(const Data &dato){
-    delete Detach(FindPointerTo(root, dato));
+    // delete Detach(FindPointerTo(root, dato)); //??
 }
+
 
 //Exists
 template <typename Data>
 bool HashTableOpnAdr<Data>::Exists(const Data& dato) const noexcept{
-    return (FindPointerTo(root,dato)!=nullptr);
+    ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
+    ulong i = 1;
+        ulong hkey = HashKey(tmp, i);
+        if (existVector.operator[](tmp) == 'F' || vector.operator[](tmp) == dato){
+            return  true;
+        }
+        i++;
+        hkey = HashKey(hkey, i);
+        while(tmp !=hkey && (existVector.operator[](tmp) == 'F' || existVector.operator[](tmp) == 'R')){
+            if(existVector.operator[](tmp) == 'F' || vector.operator[](tmp) == dato){
+                return true;
+
+            } 
+            i++;
+            hkey = HashKey(hkey, i);
+        }
+        return false;
 }
+
+
 
 
 //Map & Fold
@@ -125,6 +147,24 @@ void HashTableOpnAdr<Data>::Clear(){
 
 //TODO HASHKEY,FIND,FINDEMPTY,REMOVE
 
+//dato chiama l'hash di econding e chiama l'altra versione di hashkey
+template <typename Data>
+const ulong HashTable<Data>:HashKey(const Data& value) const noexcept{
+    return HashKey(hash.operator()(value));
+}
+
+//hashkey diviso in due quindi
+template <typename Data>
+const ulong HashTable<Data>::HashKey(const ulong &k) const noexcept{
+    return ( ( ( ( a*k) +b ) % p) % m);
+}
+
+
+//Find
+
+
+
+//FindEmpty
 template <typename Data>
 ulong& HashTableOpnAdr<Data>::FindEmpty(ulong& collisionIndex) noexcept{
     ulong tmp = collisionIndex;
@@ -143,6 +183,13 @@ ulong& HashTableOpnAdr<Data>::FindEmpty(ulong& collisionIndex) noexcept{
     FindEmpty(tmp);
 }
 
+//Remove
+
+
+
 /* ************************************************************************** */
+
+}
+
 
 }
