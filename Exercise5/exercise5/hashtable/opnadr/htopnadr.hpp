@@ -6,6 +6,7 @@
 
 #include "../hashtable.hpp"
 #include "list.hpp"
+#include "bst.hpp"
 // #include ...
 
 /* ************************************************************************** */

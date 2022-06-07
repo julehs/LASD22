@@ -28,6 +28,9 @@ HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htc) noexcept{}
 //Copy Assignment
 template <typename Data>
 HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr &htc){}
+//Move Assignment
+template <typename Data>
+HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(HashTableClsAdr &&htc) noexcept{}
 
 //Move Assignment
 template <typename Data>
