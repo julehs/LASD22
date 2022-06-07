@@ -7,6 +7,7 @@
 #include "../hashtable.hpp"
 #include "list.hpp"
 #include "bst.hpp"
+#include "container.hpp"
 // #include ...
 
 /* ************************************************************************** */
@@ -130,7 +131,7 @@ public:
 
   void HashKey(ulong) noexcept;
   void Find();
-  void FindEmpty(); //ulong
+  ulong& FindEmpty(ulong& collisionIndex)noexcept; //ulong
   void Remove();
   
   // type HashKey(argument)specifiers;
