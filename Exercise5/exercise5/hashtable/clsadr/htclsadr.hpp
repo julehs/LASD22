@@ -32,7 +32,7 @@ protected:
    using HashTable<Data>::b;
    using HashTable<Data>::p;
    lasd::Vector<lasd::BST<Data>> VecSupport;
-   //lasd::Vector<char> Flag;
+   lasd::Vector<char> Flag;
   // ...
 
 public:
@@ -48,7 +48,7 @@ public:
 
     HashTableClsAdr(const LinearContainer<Data>&); // A hash table obtained from a LinearContainer
 
-    HashTableClsAdr(size_t, const LinearContainer<Data>&); // A hash table of a given size obtained from a LinearContainer
+    HashTableClsAdr(const ulong, const LinearContainer<Data>&); // A hash table of a given size obtained from a LinearContainer
  
 
   /* ************************************************************************ */

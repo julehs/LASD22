@@ -29,7 +29,9 @@ protected:
    using HashTable<Data>::a;
    using HashTable<Data>::b;
    using HashTable<Data>::p;
-   lasd::Vector<lasd::BST<Data>> VecSupport;
+   lasd::Vector<Data> VecSupport;
+   lasd::Vector<char> Flag;
+
 
 
 public:
@@ -40,11 +42,11 @@ public:
   /* ************************************************************************ */
 
   // Specific constructors
-    HashTableOpnAdr(size_t);  // A hash table of a given size
+    HashTableOpnAdr(const ulong sizetab);  // A hash table of a given size
   
     HashTableOpnAdr(const LinearContainer<Data>&); // A hash table obtained from a LinearContainer
   
-    HashTableOpnAdr(size_t, const LinearContainer<Data>&); // A hash table of a given size obtained from a LinearContainer
+    HashTableOpnAdr(const ulong sizetab, const LinearContainer<Data>&); // A hash table of a given size obtained from a LinearContainer
 
 
   /* ************************************************************************ */
@@ -123,7 +125,7 @@ public:
 
     const ulong HashKey(Data&,const ulong) const;
     void Find(const Data&) const noexcept;
-    ulong FindEmpty(ulong) noexcept; 
+    ulong FindEmpty(const ulong) noexcept; 
     void Remove(Data&, const ulong);
   
 
