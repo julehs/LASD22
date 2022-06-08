@@ -6,7 +6,8 @@
 
 #include "../hashtable.hpp"
 #include "../../vector/vector.hpp"
-#include <vector>
+#include "../../bst/bst.hpp"
+#include "../../binarytree/binarytree.hpp"
 
 
 /* ************************************************************************** */
@@ -25,6 +26,10 @@ private:
 protected:
 
    using HashTable<Data>::dim;
+   using HashTable<Data>::a;
+   using HashTable<Data>::b;
+   using HashTable<Data>::p;
+   lasd::Vector<lasd::BST<Data>> ArraySupporter;
 
 
 public:
@@ -35,7 +40,7 @@ public:
   /* ************************************************************************ */
 
   // Specific constructors
-    HashTableOpnAdr (const ulong);  // A hash table of a given size
+    HashTableOpnAdr(size_t);  // A hash table of a given size
   
     HashTableOpnAdr(const LinearContainer<Data>&); // A hash table obtained from a LinearContainer
   
@@ -74,13 +79,13 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from HashTable)
-    void Resize(const ulong); // Resize the hashtable to a given size
+    void Resize(const ulong) override; // Resize the hashtable to a given size
   
   /* ************************************************************************ */
 
   // Specific member functions (inherited from DictionaryContainer)
-    virtual bool Insert(const Data&) noexcept override; // Override DictionaryContainer member (Copy of the value)
-    virtual bool Insert(Data&&) noexcept override; // Override DictionaryContainer member (Move of the value)
+    virtual void Insert(const Data&) override; // Override DictionaryContainer member (Copy of the value)
+    virtual void Insert(Data&&) noexcept override; // Override DictionaryContainer member (Move of the value)
     virtual void Remove(const Data&) override; // Override DictionaryContainer member
  
 
@@ -95,31 +100,31 @@ public:
 
   // Specific member functions (inherited from MappableContainer)
     using typename MappableContainer<Data>::MapFunctor;
-    virtual void Map(MapFunctor, void*) override; // Override MappableContainer member
+    void Map(MapFunctor, void*) override; // Override MappableContainer member
 
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from FoldableContainer)
     using typename FoldableContainer<Data>::FoldFunctor;
-    virtual void Fold(FoldFunctor, const void*, void*) const override; // Override FoldableContainer member
+    void Fold(FoldFunctor, const void*, void*) const override; // Override FoldableContainer member
 
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
 
-    virtual void Clear() override; // Override Container member
+    void Clear() override; // Override Container member
  
 
 public:
 
   // Auxiliary member functions
 
-    const ulong HashKey() const noexcept;
-    void Find();
-    ulong& FindEmpty(ulong& collisionIndex)noexcept; 
-    void Remove();
+    const ulong HashKey(Data&,const ulong) const;
+    void Find(const Data&) const noexcept;
+    ulong FindEmpty(ulong) noexcept; 
+    void Remove(Data&, const ulong);
   
 
 };

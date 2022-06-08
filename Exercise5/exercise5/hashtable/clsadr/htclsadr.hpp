@@ -6,6 +6,8 @@
 
 #include "../hashtable.hpp"
 #include "../../vector/vector.hpp"
+#include "../../bst/bst.hpp"
+#include "../../binarytree/binarytree.hpp"
 
 
 
@@ -24,9 +26,12 @@ private:
   // ...
 
 protected:
-
+  
    using HashTable<Data>::dim;
-
+   using HashTable<Data>::a;
+   using HashTable<Data>::b;
+   using HashTable<Data>::p;
+   lasd::Vector<lasd::BST<Data>> ArraySupporter;
   // ...
 
 public:

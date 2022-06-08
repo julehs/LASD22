@@ -7,7 +7,7 @@ namespace lasd {
 
 //Specific Constructor
 template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(const ulong){}
+HashTableOpnAdr<Data>::HashTableOpnAdr(size_t){}
 
 template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr(const LinearContainer<Data> &con){}
@@ -15,36 +15,81 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(const LinearContainer<Data> &con){}
 template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr(size_t, const LinearContainer<Data> &con){}
 
-
+/* ************************************************************************** */
 //Copy Constructor 
 template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr<Data> &hto){}
+HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr<Data> &hto){
+    ulong a,b,p,dim;
+    Vector<Data>::ArraySupporter();
+
+
+    ArraySupporter=hto.ArraySupporter;
+    p=hto.p;
+    dim=hto.dim;
+    a=hto.a;
+    b=hto.b;
+}
 
 //Move Constructor
 template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr<Data> &&hto) noexcept{}
+HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr<Data> &&hto) noexcept{
+     std::swap(ArraySupporter, hto.ArraySupporter);
+     std::swap(dim, hto.dim);
+     std::swap(a, hto.a);
+     std::swap(b, hto.b);
+} 
 
 //Copy Assignment
 template <typename Data>
-HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(const HashTableOpnAdr &hto){}
+HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(const HashTableOpnAdr &hto){
+     ArraySupporter=hto.ArraySupporter;
+    p=hto.p;
+    dim=hto.dim;
+    a=hto.a;
+    b=hto.b;
+
+    return this;
+}
 
 //Move Assignment
 template <typename Data>
-HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(HashTableOpnAdr &&hto) noexcept{}
+HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(HashTableOpnAdr &&hto) noexcept{
+     ArraySupporter=hto.ArraySupporter;
+     p=hto.p;
+     dim=hto.dim;
+     a=hto.a;
+     b=hto.b;
+
+    return this;
+}
 
 //Comparision operators
 template <typename Data>
-bool HashTableOpnAdr<Data>::operator==(const HashTableOpnAdr &hto) const noexcept{}
+bool HashTableOpnAdr<Data>::operator==(const HashTableOpnAdr &hto) const noexcept{
+    bool supp = true;
+    if(dim!=hto.dim)
+        return false;
+        Fold([hto, &supp](const Data &dato,const void* par, void* acc)){
+            if(!hto.Exists(dato)){
+                supp = false;
+            }
+        }
+
+        (0,0);
+        return supp;
+}
 
 template <typename Data>
-bool HashTableOpnAdr<Data>::operator!=(const HashTableOpnAdr &hto) const noexcept{}
+bool HashTableOpnAdr<Data>::operator!=(const HashTableOpnAdr &hto) const noexcept{
+    return !(*this == hto);
+}
 
 
 
 //Insert Copy
 template <typename Data>
 bool HashTableOpnAdr<Data>::Insert(const Data &dato) noexcept{ 
-    ulong tmp = HashTable<Data>::HashKey(std::hash.operator()(dato));
+    ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
     if(!Exists(dato)){
         ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
         if(existVector.operator[](tmp)=='E' || existVector.operator[](tmp)== 'R'){ //when empty
@@ -92,10 +137,12 @@ return false;
 
 }
 
+
 //Remove
-template <typename Data>
-void HashTableOpnAdr<Data>::Remove(const Data &dato){
-    // delete Detach(FindPointerTo(root, dato)); //??
+template<typename Data>
+void DictionaryContainer<Data>::Remove(const LinearContainer<Data>& lc) {
+    for (int i = 0; i < lc.Size(); i++)
+        Remove(lc[i]);
 }
 
 
@@ -123,16 +170,23 @@ bool HashTableOpnAdr<Data>::Exists(const Data& dato) const noexcept{
 
 
 
-
-//Map & Fold
-template <typename Data>
+template<typename Data>
 void HashTableOpnAdr<Data>::Map(MapFunctor fun, void* par){
-    std::vector.Map(fun,par);
+    for(ulong i = 0; i < dim; i++){
+        if(existVector[i] == 'F'){
+            fun(vector[i], par);
+        }
+    }
 }
 
-template <typename Data>
-void HashTableOpnAdr<Data>::Fold(FoldFunctor fun, const void* par, void* acc)const{
-    std::vector.Fold(fun,par,acc);
+//Fold
+template<typename Data>
+void HashTableOpnAdr<Data>::Fold(FoldFunctor fun, const void* par, void* acc) const{
+    for(ulong i = 0; i < dim; i++){
+        if(existVector[i] == 'F'){
+            fun(vector[i], par, acc);
+        }
+    }
 }
 
 
@@ -157,7 +211,16 @@ const ulong HashTable<Data>::HashKey(const ulong &k) const noexcept{
 
 //Find
 
-
+template<typename Data>
+void HashTableOpnAdr<Data>::Find(const Data& data) const noexcept{
+    // ulong tmp = HashTable<Data>::lasd::Hash(std::hash.operator()(data));
+    ulong tmp = HashTable<Data>::HashKey(data);
+    while (Flag[tmp] != 'E') {
+        if (Cells[tmp] == data)
+            break;
+      tmp = HashTable<Data>::HashKey(tmp);
+    }
+}
 
 
 //Clear
@@ -200,7 +263,6 @@ HashTableOpnAdr<Data> newTable(newSize);
     std::swap(*this, newTable);
 };
 
-//Remove
 
 
 
