@@ -38,7 +38,7 @@ protected:
 public:
 
   // Default constructor
-    HashTableClsAdr() = default;
+   HashTableClsAdr(); //= default;
 
   /* ************************************************************************ */
 

@@ -233,7 +233,7 @@ void HashTableOpnAdr<Data>::Find(const Data& dato) const noexcept{
 template <typename Data>
 ulong HashTableOpnAdr<Data>::FindEmpty(const ulong collisionIndex) noexcept {
   ulong tmp = HashTable<Data>::HashKey(collisionIndex);
-  while (Flag[id] == '2') {
+  while (Flag[tmp] == '2') {
     tmp = HashTable<Data>::HashKey(tmp);
   }
   return tmp;
@@ -268,12 +268,12 @@ void HashTableOpnAdr<Data>::Remove(Data &dato, const ulong id) {
 
 //Resize
 template <typename Data>
-void HashTableOpnAdr<Data>::Resize(ulong newSize) noexcept{
+void HashTableOpnAdr<Data>::Resize(ulong newSize) {
 HashTableOpnAdr<Data> newTable = HashTableOpnAdr(newSize);
-    for (ulong i = 0; i < tableSize; i++) {
+    for (ulong i = 0; i < newSize; i++) {
 	    newTable.VecSupport[i] = VecSupport[i];
 	    newTable.Flag[i] = Flag[i];
-	    newTable.size++;
+	    newTable.dim++;
         }
     std::swap(*this, newTable);
 };
