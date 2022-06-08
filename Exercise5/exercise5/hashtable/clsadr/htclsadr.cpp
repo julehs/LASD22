@@ -6,14 +6,16 @@ namespace lasd {
 //Specific Constructor
 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(const ulong){}
+HashTableClsAdr<Data>::HashTableClsAdr(size_t){}
 
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const LinearContainer<Data> &con){}
 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(const ulong LinearContainer<Data> &con){}
+HashTableClsAdr<Data>::HashTableClsAdr(size_t, const LinearContainer<Data> &con){}
 
+
+/* ************************************************************************ */
 
 
 //Copy Constructor 
@@ -25,16 +27,22 @@ HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htc){}
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htc) noexcept{}
 
+
+/* ************************************************************************ */
+
 //Copy Assignment
 template <typename Data>
 HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr &htc){}
-//Move Assignment
-template <typename Data>
-HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(HashTableClsAdr &&htc) noexcept{}
+
 
 //Move Assignment
 template <typename Data>
 HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(HashTableClsAdr &&htc) noexcept{}
+
+
+
+/* ************************************************************************ */
+
 
 //Comparision operators
 template <typename Data>
@@ -58,7 +66,7 @@ void HashTableClsAdr<Data>::Resize(ulong newSize) noexcept{
 
 //Insert Copy
 template <typename Data>
-void HashTableClsAdr<Data>::Insert(const Data &dato){ //TODO scegli struttura dati!!
+void HashTableClsAdr<Data>::Insert(const Data &dato){ 
     
 }
 
@@ -84,17 +92,25 @@ bool HashTableClsAdr<Data>::Exists(const Data& dato) const noexcept{
 
 //Map & Fold
 template <typename Data>
-void HashTableClsAdr<Data>::Map(MapFunctor fun, void* par){}
+void HashTableClsAdr<Data>::Map(MapFunctor fun, void* par){
+    vector.Map(fun,par);
+}
 
 template <typename Data>
-void HashTableClsAdr<Data>::Fold(FoldFunctor fun, const void* par, void* acc)const{}
+void HashTableClsAdr<Data>::Fold(FoldFunctor fun, const void* par, void* acc)const{
+    vector.Fold(fun,par,acc);
+}
 
 
 
 
 //Clear
 template <typename Data>
-void HashTableClsAdr<Data>::Clear(){}
+void HashTableClsAdr<Data>::Clear(){
+    vector.Clear();
+    existVector.Clear();
+    dim = 0;
+}
 /* ************************************************************************** */
 
 }

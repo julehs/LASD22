@@ -156,6 +156,8 @@ const ulong HashTable<Data>::HashKey(const ulong &k) const noexcept{
 //Find
 
 
+
+
 //Clear
 template <typename Data>
 void HashTableOpnAdr<Data>::Clear(){

@@ -40,7 +40,7 @@ public:
   
     HashTableOpnAdr(const LinearContainer<Data>&); // A hash table obtained from a LinearContainer
   
-    HashTableOpnAdr(size_t,const LinearContainer<Data>&); // A hash table of a given size obtained from a LinearContainer
+    HashTableOpnAdr(size_t, const LinearContainer<Data>&); // A hash table of a given size obtained from a LinearContainer
 
 
   /* ************************************************************************ */
@@ -95,14 +95,14 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from MappableContainer)
-
+    using typename MappableContainer<Data>::MapFunctor;
     virtual void Map(MapFunctor, void*) override; // Override MappableContainer member
 
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from FoldableContainer)
-
+    using typename FoldableContainer<Data>::FoldFunctor;
     virtual void Fold(FoldFunctor, const void*, void*) const override; // Override FoldableContainer member
 
 
