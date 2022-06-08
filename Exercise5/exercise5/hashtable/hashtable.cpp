@@ -66,7 +66,6 @@ HashTable<Data>& HashTable<Data>::operator = (const HashTable<Data>& ht){
 //Move Assignment
 template <typename Data>
 HashTable<Data>& HashTable<Data>::operator=(HashTable&& ht) noexcept{
-    // ulong a,b,p,first;
     std::swap(dim, ht.dim);
     std::swap(a, ht.a);
     std::swap(b, ht.b);
@@ -87,7 +86,6 @@ ulong hashistdatol = HashIndex.operator()(dat);
 
 template <typename Data>
 ulong HashTable<Data>::HashKey(const ulong m) const {
-    ulong a,b,p,first;
      return (((a*m)+b)%first)%p;
 
     

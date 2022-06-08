@@ -86,9 +86,9 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from DictionaryContainer)
-    void Insert(const Data&) noexcept override; // Override DictionaryContainer member (Copy of the value)
+    void Insert(const Data&) override; // Override DictionaryContainer member (Copy of the value)
     void Insert(Data&&) noexcept override; // Override DictionaryContainer member (Move of the value)
-    void Remove(const Data&) noexcept override; // Override DictionaryContainer member
+    void Remove(const Data&) override; // Override DictionaryContainer member
 
   /* ************************************************************************ */
 
