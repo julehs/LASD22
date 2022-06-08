@@ -63,6 +63,11 @@ public:
  
 
 protected:
+using typename Vector<Data>::ArraySupporter;
+
+
+Hash<Data> HashIndex;
+
 
   // Copy assignment
     HashTable<Data>& operator = (const HashTable&); // Copy assignment of abstract types should not be possible.

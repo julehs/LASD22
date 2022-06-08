@@ -44,11 +44,11 @@ bool HashTableOpnAdr<Data>::operator!=(const HashTableOpnAdr &hto) const noexcep
 //Insert Copy
 template <typename Data>
 bool HashTableOpnAdr<Data>::Insert(const Data &dato) noexcept{ 
-    ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
+    ulong tmp = HashTable<Data>::HashKey(std::hash.operator()(dato));
     if(!Exists(dato)){
         ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
         if(existVector.operator[](tmp)=='E' || existVector.operator[](tmp)== 'R'){ //when empty
-            vector.operator[](tmp) = dato;
+            std::vector.operator[](tmp) = dato;
             existVector.operator[](tmp) = 'F';
             dim++;
             return true; 
@@ -72,16 +72,16 @@ bool HashTableOpnAdr<Data>::Insert(const Data &dato) noexcept{
 template <typename Data>
 bool HashTableOpnAdr<Data>::Insert(Data &&dato) noexcept {
     if(!Exists(dato)) {
-        ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
+        ulong tmp = HashTable<Data>::HashKey(std::hash.operator()(dato));
         if(existVector.operator[](tmp)=='E' || existVector.operator[](tmp)== 'R'){ //when empty
-            vector.operator[](tmp) = dato;  
+            std::vector.operator[](tmp) = dato;  
             existVector.operator[](tmp) = 'F';
             dim++;
             return true;
     }
     else if (existVector.operator[](tmp)=='F'){
         ulong tmp2 = FindEmpty(tmp);
-        vector.operator[](tmp2) = dato;
+        std::vector.operator[](tmp2) = dato;
         existVector.operator[](tmp2) = 'F';
         dim++;
         return true; 
@@ -102,16 +102,16 @@ void HashTableOpnAdr<Data>::Remove(const Data &dato){
 //Exists
 template <typename Data>
 bool HashTableOpnAdr<Data>::Exists(const Data& dato) const noexcept{
-    ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
+    ulong tmp = HashTable<Data>::HashKey(std::hash.operator()(dato));
     ulong i = 1;
         ulong tmp2 = HashKey(tmp, i);
-        if (existVector.operator[](tmp) == 'F' || vector.operator[](tmp) == dato){
+        if (existVector.operator[](tmp) == 'F' || std::vector.operator[](tmp) == dato){
             return  true;
         }
         i++;
         tmp2 = HashKey(tmp2, i);
         while(tmp !=tmp2 && (existVector.operator[](tmp) == 'F' || existVector.operator[](tmp) == 'R')){
-            if(existVector.operator[](tmp) == 'F' || vector.operator[](tmp) == dato){
+            if(existVector.operator[](tmp) == 'F' || std::vector.operator[](tmp) == dato){
                 return true;
 
             } 
@@ -127,12 +127,12 @@ bool HashTableOpnAdr<Data>::Exists(const Data& dato) const noexcept{
 //Map & Fold
 template <typename Data>
 void HashTableOpnAdr<Data>::Map(MapFunctor fun, void* par){
-    vector.Map(fun,par);
+    std::vector.Map(fun,par);
 }
 
 template <typename Data>
 void HashTableOpnAdr<Data>::Fold(FoldFunctor fun, const void* par, void* acc)const{
-    vector.Fold(fun,par,acc);
+    std::vector.Fold(fun,par,acc);
 }
 
 
@@ -144,7 +144,7 @@ void HashTableOpnAdr<Data>::Fold(FoldFunctor fun, const void* par, void* acc)con
 
 //dato chiama l'hash di econding e chiama l'altra versione di hashkey
 template <typename Data>
-const ulong HashTable<Data>:HashKey(const Data& value) const noexcept{
+const ulong HashTable<Data>::HashKey(const Data& value) const noexcept{
     return HashKey(hash.operator()(value));
 }
 
@@ -163,7 +163,7 @@ const ulong HashTable<Data>::HashKey(const ulong &k) const noexcept{
 //Clear
 template <typename Data>
 void HashTableOpnAdr<Data>::Clear(){
-    vector.Clear();
+    std::vector.Clear();
     existVector.Clear();
     dim = 0;
 }
@@ -194,7 +194,7 @@ template <typename Data>
 void HashTableOpnAdr<Data>::Resize(ulong newSize) noexcept{
 HashTableOpnAdr<Data> newTable(newSize);
     for (ulong i = 0; i < tableSize; i++) {
-            newTable.Insert(vector[i]);
+            newTable.Insert(std::vector[i]);
             i++;
         }
     std::swap(*this, newTable);

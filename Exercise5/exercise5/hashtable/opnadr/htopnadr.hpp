@@ -58,10 +58,10 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    HashTableOpnAdr& operator = (const HashTableOpnAdr&) = delete;
+    HashTableOpnAdr& operator = (const HashTableOpnAdr&);
 
   // Move assignment
-    HashTableOpnAdr& operator = (HashTableOpnAdr&&) noexcept = delete;
+    HashTableOpnAdr& operator = (HashTableOpnAdr&&) noexcept;
   
 
   /* ************************************************************************ */
@@ -116,7 +116,7 @@ public:
 
   // Auxiliary member functions
 
-    void HashKey(ulong) noexcept;
+    const ulong HashKey() const noexcept;
     void Find();
     ulong& FindEmpty(ulong& collisionIndex)noexcept; 
     void Remove();

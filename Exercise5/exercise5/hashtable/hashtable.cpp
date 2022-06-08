@@ -80,7 +80,7 @@ HashTable<Data>& HashTable<Data>::operator=(HashTable&& ht) noexcept{
 
 template <typename Data>
 ulong HashTable<Data>::HashKey(const Data& dat) const{
-ulong hashistdatol = HashIst.operator()(dat);
+ulong hashistdatol = HashIndex.operator()(dat);
   return HashKey(hashistdatol);
 }
 
