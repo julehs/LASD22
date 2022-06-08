@@ -20,10 +20,10 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(size_t, const LinearContainer<Data> &con)
 template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr<Data> &hto){
     ulong a,b,p,dim;
-    Vector<Data>::ArraySupporter();
+    Vector<Data>::VecSupport();
 
 
-    ArraySupporter=hto.ArraySupporter;
+    VecSupport=hto.VecSupport;
     p=hto.p;
     dim=hto.dim;
     a=hto.a;
@@ -33,7 +33,7 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr<Data> &hto){
 //Move Constructor
 template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr<Data> &&hto) noexcept{
-     std::swap(ArraySupporter, hto.ArraySupporter);
+     std::swap(VecSupport, hto.VecSupport);
      std::swap(dim, hto.dim);
      std::swap(a, hto.a);
      std::swap(b, hto.b);
@@ -42,7 +42,7 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr<Data> &&hto) noexcept{
 //Copy Assignment
 template <typename Data>
 HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(const HashTableOpnAdr &hto){
-     ArraySupporter=hto.ArraySupporter;
+     VecSupport=hto.VecSupport;
     p=hto.p;
     dim=hto.dim;
     a=hto.a;
@@ -54,7 +54,7 @@ HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(const HashTableOpnAdr &h
 //Move Assignment
 template <typename Data>
 HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(HashTableOpnAdr &&hto) noexcept{
-     ArraySupporter=hto.ArraySupporter;
+     VecSupport=hto.VecSupport;
      p=hto.p;
      dim=hto.dim;
      a=hto.a;

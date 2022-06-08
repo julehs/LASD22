@@ -31,7 +31,8 @@ protected:
    using HashTable<Data>::a;
    using HashTable<Data>::b;
    using HashTable<Data>::p;
-   lasd::Vector<lasd::BST<Data>> ArraySupporter;
+   lasd::Vector<lasd::BST<Data>> VecSupport;
+   //lasd::Vector<char> Flag;
   // ...
 
 public:
@@ -85,9 +86,9 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from DictionaryContainer)
-    virtual void Insert(const Data&) override; // Override DictionaryContainer member (Copy of the value)
-    virtual void Insert(Data&&) noexcept override; // Override DictionaryContainer member (Move of the value)
-    virtual void Remove(const Data&) override; // Override DictionaryContainer member
+    void Insert(const Data&) noexcept override; // Override DictionaryContainer member (Copy of the value)
+    void Insert(Data&&) noexcept override; // Override DictionaryContainer member (Move of the value)
+    void Remove(const Data&) noexcept override; // Override DictionaryContainer member
 
   /* ************************************************************************ */
 

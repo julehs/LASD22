@@ -7,13 +7,15 @@ namespace lasd {
 //Specific Constructor
 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(size_t){}
+HashTableClsAdr<Data>::HashTableClsAdr(const ulong sizetab) : VecSupport(sizetab){
+    this->p = sizetab;
+}
 
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const LinearContainer<Data> &con){}
 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(size_t, const LinearContainer<Data> &con){}
+HashTableClsAdr<Data>::HashTableClsAdr(const LinearContainer<Data>& lc){}
 
 
 /* ************************************************************************ */
@@ -23,10 +25,10 @@ HashTableClsAdr<Data>::HashTableClsAdr(size_t, const LinearContainer<Data> &con)
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htc){
     ulong a,b,p,dim;
-    Vector<Data>::ArraySupporter();
+    Vector<Data>::VecSupport();
 
 
-    ArraySupporter=htc.ArraySupporter;
+    VecSupport=htc.VecSupport;
     p=htc.p;
     dim=htc.dim;
     a=htc.a;
@@ -37,7 +39,7 @@ HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htc){
 //Move Constructor
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htc) noexcept{
-    std::swap(ArraySupporter, htc.ArraySupporter);
+    std::swap(VecSupport, htc.VecSupport);
     std::swap(dim, htc.dim);
     std::swap(a, htc.a);
     std::swap(b, htc.b);
@@ -50,7 +52,7 @@ HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htc) noexcept{
 //Copy Assignment
 template <typename Data>
 HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr &htc){
-    ArraySupporter=htc.ArraySupporter;
+    VecSupport=htc.VecSupport;
     p=htc.p;
     dim=htc.dim;
     a=htc.a;
@@ -63,7 +65,7 @@ HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr &h
 //Move Assignment
 template <typename Data>
 HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(HashTableClsAdr &&htc) noexcept{
-     ArraySupporter=htc.ArraySupporter;
+     VecSupport=htc.VecSupport;
      p=htc.p;
      dim=htc.dim;
      a=htc.a;
@@ -105,7 +107,7 @@ template <typename Data>
 void HashTableClsAdr<Data>::Resize(ulong newSize) noexcept{
     HashTableClsAdr<Data> newTable(newSize);
     for (ulong i= 0; i < dim; i++) {
-        newTable.Insert(ArraySupporter[i]);
+        newTable.Insert(VecSupport[i]);
         i++;
     }
     std::swap(*this, newTable);
@@ -115,7 +117,7 @@ void HashTableClsAdr<Data>::Resize(ulong newSize) noexcept{
 //Insert Copy
 template <typename Data>
 void HashTableClsAdr<Data>::Insert(const Data &dato){ 
-     ArraySupporter[this->HashKey(dato)].Insert(dato);
+     VecSupport[this->HashKey(dato)].Insert(dato);
      ++dim;
     
 }
@@ -124,7 +126,7 @@ void HashTableClsAdr<Data>::Insert(const Data &dato){
 //Insert Move
 template <typename Data>
 void HashTableClsAdr<Data>::Insert(Data &&dato) noexcept{
-     ArraySupporter[this->HashKey(dato)].Insert(std::move(dato));
+     VecSupport[this->HashKey(dato)].Insert(std::move(dato));
      ++dim;
 
 }
@@ -132,7 +134,7 @@ void HashTableClsAdr<Data>::Insert(Data &&dato) noexcept{
 //Remove
 template <typename Data>
 void HashTableClsAdr<Data>::Remove(const Data &dato){
-     ArraySupporter[this->HashKey(dato)].Remove(dato);
+     VecSupport[this->HashKey(dato)].Remove(dato);
      --dim; 
     
 }
@@ -140,7 +142,7 @@ void HashTableClsAdr<Data>::Remove(const Data &dato){
 //Exists
 template <typename Data>
 bool HashTableClsAdr<Data>::Exists(const Data& dato) const noexcept{
-    return(ArraySupporter[this->HashKey(dato)].Exists(dato));
+    return(VecSupport[this->HashKey(dato)].Exists(dato));
     
 }
 
@@ -149,14 +151,14 @@ bool HashTableClsAdr<Data>::Exists(const Data& dato) const noexcept{
 template <typename Data>
 void HashTableClsAdr<Data>::Map(MapFunctor fun, void* par){
     for(ulong i=0; i< this->p;i++){
-    ArraySupporter[i].Map(fun,par);
+    VecSupport[i].Map(fun,par);
     }
 }
 
 template <typename Data>
 void HashTableClsAdr<Data>::Fold(FoldFunctor fun, const void* par, void* acc)const{
     for(ulong i=0; i< this->p;i++){
-    ArraySupporter[i].Fold(fun,par,acc);
+    VecSupport[i].Fold(fun,par,acc);
     }
 }
 

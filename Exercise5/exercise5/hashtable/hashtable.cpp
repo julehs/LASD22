@@ -56,22 +56,22 @@ public:
 //Copy Assignment
 template <typename Data>
 HashTable<Data>& HashTable<Data>::operator = (const HashTable<Data>& ht){
-    HashTable<Data> tmpHash = new HashTable(ht);
-    std::swap(tmpHash,this);
+    HashTable<Data>* tmpHash = new HashTable(ht);
+    std::swap(*tmpHash, *this);
     delete tmpHash;
-    return this;
+    return *this;
 }
 
 
 //Move Assignment
 template <typename Data>
 HashTable<Data>& HashTable<Data>::operator=(HashTable&& ht) noexcept{
-    ulong a,b,p,first;
+    // ulong a,b,p,first;
     std::swap(dim, ht.dim);
     std::swap(a, ht.a);
     std::swap(b, ht.b);
     std::swap(p, ht.p);
-    return this;
+    return *this;
 
 }
 

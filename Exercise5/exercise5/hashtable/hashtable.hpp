@@ -40,7 +40,11 @@ private:
 protected:
 
    using DictionaryContainer<Data>::dim;
-    
+   Hash<Data> HashIndex;
+   const int first = 67003;
+   ulong p = 127;
+   int a = 0;
+   int b = 0;
 
   
 
@@ -63,10 +67,10 @@ public:
  
 
 protected:
-using typename Vector<Data>::ArraySupporter;
+using typename Vector<Data>::VecSupport;
 
 
-Hash<Data> HashIndex;
+
 
 
   // Copy assignment

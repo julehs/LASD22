@@ -29,7 +29,7 @@ protected:
    using HashTable<Data>::a;
    using HashTable<Data>::b;
    using HashTable<Data>::p;
-   lasd::Vector<lasd::BST<Data>> ArraySupporter;
+   lasd::Vector<lasd::BST<Data>> VecSupport;
 
 
 public:
