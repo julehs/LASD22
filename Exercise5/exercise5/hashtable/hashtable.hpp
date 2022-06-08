@@ -1,4 +1,3 @@
-
 #ifndef HASHTABLE_HPP
 #define HASHTABLE_HPP
 
@@ -54,29 +53,30 @@ public:
   /* ************************************************************************ */
 
   // Comparison operators
-    bool operator == (const HashTable&) const noexcept = delete; // Comparison of abstract binary tree is possible.
-    bool operator != (const HashTable&) const noexcept = delete; // Comparison of abstract binary tree is possible.
+    bool operator == (const HashTable&) const noexcept; // Comparison of abstract binary tree is possible.
+    bool operator != (const HashTable&) const noexcept; // Comparison of abstract binary tree is possible.
 
   /* ************************************************************************ */
 
   // Specific member function
-    void Resize(const ulong); // Resize the hashtable to a given size
+    virtual void Resize(const ulong) = 0; // Resize the hashtable to a given size
  
 
 protected:
 
   // Copy assignment
-    HashTable& operator = (const HashTable&) = delete; // Copy assignment of abstract types should not be possible.
+    HashTable<Data>& operator = (const HashTable&); // Copy assignment of abstract types should not be possible.
   
 
   // Move assignment
-    HashTable& operator = (HashTable&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+    HashTable<Data>& operator = (HashTable&&) noexcept; // Move assignment of abstract types should not be possible.
  
 
  /* ************************************************************************ */
 
   // Auxiliary member functions
-    void HashKey(ulong) noexcept;
+    void HashKey(const ulong) const;
+    void HashKey(const Data&) const;
   
 
 };

@@ -73,33 +73,39 @@ public:
 // }
 
 
-template <typename Data>
-Data &validateInput(Data &val){
-    while(true){
-        cout<< "Inserisci un numero: ";
-        if(cin>>val) {
-            break;
+// template <typename Data>
+// Data &validateInput(Data &val){
+//     while(true){
+//         cout<< "Inserisci un numero: ";
+//         if(cin>>val) {
+//             break;
 
-        } else{
-            if(cin.eof())
-            exit(EXIT_SUCCESS);
+//         } else{
+//             if(cin.eof())
+//             exit(EXIT_SUCCESS);
 
-            cout<<"Inserisci un numero valido!\n";
-            cin.clear();
-            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-        }
-    }
-    return val;
-}
+//             cout<<"Inserisci un numero valido!\n";
+//             cin.clear();
+//             cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+//         }
+//     }
+//     return val;
+// }
 
 //Comparision Operators
 template <typename Data>
 bool HashTable<Data>::operator==(const HashTable &ht) const noexcept{
     if(dim==ht.dim){
-        if(dim==0)
-            return true;
+        for(ulong i=0; i<dim; ++i ){
+            if(elem[i] != ht.elem[i]){
+                return false;
+            }
+        }
+        return true;
 
-            //TODO CONTINUARE
+    }
+    else{
+        return false;
     }
     
 }
@@ -111,6 +117,8 @@ bool HashTable<Data>::operator!=(const HashTable &ht) const noexcept{
     return !(*this == ht);
 }
 
+
+
 //Resize
 template<typename Data>
 void HashTable<Data>::Resize(const ulong){}
@@ -118,24 +126,36 @@ void HashTable<Data>::Resize(const ulong){}
 
 //Copy Assignment
 template <typename Data>
-HashTable<Data>& HashTable<Data>::operator = (const HashTable &ht){
-
+HashTable<Data>& HashTable<Data>::operator = (const HashTable<Data> &ht){
+    HashTable<Data>* newHash = new HashTable<Data>(ht);
+    std::swap(*newHash, *this);
+    delete newHash;
+    return this;
 }
+
 
 //Move Assignment
 template <typename Data>
-HashTable<Data>& HashTable<Data>::operator = (HashTable &&ht) noexcept{
+HashTable<Data>& HashTable<Data>::operator = (HashTable<Data> &&ht) noexcept{
+    std::swap(elem, ht.elem);
+    std::swap(dim, ht.dim);
+    return *this;
 
 }
 
 //AUX FUNC
-//TODO si potrebbe dividere l'hashkey in due passando anche il dato
+
 
 
 template <typename Data>
-void HashTable<Data>::HashKey(ulong) noexcept{
+void HashTable<Data>::HashKey(const ulong) const {
     
 }
 
+
+template <typename Data>
+void HashTable<Data>::HashKey(const Data&) const{
+
+}
 /* ************************************************************************** */
 }
