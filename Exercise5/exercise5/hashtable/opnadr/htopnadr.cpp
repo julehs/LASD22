@@ -38,20 +38,10 @@ template <typename Data>
 bool HashTableOpnAdr<Data>::operator!=(const HashTableOpnAdr &hto) const noexcept{}
 
 
-//Resize
-template <typename Data>
-void HashTableOpnAdr<Data>::Resize(ulong newSize) noexcept{
-    HashTableOpnAdr<Data> newTable(newSize);
-    for (ulong index = 0; index < tableSize; index++) {
-        newTable.Insert(vector[index]);
-        index++;
-    }
-    std::swap(*this, newTable);
-}
 
 //Insert Copy
 template <typename Data>
-void HashTableOpnAdr<Data>::Insert(const Data &dato) noexcept{ 
+bool HashTableOpnAdr<Data>::Insert(const Data &dato) noexcept{ 
     ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
     if(!Exists(data)){
         ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
@@ -78,16 +68,25 @@ void HashTableOpnAdr<Data>::Insert(const Data &dato) noexcept{
 
 //Insert Move
 template <typename Data>
-void HashTableOpnAdr<Data>::Insert(Data &&dato) noexcept{
+bool HashTableOpnAdr<Data>::Insert(Data &&dato) noexcept {
     if(!Exists(dato)) {
         ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
         if(existVector.operator[](tmp)=='E' || existVector.operator[](tmp)== 'R'){ //when empty
-            std::swap(vector.operator[](tmp),dato);
+            vector.operator[](tmp) = dato;  
             existVector.operator[](tmp) = 'F';
             dim++;
             return true;
     }
-    return false;
+    else if (existVector.operator[](tmp)=='F'){
+        ulong tmp2 = FindEmpty(tmp);
+        vector.operator[](tmp2) = dato;
+        existVector.operator[](tmp2) = 'F';
+        dim++;
+        return true; 
+        
+    }
+}
+return false;
 
 }
 
@@ -137,13 +136,7 @@ void HashTableOpnAdr<Data>::Fold(FoldFunctor fun, const void* par, void* acc)con
 
 
 
-//Clear
-template <typename Data>
-void HashTableOpnAdr<Data>::Clear(){
-    vector.Clear();
-    existVector.Clear();
-    dim = 0;
-}
+
 
 //TODO HASHKEY,FIND,FINDEMPTY,REMOVE
 
@@ -163,6 +156,13 @@ const ulong HashTable<Data>::HashKey(const ulong &k) const noexcept{
 //Find
 
 
+//Clear
+template <typename Data>
+void HashTableOpnAdr<Data>::Clear(){
+    vector.Clear();
+    existVector.Clear();
+    dim = 0;
+}
 
 //FindEmpty
 template <typename Data>
@@ -183,13 +183,25 @@ ulong& HashTableOpnAdr<Data>::FindEmpty(ulong& collisionIndex) noexcept{
     FindEmpty(tmp);
 }
 
+
+
+//Resize
+template <typename Data>
+void HashTableOpnAdr<Data>::Resize(ulong newSize) noexcept{
+HashTableOpnAdr<Data> newTable(newSize);
+    for (ulong i = 0; i < tableSize; i++) {
+            newTable.Insert(vector[i]);
+            i++;
+        }
+    std::swap(*this, newTable);
+};
+
 //Remove
 
 
 
 /* ************************************************************************** */
 
-}
 
 
 }

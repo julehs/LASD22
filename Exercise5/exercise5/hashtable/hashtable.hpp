@@ -75,8 +75,8 @@ protected:
  /* ************************************************************************ */
 
   // Auxiliary member functions
-    void HashKey(const ulong) const;
-    void HashKey(const Data&) const;
+    ulong HashKey(const ulong) const;
+    ulong HashKey(const Data&) const;
   
 
 };

@@ -37,60 +37,18 @@ class Hash<string>{
 
 public:
 
-    ulong operator() (const string& dat) const noexcept{
+    ulong operator() (const std::string& dat) const noexcept{
         ulong hash = 5381;
         for (ulong i = 0; i << dat.length(); ++i){
             hash = (hash << 5) + dat[i];
         }
+        return hash;
 
     }
 
 };
 
-//TODO indirizzamento con gen. random di valori per le funzioni universali (valore A,primo, sarà un numero che va da 1 a un certo numero scelto. B,uno escluso, da 0 a numero scelto )
-// mettere un numero primo e def come const
 
-  // void srand(uint);
-  // bool isPrime(const ulong &p);
-
-
-
-// unsigned long Dictionary::hash(int key){
-// 	return (M * fmod(key * A, 1));
-// }
-
-
-
-// bool isPrime(unlong &p)
-// {
-//     if (n <= 1)  return false;
-
-//     for (uint i = 2; i < n; ++i)
-//         if (n % i == 0)
-//             return false;
-
-//     return true;
-// }
-
-
-// template <typename Data>
-// Data &validateInput(Data &val){
-//     while(true){
-//         cout<< "Inserisci un numero: ";
-//         if(cin>>val) {
-//             break;
-
-//         } else{
-//             if(cin.eof())
-//             exit(EXIT_SUCCESS);
-
-//             cout<<"Inserisci un numero valido!\n";
-//             cin.clear();
-//             cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-//         }
-//     }
-//     return val;
-// }
 
 //Comparision Operators
 template <typename Data>
@@ -127,9 +85,9 @@ void HashTable<Data>::Resize(const ulong){}
 //Copy Assignment
 template <typename Data>
 HashTable<Data>& HashTable<Data>::operator = (const HashTable<Data> &ht){
-    HashTable<Data>* newHash = new HashTable<Data>(ht);
-    std::swap(*newHash, *this);
-    delete newHash;
+    HashTable<Data> tmpHash = new HashTable<Data>(ht);
+    std::swap(*tmpHash, *this);
+    delete tmpHash;
     return this;
 }
 
@@ -137,25 +95,29 @@ HashTable<Data>& HashTable<Data>::operator = (const HashTable<Data> &ht){
 //Move Assignment
 template <typename Data>
 HashTable<Data>& HashTable<Data>::operator = (HashTable<Data> &&ht) noexcept{
-    std::swap(elem, ht.elem);
     std::swap(dim, ht.dim);
+    std::swap(a, ht.a);
+    std::swap(b, ht.b);
+    std::swap(p, ht,p);
     return *this;
 
 }
 
-//AUX FUNC
-
-
-
+//Auxiliary member Function (const ulong) and (const Data&) 
 template <typename Data>
-void HashTable<Data>::HashKey(const ulong) const {
+ulong HashTable<Data>::HashKey(const ulong m) const {
+     return (((a * m)+y)%first)%p;
+
     
 }
 
 
-template <typename Data>
-void HashTable<Data>::HashKey(const Data&) const{
 
+template <typename Data>
+ulong HashTable<Data>::HashKey(const Data& dat) const{
+ulong hashistdatol = HashIst.operator()(dat);
+  return HashKey(hashistdatol);
 }
+
 /* ************************************************************************** */
 }
