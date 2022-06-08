@@ -5,9 +5,8 @@
 /* ************************************************************************** */
 
 #include "../hashtable.hpp"
-#include "list.hpp"
-#include "bst.hpp"
-#include "container.hpp"
+#include "../../vector/vector.hpp"
+#include <vector>
 
 
 /* ************************************************************************** */

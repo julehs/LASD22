@@ -184,25 +184,13 @@ public:
 
    virtual void Insert (const Data&) noexcept = 0; // Copy of the value
    virtual void Insert (Data&&) noexcept = 0; // Move of the value
-   virtual void Remove (const Data&) = 0;
+   virtual void Remove (const Data&) noexcept = 0;
 
+  //with LinearContainer
 
-  //TODO Insert & Remove from Linear Container
-
-  using typename LinearContainer<Data>::Insert; // Copy of the value; From LinearContainer
-  virtual void Insert(const Data&) = 0;
-
-  using typename LinearContainer<Data>::Insert;
-  virtual void Insert(Data&&) = 0;
-
-  using typename LinearContainer<Data>::Remove;
-  virtual void Remove(const Data&) = 0;
-
-
-  //oppure
-   virtual void Insert (const LinearContainer<Data>&); // Copy of the value; From LinearContainer
+   virtual void Insert (const LinearContainer<Data>&) noexcept; // Copy of the value; From LinearContainer
    virtual void Insert (LinearContainer<Data>&&) noexcept;  // Move of the value; From LinearContainer
-   virtual void Remove (const LinearContainer<Data>&); // From LinearContainer
+   virtual void Remove (const LinearContainer<Data>&) noexcept; // From LinearContainer
    
 
 };

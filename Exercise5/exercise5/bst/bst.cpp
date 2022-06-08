@@ -190,7 +190,7 @@ void BST<Data>::RemoveSuccessor(const Data &dato){
 
 //Insert Copy
 template <typename Data>
-void BST<Data>::Insert(const Data &dato){
+void BST<Data>::Insert(const Data &dato) noexcept{
     struct BST<Data>::NodeLnk*& pointer = FindPointerTo(root, dato);
     if(pointer==nullptr){
         pointer = new struct BST<Data>::NodeLnk(dato);
@@ -210,7 +210,7 @@ void BST<Data>::Insert(Data &&dato) noexcept{
 
 //Remove
 template <typename Data>
-void BST<Data>::Remove(const Data &dato){
+void BST<Data>::Remove(const Data &dato) noexcept{
      delete Detach(FindPointerTo(root, dato));
 
 }

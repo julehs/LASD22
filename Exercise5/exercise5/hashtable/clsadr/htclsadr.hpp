@@ -5,8 +5,10 @@
 /* ************************************************************************** */
 
 #include "../hashtable.hpp"
-#include "list.hpp"
-#include "bst.hpp"
+#include "../../vector/vector.hpp"
+#include <vector>
+
+
 
 
 /* ************************************************************************** */
@@ -74,7 +76,7 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from HashTable)
-    void Resize(const ulong) override; // Resize the hashtable to a given size
+    void Resize(ulong) noexcept override; // Resize the hashtable to a given size
 
   /* ************************************************************************ */
 

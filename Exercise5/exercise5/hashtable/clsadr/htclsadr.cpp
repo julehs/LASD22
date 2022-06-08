@@ -1,6 +1,7 @@
 
 namespace lasd {
 
+
 /* ************************************************************************** */
 
 //Specific Constructor
@@ -49,16 +50,18 @@ template <typename Data>
 bool HashTableClsAdr<Data>::operator==(const HashTableClsAdr &htc) const noexcept{}
 
 template <typename Data>
-bool HashTableClsAdr<Data>::operator!=(const HashTableClsAdr &htc) const noexcept{}
+bool HashTableClsAdr<Data>::operator!=(const HashTableClsAdr &htc) const noexcept{
+    return !(*this == htc);
+}
 
 
 //Specific Member Function
 template <typename Data>
 void HashTableClsAdr<Data>::Resize(ulong newSize) noexcept{
     HashTableClsAdr<Data> newTable(newSize);
-    for (ulong index = 0; index < tableSize; index++) {
-        newTable.Insert(vector[index]);
-        index++;
+    for (ulong i= 0; i < sizeTab; i++) {
+        newTable.Insert(std::vector[i]);
+        i++;
     }
     std::swap(*this, newTable);
 }
@@ -80,13 +83,12 @@ void HashTableClsAdr<Data>::Insert(Data &&dato) noexcept{
 //Remove
 template <typename Data>
 void HashTableClsAdr<Data>::Remove(const Data &dato){
-    delete Detach(FindPointerTo(root, dato));
 }
 
 //Exists
 template <typename Data>
 bool HashTableClsAdr<Data>::Exists(const Data& dato) const noexcept{
-    return (FindPointerTo(root,dato)!=nullptr);
+    
 }
 
 
@@ -112,5 +114,7 @@ void HashTableClsAdr<Data>::Clear(){
     dim = 0;
 }
 /* ************************************************************************** */
+
+
 
 }

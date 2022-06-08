@@ -1,6 +1,8 @@
 
 namespace lasd {
 
+
+
 /* ************************************************************************** */
 
 //Specific Constructor
@@ -43,7 +45,7 @@ bool HashTableOpnAdr<Data>::operator!=(const HashTableOpnAdr &hto) const noexcep
 template <typename Data>
 bool HashTableOpnAdr<Data>::Insert(const Data &dato) noexcept{ 
     ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
-    if(!Exists(data)){
+    if(!Exists(dato)){
         ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
         if(existVector.operator[](tmp)=='E' || existVector.operator[](tmp)== 'R'){ //when empty
             vector.operator[](tmp) = dato;
@@ -102,19 +104,19 @@ template <typename Data>
 bool HashTableOpnAdr<Data>::Exists(const Data& dato) const noexcept{
     ulong tmp = HashTable<Data>::HashKey(hash.operator()(dato));
     ulong i = 1;
-        ulong hkey = HashKey(tmp, i);
+        ulong tmp2 = HashKey(tmp, i);
         if (existVector.operator[](tmp) == 'F' || vector.operator[](tmp) == dato){
             return  true;
         }
         i++;
-        hkey = HashKey(hkey, i);
-        while(tmp !=hkey && (existVector.operator[](tmp) == 'F' || existVector.operator[](tmp) == 'R')){
+        tmp2 = HashKey(tmp2, i);
+        while(tmp !=tmp2 && (existVector.operator[](tmp) == 'F' || existVector.operator[](tmp) == 'R')){
             if(existVector.operator[](tmp) == 'F' || vector.operator[](tmp) == dato){
                 return true;
 
             } 
             i++;
-            hkey = HashKey(hkey, i);
+            tmp2 = HashKey(tmp2, i);
         }
         return false;
 }

@@ -27,9 +27,9 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class HashTable:virtual public DictionaryContainer,
-                virtual public MappableContainer,
-                virtual public FoldableContainer { // Must extend DictionaryContainer<Data>,
+class HashTable:virtual public DictionaryContainer<Data>,
+                virtual public MappableContainer<Data>,
+                virtual public FoldableContainer<Data> { // Must extend DictionaryContainer<Data>,
                                                    //             MappableContainer<Data>,
                                                    //             FoldableContainer<Data>
 
@@ -40,7 +40,7 @@ private:
 protected:
 
    using DictionaryContainer<Data>::dim;
-   using HashTable<Data>::size_t; 
+    
 
   
 
