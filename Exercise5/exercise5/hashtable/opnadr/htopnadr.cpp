@@ -173,7 +173,7 @@ bool HashTableOpnAdr<Data>::Exists(const Data &dato) const noexcept {
   */
 
   ulong tmp = HashTable<Data>::HashKey(dato);
-  if (Flag[ŧmp] == '2' && VecSupport[tmp] = dato) {
+  if (Flag[tmp] == '2' && VecSupport[tmp] = dato) {
     return true;
   }
   for (ulong j = tmp + 1; j < p + tmp + 1; j++) {
