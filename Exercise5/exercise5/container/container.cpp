@@ -102,8 +102,29 @@ void PreOrderFoldableContainer<Data>::Fold(FoldFunctor fun, const void* par, voi
 	}
 
 
+	//DictionaryContainer
+	template <typename Data>
+	void DictionaryContainer<Data>::Insert(const LinearContainer<Data>& lc){
+  		for(ulong i=0; i<lc.Size(); i++){
+    	Insert(lc[i]);
+  	}
+}
 
 
+	template <typename Data>
+	void DictionaryContainer<Data>::Insert(LinearContainer<Data>&& lc) noexcept{
+  		for(ulong i=0; i<lc.Size(); i++){
+    	Insert(lc[i]);
+  	}
+}
+
+
+	template <typename Data>
+	void DictionaryContainer<Data>::Remove(const LinearContainer<Data>& lc){
+  		for(ulong i=0; i<lc.Size(); i++){
+    	Insert(lc[i]);
+  	}
+}	
 
 /* ************************************************************************** */
 

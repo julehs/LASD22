@@ -101,6 +101,53 @@ public:
 
 /* ************************************************************************** */
 
+
+
+
+template <typename Data>
+class LinearContainer :virtual public Container { // Must extend Container
+
+private:
+
+  // ...
+
+protected:
+
+  // ...
+
+public:
+
+  // Destructor
+
+    virtual ~LinearContainer() = default;
+
+  // Copy assignment
+
+    LinearContainer& operator = (const LinearContainer&) = delete; // Copy assignment of abstract types should not be possible.
+
+  // Move assignment
+  
+    LinearContainer& operator = (LinearContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+
+  // Comparison operators
+  //of abstract types might not be possible.
+
+		// ERROR: sembrano cancellati questi metodi
+    bool operator == (const LinearContainer&) const noexcept = delete;
+    bool operator != (const LinearContainer&) const noexcept = delete;
+
+  // Specific member functions
+
+    virtual Data& Front() const = 0; // Front: returns the first element, throws std::length_error when empty
+
+    virtual Data& Back() const = 0; // Back: returns the last element, throws std::length_error when empty
+  
+    virtual Data& operator[] (const ulong) const = 0; // operator[]: returns the i-th element, throws std::out_of_range when out of out_of_range
+  
+  
+};
+/* ************************************************************************** */
+
 template <typename Data>
 class DictionaryContainer: virtual public TestableContainer<Data> { // Must extend TestableContainer<Data>
 
@@ -153,65 +200,12 @@ public:
 
 
   //oppure
-   virtual void Insert (const LinearContainer<Data>&) = 0;
-   virtual void Insert (LinearContainer<Data>&&) noexcept = 0; 
-   virtual void Remove (const LinearContainer<Data>&) = 0;
+   virtual void Insert (const LinearContainer<Data>&); // Copy of the value; From LinearContainer
+   virtual void Insert (LinearContainer<Data>&&) noexcept;  // Move of the value; From LinearContainer
+   virtual void Remove (const LinearContainer<Data>&); // From LinearContainer
    
 
-  //type Insert(argument) specifiers; // Copy of the value; From LinearContainer
-  //type Insert(argument) specifiers; // Move of the value; From LinearContainer
-  //type Remove(argument) specifiers; // From LinearContainer
-
-
-
 };
-
-/* ************************************************************************** */
-
-
-template <typename Data>
-class LinearContainer :virtual public Container { // Must extend Container
-
-private:
-
-  // ...
-
-protected:
-
-  // ...
-
-public:
-
-  // Destructor
-
-    virtual ~LinearContainer() = default;
-
-  // Copy assignment
-
-    LinearContainer& operator = (const LinearContainer&) = delete; // Copy assignment of abstract types should not be possible.
-
-  // Move assignment
-  
-    LinearContainer& operator = (LinearContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
-
-  // Comparison operators
-  //of abstract types might not be possible.
-
-		// ERROR: sembrano cancellati questi metodi
-    bool operator == (const LinearContainer&) const noexcept = delete;
-    bool operator != (const LinearContainer&) const noexcept = delete;
-
-  // Specific member functions
-
-    virtual Data& Front() const = 0; // Front: returns the first element, throws std::length_error when empty
-
-    virtual Data& Back() const = 0; // Back: returns the last element, throws std::length_error when empty
-  
-    virtual Data& operator[] (const ulong) const = 0; // operator[]: returns the i-th element, throws std::out_of_range when out of out_of_range
-  
-  
-};
-/* ************************************************************************** */
 
 template <typename Data>
 class MappableContainer :virtual public Container { // Must extend Container

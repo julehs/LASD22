@@ -47,7 +47,11 @@ public:
 
 };
 
+//TODO indirizzamento con gen. random di valori per le funzioni universali (valore A,primo, sarà un numero che va da 1 a un certo numero scelto. B,uno escluso, da 0 a numero scelto )
+// mettere un numero primo e def come const
 
+  // void srand(uint);
+  // bool isPrime(const ulong &p);
 
 
 
@@ -97,6 +101,7 @@ bool HashTable<Data>::operator==(const HashTable &ht) const noexcept{
 
             //TODO CONTINUARE
     }
+    
 }
 
 
@@ -124,6 +129,9 @@ HashTable<Data>& HashTable<Data>::operator = (HashTable &&ht) noexcept{
 }
 
 //AUX FUNC
+//TODO si potrebbe dividere l'hashkey in due passando anche il dato
+
+
 template <typename Data>
 void HashTable<Data>::HashKey(ulong) noexcept{
     
