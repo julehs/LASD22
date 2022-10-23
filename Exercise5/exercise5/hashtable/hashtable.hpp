@@ -19,9 +19,8 @@ template <typename Data>
 class Hash {
 
 public:
-    ulong operator() (const int&) const noexcept;  // (concrete function should not throw exceptions)
-    ulong operator() (const double&) const noexcept; // (concrete function should not throw exceptions)
-    ulong operator() (const std::string&) const noexcept; // (concrete function should not throw exceptions)
+    ulong operator() (const Data&) const noexcept;  // (concrete function should not throw exceptions)
+    
 };
 
 /* ************************************************************************** */
@@ -40,15 +39,19 @@ private:
 protected:
 
    using DictionaryContainer<Data>::dim;
-   Hash<Data> HashIndex;
-   const int first = 67003;
-   ulong p = 127;
-   int a = 0;
-   int b = 0;
+   Hash<Data> encodingHash{};
+   ulong sizeOfTable; //primo o potenza di primo (M)
+   unsigned long long a = 0;
+   unsigned long long b = 0;
+   const unsigned long long prime = 4295032837; // Numero primo (P) maggiore di 2^32, cioè la cardinalità N dell'insieme delle chiavi ulong restituite da hashkey. Ed N sarà maggiore di sizeOfTable (M)
 
   
 
+
 public:
+
+  //Constructor
+    HashTable();
 
   // Destructor
     virtual ~HashTable() = default;
@@ -57,15 +60,15 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    HashTable<Data>& operator = (const HashTable&); // Copy assignment of abstract types should not be possible.
+    HashTable<Data>& operator = (const HashTable&) = delete; // Copy assignment of abstract types should not be possible.
 
   //Move assignment
-    HashTable<Data>& operator = (HashTable&&) noexcept; // Move assignment of abstract types should not be possible.
+    HashTable<Data>& operator = (HashTable&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
 
   // Comparison operators
-    bool operator == (const HashTable&) const noexcept; // Comparison of abstract binary tree is possible.
-    bool operator != (const HashTable&) const noexcept; // Comparison of abstract binary tree is possible.
+    bool operator == (const HashTable&) const noexcept = delete; // Comparison of abstract binary tree is possible.
+    bool operator != (const HashTable&) const noexcept = delete; // Comparison of abstract binary tree is possible.
 
   /* ************************************************************************ */
 
@@ -74,15 +77,28 @@ public:
  
 
 protected:
-  //using typename Vector<Data>::VecSupport;
+
+  //Copy Constructor
+    HashTable(const HashTable&);
+
+  //Move Constructor
+    HashTable(HashTable&&) noexcept;
+
 
 
  /* ************************************************************************ */
 
   // Auxiliary member functions
-    ulong HashKey(const ulong) const;
-    ulong HashKey(const Data&) const;
+  // Funzione di trasformazione del dato in chiave e della chiave in indice
+    inline ulong HashKey(const Data& dat) const noexcept{
+      return HashKey(encodingHash(dat));
+    }
   
+  //Funzione di indirizzamento della chiave nella tabella : ((a*k + b) % p)%m
+    inline ulong HashKey(const ulong k) const noexcept{
+      unsigned long long result = (((a*k) + b)%prime)% sizeOfTable;
+      return static_cast<ulong> (result);
+    }
 
 };
 

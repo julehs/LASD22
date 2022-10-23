@@ -24,9 +24,9 @@ class Hash<double> {
 public:
 
     ulong operator() (const double& dat) const noexcept{
-        long intgpart = floor(dat);
-        long fracpart = pow(2,24) * (dat - intgpart);
-        return (intgpart * fracpart);
+        long intgPart = floor(dat);
+        long fracPart = pow(2,24) * (dat - intgPart);
+        return (intgPart * fracPart);
     }
 
 };
@@ -48,48 +48,31 @@ public:
 
 };
 
-
-
-
-
-
-//Copy Assignment
+//Copy Constructor
 template <typename Data>
-HashTable<Data>& HashTable<Data>::operator = (const HashTable<Data>& ht){
-    HashTable<Data>* tmpHash = new HashTable(ht);
-    std::swap(*tmpHash, *this);
-    delete tmpHash;
-    return *this;
+HashTable<Data>::HashTable(const HashTable<Data>& hashT) {
+    size = hashT.size;
+    encodingHash = hashT.encodingHash;
+    sizeOfTable = hashT.sizeOfTable;
+    a = hashT.a;
+    b = hashT.b;
 }
 
 
-//Move Assignment
+//Move Constructor
 template <typename Data>
-HashTable<Data>& HashTable<Data>::operator=(HashTable&& ht) noexcept{
-    std::swap(dim, ht.dim);
-    std::swap(a, ht.a);
-    std::swap(b, ht.b);
-    std::swap(p, ht.p);
-    return *this;
-
-}
-
-//Auxiliary member Function (const ulong) and (const Data&) 
-
-
-template <typename Data>
-ulong HashTable<Data>::HashKey(const Data& dat) const{
-ulong hashistdatol = HashIndex.operator()(dat); // da cambiare nome qui non mi piace
-  return HashKey(hashistdatol);
+HashTable<Data>::HashTable(HashTable<Data>&& hashT) noexcept{
+    std::swap(size, hashT.size);
+    std::swap(encodingHash, hashT.encodingHash);
+    std::swap(sizeOfTable, hashT.sizeOfTable);
+    std::swap(a, hashT.a);
+    std::swap(b, hashT.b);
 }
 
 
-template <typename Data>
-ulong HashTable<Data>::HashKey(const ulong m) const {
-     return (((a*m)+b)%first)%p;
 
-    
-}
+
+
 
 /* ************************************************************************** */
 }
