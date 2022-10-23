@@ -54,7 +54,7 @@ public:
   /* ************************************************************************ */
 
   // Copy constructor
-    HashTableClsAdr (const HashTableClsAdr&);
+    HashTableClsAdr (const HashTableClsAdr&) noexcept;
   
   // Move constructor
     HashTableClsAdr (HashTableClsAdr&&) noexcept;
@@ -67,7 +67,7 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    HashTableClsAdr& operator = (const HashTableClsAdr&);
+    HashTableClsAdr& operator = (const HashTableClsAdr&) noexcept;
   
   // Move assignment
     HashTableClsAdr& operator = (HashTableClsAdr&&) noexcept;
@@ -81,14 +81,14 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from HashTable)
-    void Resize(ulong) noexcept override; // Resize the hashtable to a given size
+    void Resize(const ulong) noexcept override; // Resize the hashtable to a given size
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from DictionaryContainer)
-    void Insert(const Data&) override; // Override DictionaryContainer member (Copy of the value)
+    void Insert(const Data&) noexcept override; // Override DictionaryContainer member (Copy of the value)
     void Insert(Data&&) noexcept override; // Override DictionaryContainer member (Move of the value)
-    void Remove(const Data&) override; // Override DictionaryContainer member
+    void Remove(const Data&) noexcept override; // Override DictionaryContainer member
 
   /* ************************************************************************ */
 
@@ -110,7 +110,7 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
-    virtual void Clear() override; // Override Container member
+    virtual void Clear() noexcept override; // Override Container member
 
 };
 

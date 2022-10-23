@@ -33,7 +33,7 @@ HashTableClsAdr<Data>::HashTableClsAdr(const ulong sizetab, const LinearContaine
  
 //Copy Constructor 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htc){
+HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htc) noexcept {
     VecSupport=htc.VecSupport;
     p=htc.p;
     dim=htc.dim;
@@ -57,8 +57,8 @@ HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htc) noexcept{
 /* ************************************************************************ */
 
 //Copy Assignment
-template <typename Data>
-HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr &htc){
+template <typename Data> 
+HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr &htc) noexcept {
     VecSupport=htc.VecSupport;
     p=htc.p;
     dim=htc.dim;
@@ -126,7 +126,7 @@ void HashTableClsAdr<Data>::Resize(ulong newSize) noexcept{
 
 //Insert Copy
 template <typename Data>
-void HashTableClsAdr<Data>::Insert(const Data &dato){ 
+void HashTableClsAdr<Data>::Insert(const Data &dato) noexcept { 
      VecSupport[this->HashKey(dato)].Insert(dato);
      ++dim;
 }
@@ -142,8 +142,8 @@ void HashTableClsAdr<Data>::Insert(Data &&dato) noexcept{
 
 //Remove
 template <typename Data>
-void HashTableClsAdr<Data>::Remove(const Data &dato){
-     VecSupport[this->HashKey(dato)].Remove(dato);
+void HashTableClsAdr<Data>::Remove(const Data &dato) noexcept {
+     VecSupport[this->HashKey(dato)].Remove(dato); 
      --dim; 
     
 }
@@ -176,7 +176,7 @@ void HashTableClsAdr<Data>::Fold(FoldFunctor fun, const void* par, void* acc)con
 
 //Clear
 template <typename Data>
-void HashTableClsAdr<Data>::Clear(){
+void HashTableClsAdr<Data>::Clear() noexcept {
     HashTableClsAdr<Data> newHashTable = new HashTableClsAdr<Data>();
     std::swap(this, *newHashTable);
     this->dim = 0;
