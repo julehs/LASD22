@@ -56,6 +56,13 @@ public:
   
   /* ************************************************************************ */
 
+  // Copy assignment
+    HashTable<Data>& operator = (const HashTable&); // Copy assignment of abstract types should not be possible.
+
+  //Move assignment
+    HashTable<Data>& operator = (HashTable&&) noexcept; // Move assignment of abstract types should not be possible.
+
+
   // Comparison operators
     bool operator == (const HashTable&) const noexcept; // Comparison of abstract binary tree is possible.
     bool operator != (const HashTable&) const noexcept; // Comparison of abstract binary tree is possible.
@@ -69,17 +76,6 @@ public:
 protected:
   //using typename Vector<Data>::VecSupport;
 
-
-
-
-
-  // Copy assignment
-    HashTable<Data>& operator = (const HashTable&); // Copy assignment of abstract types should not be possible.
-  
-
-  // Move assignment
-    HashTable<Data>& operator = (HashTable&&) noexcept; // Move assignment of abstract types should not be possible.
- 
 
  /* ************************************************************************ */
 

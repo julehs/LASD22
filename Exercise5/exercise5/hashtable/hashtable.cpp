@@ -79,7 +79,7 @@ HashTable<Data>& HashTable<Data>::operator=(HashTable&& ht) noexcept{
 
 template <typename Data>
 ulong HashTable<Data>::HashKey(const Data& dat) const{
-ulong hashistdatol = HashIndex.operator()(dat);
+ulong hashistdatol = HashIndex.operator()(dat); // da cambiare nome qui non mi piace
   return HashKey(hashistdatol);
 }
 
