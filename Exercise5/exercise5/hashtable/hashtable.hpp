@@ -39,12 +39,11 @@ private:
 protected:
 
    using DictionaryContainer<Data>::dim;
-   Hash<Data> encodingHash{};
-   ulong sizeOfTable; //primo o potenza di primo (M)
-   unsigned long long a = 0;
-   unsigned long long b = 0;
-   const unsigned long long prime = 4295032837; // Numero primo (P) maggiore di 2^32, cioè la cardinalità N dell'insieme delle chiavi ulong restituite da hashkey. Ed N sarà maggiore di sizeOfTable (M)
-
+   ulong sizeHT = 256;
+   Hash<Data> hash;
+   ulong a = 0;
+   ulong b = 0;
+   const ulong prime = 108877; 
   
 
 
@@ -89,16 +88,7 @@ protected:
  /* ************************************************************************ */
 
   // Auxiliary member functions
-  // Funzione di trasformazione del dato in chiave e della chiave in indice
-    inline ulong HashKey(const Data& dat) const noexcept{
-      return HashKey(encodingHash(dat));
-    }
-  
-  //Funzione di indirizzamento della chiave nella tabella : ((a*k + b) % p)%m
-    inline ulong HashKey(const ulong k) const noexcept{
-      unsigned long long result = (((a*k) + b)%prime)% sizeOfTable;
-      return static_cast<ulong> (result);
-    }
+  virtual ulong HashKey(const ulong) const noexcept; // return the index
 
 };
 

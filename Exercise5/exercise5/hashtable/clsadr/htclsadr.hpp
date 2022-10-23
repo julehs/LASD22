@@ -27,13 +27,16 @@ private:
 
 protected:
   
-   using HashTable<Data>::dim;
+   using HashTable<Data>::size;
+   using HashTable<Data>::sizeOfTable;
+   using HashTable<Data>::encodingHash;
+   using HashTable<Data>::HashKey;
    using HashTable<Data>::a;
    using HashTable<Data>::b;
-   using HashTable<Data>::p;
-   lasd::Vector<lasd::BST<Data>> VecSupport;
-   lasd::Vector<char> Flag;
+   using HashTable<Data>::prime;
   // ...
+
+  
 
 public:
 
