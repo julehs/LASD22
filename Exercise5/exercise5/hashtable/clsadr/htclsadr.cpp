@@ -7,24 +7,34 @@ namespace lasd {
 //Specific Constructor
 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(const ulong sizetab) : VecSupport(sizetab){
-  this->p = sizetab;
+HashTableClsAdr<Data>::HashTableClsAdr(const ulong newsize){
+ sizeHT = newsize;
+ table.Resize(sizeHT);
 }
 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr() : VecSupport(50){
-  this->p = 50;
+HashTableClsAdr<Data>::HashTableClsAdr(const LinearContainer<Data> &lc) {
+  table.Resize(lc.Size());
 }
 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(const LinearContainer<Data> &con): VecSupport(con.Size() * 2){
-  p = con.Size() * 2;
-  DictionaryContainer<Data>::Insert(con);
+HashTableClsAdr<Data>::HashTableClsAdr(const LinearContainer<Data> &lc){
+  table.Resize(lc.Size());
+
+  for(ulong i=0; i<lc.Size(); i++){
+    Insert(lc[i]);
+  }
 }
 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(const ulong sizetab, const LinearContainer<Data> &con): VecSupport(sizetab){
-  DictionaryContainer<Data>::Insert(con);
+HashTableClsAdr<Data>::HashTableClsAdr(const ulong newsize, const LinearContainer<Data> &lc){
+  sizeHT = newsize;
+  table.Resize(sizeHT);
+
+
+  for(ulong i=0; i< lc.Size(); i++){
+    Insert(lc[i]);
+  }
 }
 
 
@@ -33,23 +43,23 @@ HashTableClsAdr<Data>::HashTableClsAdr(const ulong sizetab, const LinearContaine
  
 //Copy Constructor 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htc) noexcept {
-    VecSupport=htc.VecSupport;
-    p=htc.p;
-    dim=htc.dim;
-    a=htc.a;
-    b=htc.b;
+HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htClsAdr) noexcept {
+    table = htClsAdr.table;
+    size = htClsAdr.size;
+    sizeHT = htClsAdr.sizeHT;
+    a = htClsAdr.a;
+    b = htClsAdr.b;
 }
 
 
 //Move Constructor
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htc) noexcept{
-    std::swap(VecSupport, htc.VecSupport);
-    std::swap(p, htc.p);
-    std::swap(dim, htc.dim);
-    std::swap(a, htc.a);
-    std::swap(b, htc.b);
+    std::swap(table, htClsAdr.table);
+    std::swap(size, htClsAdr.size);
+    std::swap(sizeHT, htClsAdr.sizeHT);
+    std::swap(a, htClsAdr.a);
+    std::swap(b, htClsAdr.b);
 
 }
 

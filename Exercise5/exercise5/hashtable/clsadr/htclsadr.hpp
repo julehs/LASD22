@@ -28,12 +28,14 @@ private:
 protected:
   
    using HashTable<Data>::size;
-   using HashTable<Data>::sizeOfTable;
-   using HashTable<Data>::encodingHash;
-   using HashTable<Data>::HashKey;
+   using HashTable<Data>::sizeHT;
+   using HashTable<Data>::hash;
    using HashTable<Data>::a;
    using HashTable<Data>::b;
-   using HashTable<Data>::prime;
+   
+   Vector<BST<Data>> table;
+
+   using HashTable<Data>::HashKey;
   // ...
 
   
@@ -47,7 +49,7 @@ public:
 
   // Specific constructors
 
-    HashTableClsAdr(size_t); // A hash table of a given size
+    HashTableClsAdr(const ulong); // A hash table of a given size
 
     HashTableClsAdr(const LinearContainer<Data>&); // A hash table obtained from a LinearContainer
 
@@ -57,10 +59,10 @@ public:
   /* ************************************************************************ */
 
   // Copy constructor
-    HashTableClsAdr (const HashTableClsAdr&) noexcept;
+    HashTableClsAdr (const HashTableClsAdr<Data>&);
   
   // Move constructor
-    HashTableClsAdr (HashTableClsAdr&&) noexcept;
+    HashTableClsAdr (HashTableClsAdr<Data>&&) noexcept;
   
   /* ************************************************************************ */
 
@@ -70,16 +72,16 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    HashTableClsAdr& operator = (const HashTableClsAdr&) noexcept;
+    HashTableClsAdr& operator = (const HashTableClsAdr<Data>&);
   
   // Move assignment
-    HashTableClsAdr& operator = (HashTableClsAdr&&) noexcept;
+    HashTableClsAdr& operator = (HashTableClsAdr<Data>&&) noexcept;
   
   /* ************************************************************************ */
 
   // Comparison operators
-    bool operator == (const HashTableClsAdr&) const noexcept;
-    bool operator != (const HashTableClsAdr&) const noexcept;
+    bool operator == (const HashTableClsAdr<Data>&) const noexcept;
+    bool operator != (const HashTableClsAdr<Data>&) const noexcept;
   
   /* ************************************************************************ */
 
