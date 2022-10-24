@@ -68,12 +68,12 @@ HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htc) noexcept{
 
 //Copy Assignment
 template <typename Data> 
-HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr &htc) noexcept {
-    VecSupport=htc.VecSupport;
-    p=htc.p;
-    dim=htc.dim;
-    a=htc.a;
-    b=htc.b;
+HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr<Data> &htClsAdr) noexcept {
+    table = htClsAdr.table;
+    size = htClsAdr.table;
+    sizeHT = htClsAdr.sizeHT;
+    a=htClsAdr.a;
+    b=htClsAdr.b;
 
     return *this;
 }
@@ -81,12 +81,12 @@ HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr &h
 
 //Move Assignment
 template <typename Data>
-HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(HashTableClsAdr &&htc) noexcept{
-  std::swap(VecSupport,htc.VecSupport);
-  std::swap(p,htc.p);
-  std::swap(dim,htc.dim);
-  std::swap(a,htc.a);
-  std::swap(b,htc.b);
+HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(HashTableClsAdr &&htClsAdr) noexcept{
+  std::swap(table,htClsAdr.table);
+  std::swap(size,htClsAdr.size);
+  std::swap(sizeHT,htClsAdr.sizeHT);
+  std::swap(a,htClsAdr.a);
+  std::swap(b,htClsAdr.b);
 
   return *this;
 
@@ -99,39 +99,58 @@ HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(HashTableClsAdr &&htc) n
 
 //Comparision operators
 template <typename Data>
-bool HashTableClsAdr<Data>::operator==(const HashTableClsAdr<Data> &htc) const noexcept{
-    bool supp = true;
-    if(dim!=htc.dim)
-        return false;
-        Fold([htc, &supp](const Data &dato,const void* par, void* acc){
-            if(!htc.Exists(dato)){
-                supp = false;
-            }
-        }, 0,0);
-        return supp;
+bool HashTableClsAdr<Data>::operator==(const HashTableClsAdr<Data> &htClsAdr) const noexcept{
+   if ((size = 0) && (htClsAdr.size == 0)){
+      return true;
+   }
+
+  if(size == htClsAdr.size) {
+    for(ulong i = 0; i < size; i++){
+      BTInOrderIterator<Data> itThis(table[i]);
+      while (!itThis.Terminated()) {
+        if (!(htClsAdr.Exists(*itThis))){
+          return false;
+        }
+        ++itThis;
+      }
+      return true;
+      
+    }
+  }
+
+return false;
 }
 
-  // TODO : Controllare la condizione
+  
 template <typename Data>
-bool HashTableClsAdr<Data>::operator!=(const HashTableClsAdr &htc) const noexcept{
-    return !(*this == htc);
+bool HashTableClsAdr<Data>::operator!=(const HashTableClsAdr<Data> &htClsAdr) const noexcept{
+    return !(*this == htClsAdr);
 }
 
 
-//Specific Member Function
+//Specific Member Function (inherited from HashTable)
+
 template <typename Data>
-void HashTableClsAdr<Data>::Resize(ulong newSize) noexcept{
-  HashTableClsAdr<Data> newTable = HashTableClsAdr(newSize);
-  //for (ulong i= 0; i < dim; i++) {
-  //    newTable.Insert(VecSupport[i]);
-  //    i++;
-  //}
-  Fold([&newTable] (const Data &dato, const void* par, void* acc){
-    newTable.Insert(dato);
-  }, 0, 0);
-    
-  std::swap(*this, newTable);
+void HashTableClsAdr<Data>::Resize(const ulong newdim) noexcept{
+  HashTableClsAdr<Data> ht(newdim); 
+  
+  
+  
+  for (ulong i= 0; i < size; i++) {
+    BTInOrderIterator<Data> itThis(table[i]);
+    while (!itThis.Terminated()){
+      ht.Insert(*itThis);
+      ++itThis;
+    }  
+  }
+  
+  *this = std::move(ht);
 }
+/* ************************************************************************** */
+// Specific member functions (inherited from DictionaryContainer)
+
+//TODO
+
 
 
 //Insert Copy
