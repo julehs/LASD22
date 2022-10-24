@@ -155,61 +155,85 @@ void HashTableClsAdr<Data>::Resize(const ulong newdim) noexcept{
 
 //Insert Copy
 template <typename Data>
-void HashTableClsAdr<Data>::Insert(const Data &dato) noexcept { 
-     VecSupport[this->HashKey(dato)].Insert(dato);
-     ++dim;
+void HashTableClsAdr<Data>::Insert(const Data &data) noexcept { 
+     ulong key = hash(data);
+
+     if(!table[HashKey(key)].Exists(data)) {
+        table[HashKey(key)].Insert(data);
+        size++
+     }
 }
 
 
 //Insert Move
 template <typename Data>
-void HashTableClsAdr<Data>::Insert(Data &&dato) noexcept{
-     VecSupport[this->HashKey(dato)].Insert(std::move(dato));
-     ++dim;
+void HashTableClsAdr<Data>::Insert(Data &&data) noexcept{
+    ulong key = hash(data);
 
+    if(!table[HashKey(key)].Exists(data)) {
+      table[HashKey(key)].Insert(std::move(data));
+      size++;
+    }
 }
 
 //Remove
 template <typename Data>
-void HashTableClsAdr<Data>::Remove(const Data &dato) noexcept {
-     VecSupport[this->HashKey(dato)].Remove(dato); 
-     --dim; 
+void HashTableClsAdr<Data>::Remove(const Data &data) noexcept {
+     ulong key = hash(data);
+     table[HashKey(key)].Remove(data);
+     size--;
     
 }
+
+/* ************************************************************************** */
+
+// Specific member functions (inherited from TestableContainer)
 
 //Exists
 template <typename Data>
-bool HashTableClsAdr<Data>::Exists(const Data& dato) const noexcept{
-    return(VecSupport[this->HashKey(dato)].Exists(dato));
+bool HashTableClsAdr<Data>::Exists(const Data& data) const noexcept{
+    if(size == 0){
+      return false;
+    }
+
+    ulong key = hash(data);
+
+    return table[HashKey(key)].Exists(data);
     
 }
 
+/* ************************************************************************** */
 
-//Map & Fold
+// Specific member functions (inherited from MappableContainer & FoldableContainer)
+
+//Map 
 template <typename Data>
 void HashTableClsAdr<Data>::Map(MapFunctor fun, void* par){
-  for(ulong i=0; i< this->p;i++){
-    VecSupport[i].Map(fun,par);
+  for(ulong i = 0; i < sizeHT;i++) {
+    table[i].MapPreOrder(fun,par);
   }
 }
+
+//Fold
 
 template <typename Data>
 void HashTableClsAdr<Data>::Fold(FoldFunctor fun, const void* par, void* acc)const{
-  for(ulong i=0; i< this->p;i++){
-    VecSupport[i].Fold(fun,par,acc);
+  for(ulong i = 0; i < sizeHT; i++) {
+    table[i].FoldPreOrder(fun, par, acc);
   }
 }
 
 
+// Specific member functions (inherited from Container)
 
 
 //Clear
 template <typename Data>
 void HashTableClsAdr<Data>::Clear() noexcept {
-    HashTableClsAdr<Data> newHashTable = new HashTableClsAdr<Data>();
-    std::swap(this, *newHashTable);
-    this->dim = 0;
-    delete newHashTable;
+   table.Clear();
+   sizeHT = 256;
+   size = 0;
+   table.Resize(sizeHT);
 }
 /* ************************************************************************** */
 
