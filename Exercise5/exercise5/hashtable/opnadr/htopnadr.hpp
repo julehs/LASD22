@@ -25,12 +25,16 @@ private:
 
 protected:
 
-   using HashTable<Data>::dim;
+   using HashTable<Data>::size;
+   using HashTable<Data>::sizeHT;
+   using HashTable<Data>::hash;
    using HashTable<Data>::a;
    using HashTable<Data>::b;
-   using HashTable<Data>::p;
-   lasd::Vector<Data> VecSupport;
-   lasd::Vector<char> Flag;
+
+   Vector<Data> table;
+   Vector<char> controllerTable;
+
+   using HashTable<Data>::HashKey;
 
 
 
@@ -42,20 +46,20 @@ public:
   /* ************************************************************************ */
 
   // Specific constructors
-    HashTableOpnAdr(const ulong sizetab);  // A hash table of a given size
+    HashTableOpnAdr(const ulong);  // A hash table of a given size
   
     HashTableOpnAdr(const LinearContainer<Data>&); // A hash table obtained from a LinearContainer
   
-    HashTableOpnAdr(const ulong sizetab, const LinearContainer<Data>&); // A hash table of a given size obtained from a LinearContainer
+    HashTableOpnAdr(const ulong, const LinearContainer<Data>&); // A hash table of a given size obtained from a LinearContainer
 
 
   /* ************************************************************************ */
 
   // Copy constructor
-    HashTableOpnAdr (const HashTableOpnAdr&);
+    HashTableOpnAdr(const HashTableOpnAdr<Data>&);
 
   // Move constructor
-    HashTableOpnAdr (HashTableOpnAdr&&) noexcept;
+    HashTableOpnAdr(HashTableOpnAdr<Data>&&) noexcept;
   
   /* ************************************************************************ */
 
@@ -65,17 +69,17 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    HashTableOpnAdr& operator = (const HashTableOpnAdr&);
+    HashTableOpnAdr<Data>& operator = (const HashTableOpnAdr<Data>&);
 
   // Move assignment
-    HashTableOpnAdr& operator = (HashTableOpnAdr&&) noexcept;
+    HashTableOpnAdr<Data>& operator = (HashTableOpnAdr<Data>&&) noexcept;
   
 
   /* ************************************************************************ */
 
   // Comparison operators
-    bool operator == (const HashTableOpnAdr&) const noexcept;
-    bool operator != (const HashTableOpnAdr&) const noexcept;
+    bool operator == (const HashTableOpnAdr<Data>&) const noexcept;
+    bool operator != (const HashTableOpnAdr<Data>&) const noexcept;
 
 
   /* ************************************************************************ */
