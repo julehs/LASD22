@@ -127,10 +127,17 @@ public:
 
   // Auxiliary member functions
 
-    const ulong HashKey(Data&,const ulong) const;
-    void Find(const Data&) const noexcept;
-    ulong FindEmpty(const ulong) noexcept; 
-    void Remove(Data&, const ulong);
+
+
+  //inline ulong ProbFun(const ulong i) const noexcept{
+  //  return 7 * i;
+
+  //};
+
+    //const ulong HashKey(Data&,const ulong) const;
+    ulong Find(const Data&) const noexcept;
+    ulong FindEmpty(const Data) noexcept; 
+    //void Remove(Data&, const ulong);
   
 
 };
