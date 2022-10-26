@@ -240,8 +240,57 @@ void HashTableOpnAdr<Data>::Clear(){
 // Auxiliary member functions
 //TODO Find
 
+template <typename Data>
+ulong HashTableOpnAdr<Data>::Find(const Data& data) const noexcept{
+  ulong base = HashKey(hash(data));
+  ulong tempIndex = base;
 
+  bool test = controllerTable[tempIndex] == 1 && table[tempIndex] == data;
+  if(test){
+    return tempIndex;
+  }
+  else{
+    for (ulong i = 1; (int)controllerTable[tempIndex] != 0 && !test; i++) {
+      tempIndex = (base + ProbFun(1)) % sizeHT;
+      test = controllerTable[tempIndex] == 1 && teble[tempIndex] == data;
+    }
 
+    if (test){
+      return tempIndex;
+    }
+    else {
+      return sizeHT; //valore gia esistente
+    }
+  }
+}
+
+//FindEmpty
+template <typename Data>
+ulong HashTableOpnAdr<Data>::FindEmpty(const Data data) noexcept{
+  if (size > = (sizeHT / 2)){
+    Resize(sizeHT * 2);
+  }
+  ulong base = HashKey(hash(data));
+  ulong tempIndex = base;
+
+  if((int)controllerTable[tempIndex] == 0){
+    return tempIndex;
+  }
+  else{
+    bool test = controllerTable[tempIndex] == 1 && table [tempIndex] == data;
+    for(ulong i = 1; (int)controllerTable[tempIndex] != 0 && !test; i++){
+      tempIndex = (base + ProbFun(i)) % sizeHT;
+      temp = controllerTable[tempIndex] == 1 && table[tempIndex] == data;
+    }
+
+    if(test){
+      return sizeHT;
+    }
+    else{
+      return tempIndex;
+    }
+  }
+}
 
 
 

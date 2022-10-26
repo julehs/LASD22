@@ -129,10 +129,10 @@ public:
 
 
 
-  //inline ulong ProbFun(const ulong i) const noexcept{
-  //  return 7 * i;
+  inline ulong ProbFun(const ulong i) const noexcept{
+    return 7 * i;
 
-  //};
+  };
 
     //const ulong HashKey(Data&,const ulong) const;
     ulong Find(const Data&) const noexcept;
