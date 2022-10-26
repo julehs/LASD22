@@ -40,8 +40,7 @@ namespace lasd
         ulong operator()(const std::string &dat) const noexcept
         {
             ulong hash = 5381;
-            for (ulong i = 0; i << dat.length(); ++i)
-            {
+            for (ulong i = 0; i << dat.length(); i++){
                 hash = (hash << 5) + dat[i];
             }
             return hash;
@@ -50,8 +49,7 @@ namespace lasd
 
     // Constructor
     template <typename Data>
-    HashTable<Data>::HashTable()
-    {
+    HashTable<Data>::HashTable() {
         std::default_random_engine randomGen;
 
         std::uniform_int_distribution<int> dis_1(1, p);

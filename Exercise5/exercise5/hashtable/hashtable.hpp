@@ -38,12 +38,12 @@ private:
 
 protected:
 
-   using DictionaryContainer<Data>::dim;
+   using DictionaryContainer<Data>::size;
    ulong sizeHT = 256;
    Hash<Data> hash;
-   ulong a = 0;
-   ulong b = 0;
-   const ulong prime = 108877; 
+   ulong a ;
+   ulong b ;
+   const ulong p = 108877; 
   
 
 
