@@ -59,10 +59,10 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    HashTable<Data>& operator = (const HashTable&) = delete; // Copy assignment of abstract types should not be possible.
+    HashTable& operator = (const HashTable&) = delete; // Copy assignment of abstract types should not be possible.
 
   //Move assignment
-    HashTable<Data>& operator = (HashTable&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+    HashTable& operator = (HashTable&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
 
   // Comparison operators
@@ -76,19 +76,15 @@ public:
  
 
 protected:
+ // Auxiliary member functions
+  virtual ulong HashKey(const ulong) const noexcept; // return the index
 
-  //Copy Constructor
-    HashTable(const HashTable&);
-
-  //Move Constructor
-    HashTable(HashTable&&) noexcept;
 
 
 
  /* ************************************************************************ */
 
-  // Auxiliary member functions
-  virtual ulong HashKey(const ulong) const noexcept; // return the index
+ 
 
 };
 
