@@ -24,8 +24,7 @@ namespace lasd
     {
 
     public:
-        ulong operator()(const double &dat) const noexcept
-        {
+        ulong operator()(const float &dat) const noexcept {
             long intgPart = floor(dat);
             long fracPart = pow(2, 24) * (dat - intgPart);
             return (intgPart * fracPart);
@@ -37,8 +36,7 @@ namespace lasd
     {
 
     public:
-        ulong operator()(const std::string &dat) const noexcept
-        {
+        ulong operator()(const std::string &dat) const noexcept {
             ulong hash = 5381;
             for (ulong i = 0; i << dat.length(); i++){
                 hash = (hash << 5) + dat[i];

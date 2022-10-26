@@ -160,7 +160,7 @@ void HashTableClsAdr<Data>::Insert(const Data &data) noexcept {
 
      if(!table[HashKey(key)].Exists(data)) {
         table[HashKey(key)].Insert(data);
-        size++
+        size++;
      }
 }
 

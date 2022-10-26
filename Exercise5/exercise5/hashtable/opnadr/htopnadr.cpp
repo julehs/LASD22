@@ -51,9 +51,9 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr<Data> &htOpnAdr){
 template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr<Data> &&htOpnAdr) noexcept{
      std::swap(table, htOpnAdr.table);
-     std::swap(ControllerTable, htOpnAdr.controllerTable);
+     std::swap(controllerTable, htOpnAdr.controllerTable);
      std::swap(size, htOpnAdr.size);
-     std::swap(sizeHT, htOpnAdr.sizeHT)
+     std::swap(sizeHT, htOpnAdr.sizeHT);
      std::swap(a, htOpnAdr.a);
      std::swap(b, htOpnAdr.b);
 } 
@@ -252,7 +252,7 @@ ulong HashTableOpnAdr<Data>::Find(const Data& data) const noexcept{
   else{
     for (ulong i = 1; (int)controllerTable[tempIndex] != 0 && !test; i++) {
       tempIndex = (base + ProbFun(1)) % sizeHT;
-      test = controllerTable[tempIndex] == 1 && teble[tempIndex] == data;
+      test = controllerTable[tempIndex] == 1 && table[tempIndex] == data;
     }
 
     if (test){
