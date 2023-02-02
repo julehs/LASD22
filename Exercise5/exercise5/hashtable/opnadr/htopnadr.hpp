@@ -32,7 +32,7 @@ protected:
    using HashTable<Data>::b;
 
    Vector<Data> table;
-   Vector<char> controllerTable;
+   Vector<char> controllerTable; //vettore tombstone utile nella ricerca con indice eliminato
 
    using HashTable<Data>::HashKey;
 
@@ -46,17 +46,17 @@ public:
   /* ************************************************************************ */
 
   // Specific constructors
-    HashTableOpnAdr(const ulong);  // A hash table of a given size
+    HashTableOpnAdr(const ulong) noexcept;  // A hash table of a given size
   
-    HashTableOpnAdr(const LinearContainer<Data>&); // A hash table obtained from a LinearContainer
+    HashTableOpnAdr(const LinearContainer<Data>&) noexcept; // A hash table obtained from a LinearContainer
   
-    HashTableOpnAdr(const ulong, const LinearContainer<Data>&); // A hash table of a given size obtained from a LinearContainer
+    HashTableOpnAdr(const ulong, const LinearContainer<Data>&) noexcept; // A hash table of a given size obtained from a LinearContainer
 
 
   /* ************************************************************************ */
 
   // Copy constructor
-    HashTableOpnAdr(const HashTableOpnAdr<Data>&);
+    HashTableOpnAdr(const HashTableOpnAdr<Data>&) noexcept;
 
   // Move constructor
     HashTableOpnAdr(HashTableOpnAdr<Data>&&) noexcept;
@@ -69,7 +69,7 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    HashTableOpnAdr<Data>& operator = (const HashTableOpnAdr<Data>&);
+    HashTableOpnAdr<Data>& operator = (const HashTableOpnAdr<Data>&) noexcept;
 
   // Move assignment
     HashTableOpnAdr<Data>& operator = (HashTableOpnAdr<Data>&&) noexcept;
@@ -85,7 +85,7 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from HashTable)
-    void Resize(const ulong) override; // Resize the hashtable to a given size
+    void Resize(const ulong) noexcept override; // Resize the hashtable to a given size
   
   /* ************************************************************************ */
 

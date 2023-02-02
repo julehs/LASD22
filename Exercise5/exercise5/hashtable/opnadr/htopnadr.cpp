@@ -7,14 +7,14 @@ namespace lasd {
 
 //Specific Constructor
 template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(const ulong newdim) {
+HashTableOpnAdr<Data>::HashTableOpnAdr(const ulong newdim) noexcept {
   sizeHT = newdim;
   table.Resize(sizeHT);
   controllerTable.Resize(sizeHT);
 }
 
 template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(const LinearContainer<Data> &lc){
+HashTableOpnAdr<Data>::HashTableOpnAdr(const LinearContainer<Data> &lc) noexcept{
   table.Resize(lc.Size());
   controllerTable.Resize(lc.Resize());
 
@@ -24,7 +24,7 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(const LinearContainer<Data> &lc){
 }
 
 template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(const ulong newdim, const LinearContainer<Data> &ln) {
+HashTableOpnAdr<Data>::HashTableOpnAdr(const ulong newdim, const LinearContainer<Data> &lc) noexcept{
   sizeHT = newdim;
   table.Resize(sizeHT);
   controllerTable.Resize(sizeHT);
@@ -37,7 +37,7 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(const ulong newdim, const LinearContainer
 /* ************************************************************************** */
 //Copy Constructor 
 template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr<Data> &htOpnAdr){
+HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr<Data> &htOpnAdr) noexcept{
   table = htOpnAdr.table;
   controllerTable = htOpnAdr.controllerTable;
   size = htOpnAdr.size;
@@ -60,13 +60,11 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr<Data> &&htOpnAdr) noexcep
 
 //Copy Assignment
 template <typename Data>
-HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(const HashTableOpnAdr<Data> &htOpnAdr){
-  table = htOpnAdr.table;
-  controllerTable = htOpnAdr.controllerTable;
-  size = htOpnAdr.size;
-  sizeHT = htOpnAdr.sizeHT;
-  a = htOpnAdr.a;
-  b = htOpnAdr.b;
+HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(const HashTableOpnAdr<Data> &htOpnAdr) noexcept{
+
+  HashTableOpnAdr<Data> *tmp = new HashTableOpnAdr(htOpnAdr);
+  std::swap(*this, *tmp);
+  delete tmp;
 
   return *this;
 }
@@ -77,7 +75,7 @@ HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(HashTableOpnAdr<Data> &&
   std::swap(table, htOpnAdr.table);
   std::swap(controllerTable, htOpnAdr.controllerTable);
   std::swap(size, htOpnAdr.size);
-  std::swap(sizeHT, htOpnAdr.sizeHT)
+  std::swap(sizeHT, htOpnAdr.sizeHT);
   std::swap(a, htOpnAdr.a);
   std::swap(b, htOpnAdr.b);
 
@@ -91,7 +89,7 @@ bool HashTableOpnAdr<Data>::operator==(const HashTableOpnAdr<Data> &htOpnAdr) co
     return true;
   }
 
-  if(size ==htOpnAdr.size){
+  if(size == htOpnAdr.size){
     for(ulong i = 0; i < size; i++){
       if((int)controllerTable[i] == 1){
         if(!(htOpnAdr.Exists(table[i]))){
@@ -117,7 +115,7 @@ bool HashTableOpnAdr<Data>::operator!=(const HashTableOpnAdr<Data> &htOpnAdr) co
 
 
 template <typename Data>
-void HashTableOpnAdr<Data>::Resize(const ulong newdim){
+void HashTableOpnAdr<Data>::Resize(const ulong newdim) noexcept{
   HashTableOpnAdr<Data> ht(newdim);
 
   for (ulong i = 0; i < sizeHT; i++) {
@@ -132,9 +130,6 @@ void HashTableOpnAdr<Data>::Resize(const ulong newdim){
 /* ************************************************************************** */
 
 // Specific member functions (inherited from DictionaryContainer)
-
-
-
 
 
 //Insert Copy

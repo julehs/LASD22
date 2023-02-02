@@ -39,11 +39,13 @@ private:
 protected:
 
    using DictionaryContainer<Data>::size;
-   ulong sizeHT = 256;
-   Hash<Data> hash;
    ulong a ;
    ulong b ;
    const ulong p = 108877; 
+   ulong sizeHT = 256;
+   Hash<Data> hash;
+   
+   
   
 
 
