@@ -176,8 +176,11 @@ void HashTableClsAdr<Data>::Insert(Data &&data) noexcept{
 template <typename Data>
 void HashTableClsAdr<Data>::Remove(const Data &data) noexcept {
      ulong key = hash(data);
-     table[HashKey(key)].Remove(data);
-     dim--;
+     if(table[HashKey(key)].Exists(data)){
+      table[HashKey(key)].Remove(data);
+      dim--;
+     }
+     
     
 }
 
