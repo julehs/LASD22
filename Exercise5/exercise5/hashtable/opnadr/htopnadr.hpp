@@ -25,7 +25,7 @@ private:
 
 protected:
 
-   using HashTable<Data>::size;
+   using HashTable<Data>::dim;
    using HashTable<Data>::sizeHT;
    using HashTable<Data>::hash;
    using HashTable<Data>::a;

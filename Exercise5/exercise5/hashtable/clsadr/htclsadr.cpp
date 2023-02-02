@@ -45,7 +45,7 @@ HashTableClsAdr<Data>::HashTableClsAdr(const ulong newsize, const LinearContaine
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htClsAdr) noexcept {
     table = htClsAdr.table;
-    size = htClsAdr.size;
+    dim = htClsAdr.dim;
     sizeHT = htClsAdr.sizeHT;
     a = htClsAdr.a;
     b = htClsAdr.b;
@@ -56,7 +56,7 @@ HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htClsAdr) no
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htc) noexcept{
     std::swap(table, htClsAdr.table);
-    std::swap(size, htClsAdr.size);
+    std::swap(dim, htClsAdr.dim);
     std::swap(sizeHT, htClsAdr.sizeHT);
     std::swap(a, htClsAdr.a);
     std::swap(b, htClsAdr.b);
@@ -70,7 +70,7 @@ HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htc) noexcept{
 template <typename Data> 
 HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr<Data> &htClsAdr) noexcept {
     table = htClsAdr.table;
-    size = htClsAdr.table;
+    dim = htClsAdr.dim;
     sizeHT = htClsAdr.sizeHT;
     a=htClsAdr.a;
     b=htClsAdr.b;
@@ -83,7 +83,7 @@ HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(const HashTableClsAdr<Da
 template <typename Data>
 HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(HashTableClsAdr &&htClsAdr) noexcept{
   std::swap(table,htClsAdr.table);
-  std::swap(size,htClsAdr.size);
+  std::swap(dim,htClsAdr.dim);
   std::swap(sizeHT,htClsAdr.sizeHT);
   std::swap(a,htClsAdr.a);
   std::swap(b,htClsAdr.b);
@@ -100,12 +100,12 @@ HashTableClsAdr<Data>& HashTableClsAdr<Data>::operator=(HashTableClsAdr &&htClsA
 //Comparision operators
 template <typename Data>
 bool HashTableClsAdr<Data>::operator==(const HashTableClsAdr<Data> &htClsAdr) const noexcept{
-   if ((size = 0) && (htClsAdr.size == 0)){
+   if ((dim == 0) && (htClsAdr.dim == 0)){
       return true;
    }
 
-  if(size == htClsAdr.size) {
-    for(ulong i = 0; i < size; i++){
+  if(dim == htClsAdr.dim) {
+    for(ulong i = 0; i < dim; i++){
       BTInOrderIterator<Data> itThis(table[i]);
       while (!itThis.Terminated()) {
         if (!(htClsAdr.Exists(*itThis))){
@@ -136,7 +136,7 @@ void HashTableClsAdr<Data>::Resize(const ulong newdim) noexcept{
   
   
   
-  for (ulong i= 0; i < size; i++) {
+  for (ulong i= 0; i < dim; i++) {
     BTInOrderIterator<Data> itThis(table[i]);
     while (!itThis.Terminated()){
       ht.Insert(*itThis);
@@ -160,7 +160,7 @@ void HashTableClsAdr<Data>::Insert(const Data &data) noexcept {
 
      if(!table[HashKey(key)].Exists(data)) {
         table[HashKey(key)].Insert(data);
-        size++;
+        dim++;
      }
 }
 
@@ -172,7 +172,7 @@ void HashTableClsAdr<Data>::Insert(Data &&data) noexcept{
 
     if(!table[HashKey(key)].Exists(data)) {
       table[HashKey(key)].Insert(std::move(data));
-      size++;
+      dim++;
     }
 }
 
@@ -181,7 +181,7 @@ template <typename Data>
 void HashTableClsAdr<Data>::Remove(const Data &data) noexcept {
      ulong key = hash(data);
      table[HashKey(key)].Remove(data);
-     size--;
+     dim--;
     
 }
 
@@ -192,7 +192,7 @@ void HashTableClsAdr<Data>::Remove(const Data &data) noexcept {
 //Exists
 template <typename Data>
 bool HashTableClsAdr<Data>::Exists(const Data& data) const noexcept{
-    if(size == 0){
+    if(dim == 0){
       return false;
     }
 
@@ -232,7 +232,7 @@ template <typename Data>
 void HashTableClsAdr<Data>::Clear() noexcept {
    table.Clear();
    sizeHT = 256;
-   size = 0;
+   dim = 0;
    table.Resize(sizeHT);
 }
 /* ************************************************************************** */

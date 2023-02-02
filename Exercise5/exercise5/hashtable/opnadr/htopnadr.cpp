@@ -40,7 +40,7 @@ template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr<Data> &htOpnAdr) noexcept{
   table = htOpnAdr.table;
   controllerTable = htOpnAdr.controllerTable;
-  size = htOpnAdr.size;
+  dim = htOpnAdr.dim;
   sizeHT = htOpnAdr.sizeHT;
   a = htOpnAdr.a;
   b = htOpnAdr.b;
@@ -52,7 +52,7 @@ template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr<Data> &&htOpnAdr) noexcept{
      std::swap(table, htOpnAdr.table);
      std::swap(controllerTable, htOpnAdr.controllerTable);
-     std::swap(size, htOpnAdr.size);
+     std::swap(dim, htOpnAdr.dim);
      std::swap(sizeHT, htOpnAdr.sizeHT);
      std::swap(a, htOpnAdr.a);
      std::swap(b, htOpnAdr.b);
@@ -74,7 +74,7 @@ template <typename Data>
 HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(HashTableOpnAdr<Data> &&htOpnAdr) noexcept{
   std::swap(table, htOpnAdr.table);
   std::swap(controllerTable, htOpnAdr.controllerTable);
-  std::swap(size, htOpnAdr.size);
+  std::swap(dim, htOpnAdr.dim);
   std::swap(sizeHT, htOpnAdr.sizeHT);
   std::swap(a, htOpnAdr.a);
   std::swap(b, htOpnAdr.b);
@@ -85,12 +85,12 @@ HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(HashTableOpnAdr<Data> &&
 //Comparision operators
 template <typename Data>
 bool HashTableOpnAdr<Data>::operator==(const HashTableOpnAdr<Data> &htOpnAdr) const noexcept{
-  if ((size == 0) && (htOpnAdr.size == 0)){
+  if ((dim == 0) && (htOpnAdr.dim == 0)){
     return true;
   }
 
-  if(size == htOpnAdr.size){
-    for(ulong i = 0; i < size; i++){
+  if(dim == htOpnAdr.dim){
+    for(ulong i = 0; i < dim; i++){
       if((int)controllerTable[i] == 1){
         if(!(htOpnAdr.Exists(table[i]))){
           return false;
@@ -139,7 +139,7 @@ void HashTableOpnAdr<Data>::Insert(const Data &data) {
   if(index < sizeHT){
     table[index] = data;
     controllerTable[index] = (char)1;
-    size++;
+    dim++;
   }
 
 }
@@ -154,7 +154,7 @@ void HashTableOpnAdr<Data>::Insert(Data &&data) noexcept {
 if(index < sizeHT) {
   table[index] = std::move(data);
   controllerTable[index] = (char)1;
-  size++;
+  dim++;
   }
 
 }
@@ -168,7 +168,7 @@ void HashTableOpnAdr<Data>::Remove(const Data &data) {
 
   if(index!= sizeHT){
     controllerTable[index] = (char)2;
-    size--;
+    dim--;
   }
 }
 
@@ -179,7 +179,7 @@ void HashTableOpnAdr<Data>::Remove(const Data &data) {
 //Exists
 template <typename Data>
 bool HashTableOpnAdr<Data>::Exists(const Data &data) const noexcept {
-  if(size == 0){
+  if(dim == 0){
     return false;
   }
   ulong index = Find(data);
@@ -194,7 +194,7 @@ bool HashTableOpnAdr<Data>::Exists(const Data &data) const noexcept {
 
 template<typename Data>
 void HashTableOpnAdr<Data>::Map(MapFunctor fun, void* par){
-    for(ulong i = 0; i < size; i++){
+    for(ulong i = 0; i < dim; i++){
         if((int)controllerTable[i]==1) {
             table.MapPreOrder(fun, par);
         }
@@ -224,7 +224,7 @@ template <typename Data>
 void HashTableOpnAdr<Data>::Clear(){
   table.Clear();
   controllerTable.Clear();
-  size = 0;
+  dim = 0;
   sizeHT = 256;
   table.Resize(sizeHT);
   controllerTable.Resize(sizeHT);
@@ -262,7 +262,7 @@ ulong HashTableOpnAdr<Data>::Find(const Data& data) const noexcept{
 //FindEmpty
 template <typename Data>
 ulong HashTableOpnAdr<Data>::FindEmpty(const Data data) noexcept{
-  if (size > = (sizeHT / 2)){
+  if (dim >= (sizeHT / 2)){
     Resize(sizeHT * 2);
   }
   ulong base = HashKey(hash(data));
@@ -275,7 +275,7 @@ ulong HashTableOpnAdr<Data>::FindEmpty(const Data data) noexcept{
     bool test = controllerTable[tempIndex] == 1 && table [tempIndex] == data;
     for(ulong i = 1; (int)controllerTable[tempIndex] != 0 && !test; i++){
       tempIndex = (base + ProbFun(i)) % sizeHT;
-      temp = controllerTable[tempIndex] == 1 && table[tempIndex] == data;
+      // test = controllerTable[tempIndex] == 1 && table[tempIndex] == data;
     }
 
     if(test){

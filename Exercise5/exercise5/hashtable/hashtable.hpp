@@ -38,7 +38,7 @@ private:
 
 protected:
 
-   using DictionaryContainer<Data>::size;
+   using DictionaryContainer<Data>::dim;
    ulong a ;
    ulong b ;
    const ulong p = 108877; 
