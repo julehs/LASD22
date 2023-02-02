@@ -134,7 +134,7 @@ void HashTableOpnAdr<Data>::Resize(const ulong newdim) noexcept{
 
 //Insert Copy
 template <typename Data>
-void HashTableOpnAdr<Data>::Insert(const Data &data) {
+void HashTableOpnAdr<Data>::Insert(const Data &data) noexcept {
   ulong index = FindEmpty(data);
   if(index < sizeHT){
     table[index] = data;
@@ -162,7 +162,7 @@ if(index < sizeHT) {
 
 //Remove
 template <typename Data>
-void HashTableOpnAdr<Data>::Remove(const Data &data) {
+void HashTableOpnAdr<Data>::Remove(const Data &data) noexcept{
   ulong index = Find(data);
 
 

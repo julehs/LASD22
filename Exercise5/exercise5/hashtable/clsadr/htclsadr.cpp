@@ -12,10 +12,6 @@ HashTableClsAdr<Data>::HashTableClsAdr(const ulong newsize){
  table.Resize(sizeHT);
 }
 
-template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(const LinearContainer<Data> &lc) {
-  table.Resize(lc.Size());
-}
 
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const LinearContainer<Data> &lc){
@@ -54,7 +50,7 @@ HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htClsAdr) no
 
 //Move Constructor
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htc) noexcept{
+HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&htClsAdr) noexcept{
     std::swap(table, htClsAdr.table);
     std::swap(dim, htClsAdr.dim);
     std::swap(sizeHT, htClsAdr.sizeHT);

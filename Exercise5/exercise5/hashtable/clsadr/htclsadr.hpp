@@ -59,7 +59,7 @@ public:
   /* ************************************************************************ */
 
   // Copy constructor
-    HashTableClsAdr (const HashTableClsAdr<Data>&);
+    HashTableClsAdr (const HashTableClsAdr<Data>&) noexcept;
   
   // Move constructor
     HashTableClsAdr (HashTableClsAdr<Data>&&) noexcept;
@@ -72,7 +72,7 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-    HashTableClsAdr& operator = (const HashTableClsAdr<Data>&);
+    HashTableClsAdr& operator = (const HashTableClsAdr<Data>&) noexcept;
   
   // Move assignment
     HashTableClsAdr& operator = (HashTableClsAdr<Data>&&) noexcept;
