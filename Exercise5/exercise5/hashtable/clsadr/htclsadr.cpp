@@ -4,21 +4,27 @@ namespace lasd
 
   /* ************************************************************************** */
 
+  template <typename Data>
+  HashTableClsAdr<Data>::HashTableClsAdr() noexcept
+  {
+    table = Vector<BST<Data>>(sizeHT);
+  }
   // Specific Constructor
 
   template <typename Data>
   HashTableClsAdr<Data>::HashTableClsAdr(const ulong newsize)
   {
     sizeHT = newsize;
-    table.Resize(sizeHT);
+    table = Vector<BST<Data>>(sizeHT);
   }
 
   template <typename Data>
   HashTableClsAdr<Data>::HashTableClsAdr(const LinearContainer<Data> &lc)
   {
-    table.Resize(lc.Size());
+    sizeHT = lc.Size();
+    table = Vector<BST<Data>>(sizeHT);
 
-    for (ulong i = 0; i < lc.Size(); i++)
+    for (ulong i = 0; i < sizeHT; i++)
     {
       Insert(lc[i]);
     }
@@ -28,7 +34,7 @@ namespace lasd
   HashTableClsAdr<Data>::HashTableClsAdr(const ulong newsize, const LinearContainer<Data> &lc)
   {
     sizeHT = newsize;
-    table.Resize(sizeHT);
+    table = Vector<BST<Data>>(sizeHT);
 
     for (ulong i = 0; i < lc.Size(); i++)
     {
@@ -42,11 +48,29 @@ namespace lasd
   template <typename Data>
   HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htClsAdr) noexcept
   {
-    table = htClsAdr.table;
-    dim = htClsAdr.dim;
-    sizeHT = htClsAdr.sizeHT;
-    a = htClsAdr.a;
-    b = htClsAdr.b;
+    if(htClsAdr.dim != 0)
+    {
+      sizeHT = htClsAdr.sizeHT;
+      table = Vector<BST<Data>>(sizeHT);
+      a = htClsAdr.a;
+      b = htClsAdr.b;
+      for (ulong i = 0; i < sizeHT; i++)
+      {
+        if (htClsAdr.table[i].Size() != 0)
+        {
+          BTInOrderIterator<Data> it(htClsAdr.table[i]);
+          while (!it.Terminated())
+          {
+            Insert(it.operator*());
+            it.operator++();
+          }
+        }
+      }
+    }
+    else
+    {
+      Clear();
+    }
   }
 
   // Move Constructor
@@ -66,12 +90,9 @@ namespace lasd
   template <typename Data>
   HashTableClsAdr<Data> &HashTableClsAdr<Data>::operator=(const HashTableClsAdr<Data> &htClsAdr) noexcept
   {
-    table = htClsAdr.table;
-    dim = htClsAdr.dim;
-    sizeHT = htClsAdr.sizeHT;
-    a = htClsAdr.a;
-    b = htClsAdr.b;
-
+    HashTableClsAdr<Data> *tmp = new HashTableClsAdr(htClsAdr);
+    std::swap(*this, *tmp);
+    delete tmp;
     return *this;
   }
 
@@ -132,7 +153,7 @@ namespace lasd
   {
     HashTableClsAdr<Data> ht(newdim);
 
-    for (ulong i = 0; i < dim; i++)
+    for (ulong i = 0; i < sizeHT; i++)
     {
       BTInOrderIterator<Data> itThis(table[i]);
       while (!itThis.Terminated())
@@ -155,7 +176,7 @@ namespace lasd
   {
     ulong key = HashKey(hash(data));
 
-    if (!table[key].Exists(data))
+    if (!Exists(data))
     {
       table[key].Insert(data);
       dim++;
@@ -168,7 +189,7 @@ namespace lasd
   {
     ulong key = HashKey(hash(data));
 
-    if (!table[key].Exists(data))
+    if (!Exists(data))
     {
       table[key].Insert(std::move(data));
       dim++;
@@ -195,14 +216,19 @@ namespace lasd
   template <typename Data>
   bool HashTableClsAdr<Data>::Exists(const Data &data) const noexcept
   {
-    if (dim == 0)
-    {
-      return false;
+    for (ulong i = 0; i < sizeHT; i++) {
+        if(table[i].Size()!=0){
+            BTInOrderIterator<Data> it(table[i]);
+            while (!it.Terminated()) {
+                if (it.operator*() == data)
+                    return true;
+                else
+                    it.operator++();
+            }
+        }
+       
     }
-
-    ulong key = HashKey(hash(data));
-
-    return table[key].Exists(data);
+    return false;
   }
 
   /* ************************************************************************** */
@@ -236,10 +262,13 @@ namespace lasd
   template <typename Data>
   void HashTableClsAdr<Data>::Clear() noexcept
   {
-    table.Clear();
-    sizeHT = 256;
+    for (ulong i = 0; i < sizeHT; i++)
+    {
+        if(table[i].Size()!=0){
+            table[i].Clear();
+        }
+    }
     dim = 0;
-    table = new Vector<Data>(sizeHT);
   }
   /* ************************************************************************** */
 
