@@ -24,7 +24,8 @@ namespace lasd
     {
 
     public:
-        ulong operator()(const float &data) const noexcept {
+        ulong operator()(const float &data) const noexcept
+        {
             long intgPart = floor(data);
             long fracPart = pow(2, 24) * (data - intgPart);
             return (intgPart * fracPart);
@@ -36,9 +37,11 @@ namespace lasd
     {
 
     public:
-        ulong operator()(const std::string &data) const noexcept {
+        ulong operator()(const std::string &data) const noexcept
+        {
             ulong hash = 5381;
-            for (ulong i = 0; i << data.length(); i++){
+            for (ulong i = 0; i << data.length(); i++)
+            {
                 hash = (hash << 5) + data[i];
             }
             return hash;
@@ -47,7 +50,8 @@ namespace lasd
 
     // Constructor
     template <typename Data>
-    HashTable<Data>::HashTable() {
+    HashTable<Data>::HashTable()
+    {
         std::default_random_engine randomGen;
 
         std::uniform_int_distribution<int> dis_1(1, p);
@@ -58,10 +62,10 @@ namespace lasd
     }
 
     template <typename Data>
-    ulong HashTable<Data>::HashKey(const ulong key) const noexcept{
-        return ((a* key + b)%p) %sizeHT; // l'indice 
+    ulong HashTable<Data>::HashKey(const ulong key) const noexcept
+    {
+        return ((a * key + b) % p) % sizeHT; // l'indice
     }
 
-    
     /* ************************************************************************** */
 }
