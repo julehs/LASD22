@@ -295,6 +295,10 @@ namespace lasd
     sizeHT = 256;
     table.Resize(sizeHT);
     controllerTable.Resize(sizeHT);
+    for (ulong i = 0; i < sizeHT; ++i)
+    {
+      controllerTable[i] = 'E';
+    }
   }
 
   /* ************************************************************************** */
