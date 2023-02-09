@@ -164,12 +164,26 @@ namespace lasd
   template <typename Data>
   void HashTableOpnAdr<Data>::Insert(const Data &data) noexcept
   {
-    ulong index = FindEmpty(data);
-    if (index < sizeHT)
+    if (dim >= sizeHT / 2)
+      Resize(sizeHT * 2);
+
+    // ulong tmp = HashTable<Data>::HashKey(data);
+    if (!Exists(data))
     {
-      table[index] = data;
-      controllerTable[index] = 'F';
-      dim++;
+      ulong tmp = HashTable<Data>::HashKey(hash(data));
+      if (controllerTable[tmp] == 'E' || controllerTable[tmp] == 'R')
+      { // if the bucket is empty
+        table[tmp] = data;
+        controllerTable[tmp] = 'F';
+        dim++;
+      }
+      else if (controllerTable[tmp] == 'F')
+      { // collision
+        ulong tmp2 = FindEmpty(data);
+        table[tmp2] = data;
+        controllerTable[tmp2] = 'F';
+        dim++;
+      }
     }
   }
 
@@ -177,13 +191,24 @@ namespace lasd
   template <typename Data>
   void HashTableOpnAdr<Data>::Insert(Data &&data) noexcept
   {
-    ulong index = FindEmpty(data);
-
-    if (index < sizeHT)
+    if (dim >= sizeHT / 2)
+      Resize(sizeHT * 2);
+    if (!Exists(data))
     {
-      table[index] = std::move(data);
-      controllerTable[index] = 'F';
-      dim++;
+      ulong tmp = HashTable<Data>::HashKey(hash(data));
+      if (controllerTable[tmp] == 'E' || controllerTable[tmp] == 'R')
+      { // if the bucket is empty
+        std::swap(table[tmp], data);
+        controllerTable[tmp] = 'F';
+        dim++;
+      }
+      else if (controllerTable[tmp] == 'F')
+      { // collision
+        ulong tmp2 = FindEmpty(data);
+        std::swap(table[tmp2], data);
+        controllerTable[tmp2] = 'F';
+        dim++;
+      }
     }
   }
 
@@ -208,13 +233,20 @@ namespace lasd
   template <typename Data>
   bool HashTableOpnAdr<Data>::Exists(const Data &data) const noexcept
   {
-    if (dim == 0)
+    ulong tmp = HashTable<Data>::HashKey(hash(data));
+    if (controllerTable[tmp] == 'F' && table[tmp] == data)
     {
-      return false;
+      return true;
     }
-    ulong index = Find(data);
-
-    return (index != sizeHT);
+    ulong offset = tmp + 1;
+    for (ulong i = offset; i < sizeHT + offset; i++)
+    {
+      if (controllerTable[i % sizeHT] == 'F' && table[i % sizeHT] == data)
+      {
+        return true;
+      }
+    }
+    return false;
   }
 
   /* ************************************************************************** */
@@ -288,34 +320,16 @@ namespace lasd
   template <typename Data>
   ulong HashTableOpnAdr<Data>::FindEmpty(const Data data) noexcept
   {
-    if (dim >= (sizeHT / 2))
-      Resize(sizeHT * 2);
-
-    ulong base = HashKey(hash(data));
-    ulong tempIndex = base;
-
-    if (controllerTable[tempIndex] == 'E')
+    ulong collisionIndex = HashKey(hash(data));
+    ulong offset = collisionIndex + 1;
+    for (int i = offset; i < sizeHT + offset; i++)
     {
-      return tempIndex;
-    }
-    else
-    {
-      bool test = controllerTable[tempIndex] == 'F' && table[tempIndex] == data;
-      for (ulong i = 1; controllerTable[tempIndex] != 'E' && !test; i++)
+      if (controllerTable[i % sizeHT] == 'E' || controllerTable[i % sizeHT] == 'R')
       {
-        tempIndex = i % sizeHT;
-        // test = controllerTable[tempIndex] == 1 && table[tempIndex] == data;
-      }
-
-      if (test)
-      {
-        return sizeHT;
-      }
-      else
-      {
-        return tempIndex;
+        return i % sizeHT;
       }
     }
+    return collisionIndex;
   }
 
   /* ************************************************************************** */
