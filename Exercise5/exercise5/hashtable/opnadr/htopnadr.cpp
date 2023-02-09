@@ -7,8 +7,8 @@ namespace lasd
   template <typename Data>
   HashTableOpnAdr<Data>::HashTableOpnAdr() noexcept
   {
-    table = Vector<Data>(sizeHT);
-    controllerTable = Vector<char>(sizeHT);
+    table.Resize(sizeHT);
+    controllerTable.Resize(sizeHT);
     for (ulong i = 0; i < sizeHT; ++i)
     {
       controllerTable[i] = 'E';
@@ -65,12 +65,22 @@ namespace lasd
   template <typename Data>
   HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr<Data> &htOpnAdr) noexcept
   {
-    table = htOpnAdr.table;
-    controllerTable = htOpnAdr.controllerTable;
+
     dim = htOpnAdr.dim;
     sizeHT = htOpnAdr.sizeHT;
+    removed = htOpnAdr.removed;
+    table = Vector<Data>(htOpnAdr.table.Size());
+    controllerTable = Vector<char>(htOpnAdr.controllerTable.Size());
     a = htOpnAdr.a;
     b = htOpnAdr.b;
+    for (ulong i = 0; i < htOpnAdr.table.Size(); ++i)
+    {
+      table[i] = htOpnAdr.table[i];
+    }
+    for (ulong i = 0; i < htOpnAdr.controllerTable.Size(); ++i)
+    {
+      controllerTable[i] = htOpnAdr.controllerTable[i];
+    }
   }
 
   // Move Constructor
@@ -83,6 +93,7 @@ namespace lasd
     std::swap(sizeHT, htOpnAdr.sizeHT);
     std::swap(a, htOpnAdr.a);
     std::swap(b, htOpnAdr.b);
+    std::swap(removed, htOpnAdr.removed);
   }
 
   // Copy Assignment
@@ -107,6 +118,7 @@ namespace lasd
     std::swap(sizeHT, htOpnAdr.sizeHT);
     std::swap(a, htOpnAdr.a);
     std::swap(b, htOpnAdr.b);
+    std::swap(removed, htOpnAdr.removed);
 
     return *this;
   }
@@ -115,20 +127,16 @@ namespace lasd
   template <typename Data>
   bool HashTableOpnAdr<Data>::operator==(const HashTableOpnAdr<Data> &htOpnAdr) const noexcept
   {
-    if (dim != htOpnAdr.dim)
-      return false;
-    else
-    {
 
-      for (ulong i = 0; i < sizeHT; i++)
-      {
-        if (controllerTable[i] == 'F')
-          if (!(htOpnAdr.Exists(table[i])))
-          {
-            return false;
-          }
-      }
+    for (ulong i = 0; i < sizeHT; i++)
+    {
+      if (controllerTable[i] == 'F')
+        if (!(htOpnAdr.Exists(table[i])))
+        {
+          return false;
+        }
     }
+
     return true;
   }
 
@@ -216,12 +224,17 @@ namespace lasd
   template <typename Data>
   void HashTableOpnAdr<Data>::Remove(const Data &data) noexcept
   {
-    ulong index = Find(data);
-
-    if (index != sizeHT)
+    if (Exists(data))
     {
-      controllerTable[index] = 'R';
+      ulong tmp = Find(data);
+      controllerTable[tmp] = 'R';
       dim--;
+      removed++;
+      if (removed >= sizeHT / 2)
+      {
+        Resize(sizeHT / 2);
+        removed = 0;
+      }
     }
   }
 
@@ -292,7 +305,6 @@ namespace lasd
     table.Clear();
     controllerTable.Clear();
     dim = 0;
-    sizeHT = 256;
     table.Resize(sizeHT);
     controllerTable.Resize(sizeHT);
     for (ulong i = 0; i < sizeHT; ++i)

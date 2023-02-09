@@ -28,6 +28,7 @@ namespace lasd
     using HashTable<Data>::sizeHT;
     using HashTable<Data>::hash;
     using HashTable<Data>::a;
+    using HashTable<Data>::removed;
     using HashTable<Data>::b;
     using HashTable<Data>::HashKey;
 
@@ -114,7 +115,7 @@ namespace lasd
     // Auxiliary member functions
 
     ulong Find(const Data &) const noexcept;
-    ulong FindEmpty(const Data)  noexcept;
+    ulong FindEmpty(const Data) noexcept;
   };
 
   /* ************************************************************************** */

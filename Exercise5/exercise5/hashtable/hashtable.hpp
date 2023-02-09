@@ -41,6 +41,7 @@ namespace lasd
     using DictionaryContainer<Data>::dim;
     ulong a;
     ulong b;
+    ulong removed = 0;
     const ulong p = 108877;
     ulong sizeHT = 256;
     Hash<Data> hash;
