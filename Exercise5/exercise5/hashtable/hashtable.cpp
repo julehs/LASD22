@@ -20,14 +20,27 @@ namespace lasd
     };
 
     template <>
-    class Hash<double>
+    class Hash<float>
     {
 
     public:
         ulong operator()(const float &data) const noexcept
         {
             long intgPart = floor(data);
-            long fracPart = pow(2, 24) * (data - intgPart);
+            float fracPart = pow(2, 24) * (data - intgPart);
+            return (intgPart * fracPart);
+        }
+    };
+
+    template <>
+    class Hash<double>
+    {
+
+    public:
+        ulong operator()(const double &data) const noexcept
+        {
+            long intgPart = floor(data);
+            double fracPart = pow(2, 24) * (data - intgPart);
             return (intgPart * fracPart);
         }
     };

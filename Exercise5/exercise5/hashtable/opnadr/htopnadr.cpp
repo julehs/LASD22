@@ -69,8 +69,8 @@ namespace lasd
     dim = htOpnAdr.dim;
     sizeHT = htOpnAdr.sizeHT;
     removed = htOpnAdr.removed;
-    table = Vector<Data>(htOpnAdr.table.Size());
-    controllerTable = Vector<char>(htOpnAdr.controllerTable.Size());
+    table.Resize(sizeHT);
+    controllerTable.Resize(sizeHT);
     a = htOpnAdr.a;
     b = htOpnAdr.b;
     for (ulong i = 0; i < htOpnAdr.table.Size(); ++i)
@@ -128,22 +128,26 @@ namespace lasd
   bool HashTableOpnAdr<Data>::operator==(const HashTableOpnAdr<Data> &htOpnAdr) const noexcept
   {
 
-    for (ulong i = 0; i < sizeHT; i++)
+    if (dim != htOpnAdr.dim)
+      return false;
+    else
     {
-      if (controllerTable[i] == 'F')
-        if (!(htOpnAdr.Exists(table[i])))
-        {
-          return false;
-        }
+      for (ulong i = 0; i < sizeHT; i++)
+      {
+        if (controllerTable[i] == 'F')
+          if (!(htOpnAdr.Exists(table[i])))
+          {
+            return false;
+          }
+      }
     }
-
     return true;
   }
 
   template <typename Data>
   bool HashTableOpnAdr<Data>::operator!=(const HashTableOpnAdr<Data> &htOpnAdr) const noexcept
   {
-    return (*this == htOpnAdr);
+    return !(*this == htOpnAdr);
   }
 
   /* ************************************************************************** */
@@ -311,6 +315,7 @@ namespace lasd
     {
       controllerTable[i] = 'E';
     }
+    dim = 0;
   }
 
   /* ************************************************************************** */
