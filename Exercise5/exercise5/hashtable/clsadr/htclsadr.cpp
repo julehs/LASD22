@@ -48,7 +48,7 @@ namespace lasd
   template <typename Data>
   HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &htClsAdr) noexcept
   {
-    if(htClsAdr.dim != 0)
+    if (htClsAdr.dim != 0)
     {
       sizeHT = htClsAdr.sizeHT;
       table = Vector<BST<Data>>(sizeHT);
@@ -115,29 +115,26 @@ namespace lasd
   template <typename Data>
   bool HashTableClsAdr<Data>::operator==(const HashTableClsAdr<Data> &htClsAdr) const noexcept
   {
-    if ((dim == 0) && (htClsAdr.dim == 0))
+    if (dim != htClsAdr.dim)
+      return false;
+    else
     {
+      for (ulong i = 0; i < sizeHT; i++)
+      {
+        if (table[i].Size() != 0)
+        {
+          BTInOrderIterator<Data> it(table[i]);
+          while (!it.Terminated())
+          {
+            if (!htClsAdr.Exists(it.operator*()))
+              return false;
+
+            it.operator++();
+          }
+        }
+      }
       return true;
     }
-
-    if (dim == htClsAdr.dim)
-    {
-      for (ulong i = 0; i < dim; i++)
-      {
-        BTInOrderIterator<Data> itThis(table[i]);
-        while (!itThis.Terminated())
-        {
-          if (!(htClsAdr.Exists(*itThis)))
-          {
-            return false;
-          }
-          ++itThis;
-        }
-        return true;
-      }
-    }
-
-    return false;
   }
 
   template <typename Data>
@@ -151,19 +148,20 @@ namespace lasd
   template <typename Data>
   void HashTableClsAdr<Data>::Resize(const ulong newdim) noexcept
   {
-    HashTableClsAdr<Data> ht(newdim);
-
+    HashTableClsAdr<Data> tmp(newdim);
     for (ulong i = 0; i < sizeHT; i++)
     {
-      BTInOrderIterator<Data> itThis(table[i]);
-      while (!itThis.Terminated())
+      if (table[i].Size() != 0)
       {
-        ht.Insert(*itThis);
-        ++itThis;
+        BTInOrderIterator<Data> it(table[i]);
+        while (!it.Terminated())
+        {
+          tmp.Insert(it.operator*());
+          it.operator++();
+        }
       }
     }
-
-    *this = std::move(ht);
+    std::swap(*this, tmp);
   }
   /* ************************************************************************** */
   // Specific member functions (inherited from DictionaryContainer)
@@ -216,17 +214,19 @@ namespace lasd
   template <typename Data>
   bool HashTableClsAdr<Data>::Exists(const Data &data) const noexcept
   {
-    for (ulong i = 0; i < sizeHT; i++) {
-        if(table[i].Size()!=0){
-            BTInOrderIterator<Data> it(table[i]);
-            while (!it.Terminated()) {
-                if (it.operator*() == data)
-                    return true;
-                else
-                    it.operator++();
-            }
+    for (ulong i = 0; i < sizeHT; i++)
+    {
+      if (table[i].Size() != 0)
+      {
+        BTInOrderIterator<Data> it(table[i]);
+        while (!it.Terminated())
+        {
+          if (it.operator*() == data)
+            return true;
+          else
+            it.operator++();
         }
-       
+      }
     }
     return false;
   }
@@ -264,12 +264,12 @@ namespace lasd
   {
     for (ulong i = 0; i < sizeHT; i++)
     {
-        if(table[i].Size()!=0){
-            table[i].Clear();
-        }
+      if (table[i].Size() != 0)
+      {
+        table[i].Clear();
+      }
     }
     dim = 0;
   }
   /* ************************************************************************** */
-
 }
