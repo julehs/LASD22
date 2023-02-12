@@ -7,7 +7,7 @@
 #include "../hashtable.hpp"
 #include "../../vector/vector.hpp"
 #include "../../bst/bst.hpp"
-#include "../../binarytree/binarytree.hpp"
+//#include "../../binarytree/binarytree.hpp"
 
 
 
@@ -43,7 +43,7 @@ protected:
 public:
 
   // Default constructor
-   HashTableClsAdr() = default;
+     HashTableClsAdr() noexcept;
 
   /* ************************************************************************ */
 
