@@ -6,6 +6,8 @@ namespace lasd
     /* ************************************************************************** */
 
     // Specific constructors
+    //inizializza la dimensione del linear container e con il for e inserire l'elemento
+    //in una specifica posizione del container
     template <typename Data>
     BST<Data>::BST(const LinearContainer<Data> &con)
     {
@@ -16,6 +18,7 @@ namespace lasd
     }
 
     // Copy constructor
+    //prendo un Data template utilizzo di binarytreelnk per sottoalb. sx e dx
     template <typename Data>
     BST<Data>::BST(const BST<Data> &bt) : BinaryTreeLnk<Data>(bt) {}
 
@@ -24,6 +27,7 @@ namespace lasd
     BST<Data>::BST(BST<Data> &&bt) noexcept : BinaryTreeLnk<Data>(std::move(bt)) {}
 
     // Copy assignment
+    // con l'operatore di assegnamento prendo del bt e lo metto nel binary tree link
     template <typename Data>
     BST<Data> &BST<Data>::operator=(const BST &bt)
     {
@@ -274,6 +278,10 @@ namespace lasd
         return Skip2Left(FindPointerToMax(node));
     }
 
+//SKIP2
+
+
+
     template <typename Data>
     struct BST<Data>::NodeLnk *BST<Data>::Skip2Left(struct BST<Data>::NodeLnk *&node) noexcept
     {
@@ -319,6 +327,7 @@ namespace lasd
 
     }
 
+    //il massimo è la foglia a più a destra (ricorda che siamo in un bst)
     template <typename Data>
     struct BST<Data>::NodeLnk *const &BST<Data>::FindPointerToMax(struct BST<Data>::NodeLnk *const &node) const noexcept
     {
@@ -383,7 +392,9 @@ namespace lasd
     }
 
     /* ************************************************************************ */
-
+//prendendo due puntatori a nodo uno current e uno canditato controlla se 
+// i due nodi sono minori/maggiori e se sono uguali mi riporta alal definizione di predecessore
+// ovvero: il più grande del sottoalbero sx (analogamente per successor che sarà il più piccolo a dx)
     template <typename Data>
     struct BST<Data>::NodeLnk *const &BST<Data>::FindPointerToPredecessor(struct BST<Data>::NodeLnk *const &node, const Data &dato) const noexcept
     {
@@ -432,6 +443,10 @@ namespace lasd
         return *candidate;
     }
 
+
+// si utilizza lo static cast per castare il risultato ad un riferimento non costante ad un puntatore al nodo di un bst
+// il const cast invece per per rimuovere il fatto che sia constante il riferimento 
+// cio permette di modificare il nodo 
     template <typename Data>
     struct BST<Data>::NodeLnk *&BST<Data>::FindPointerToPredecessor(struct BST<Data>::NodeLnk *&node, const Data &dato) noexcept
     {

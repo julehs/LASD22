@@ -21,7 +21,7 @@ private:
 
 protected:
 
-   ulong dim = 0;
+   ulong dim = 0; //con ulong non assume valori negativi almeno agli occhi della macchina
 
 public:
   // Destructor

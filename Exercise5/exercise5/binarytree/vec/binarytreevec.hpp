@@ -38,7 +38,7 @@ protected:
 
   public:
 
-    Vector<NodeVec*> *vectorPointer = nullptr;
+    Vector<NodeVec*> *vectorPointer = nullptr; //contiene eventuali figlio sx e dx nell'array
     Data elem;
     ulong indexNode;
 
