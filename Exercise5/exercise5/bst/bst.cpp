@@ -246,6 +246,10 @@ namespace lasd
         delete node;
         return dato;
     }
+//DETACH
+//mi elimina il nodo usando skipto ed evito di cancellare interi sottoalberi del 
+//mio nodo corrente
+
 
     template <typename Data>
     struct BST<Data>::NodeLnk *BST<Data>::Detach(struct BST<Data>::NodeLnk *&node) noexcept
@@ -279,7 +283,7 @@ namespace lasd
     }
 
 //SKIP2
-
+// serve per eliminare un elemento dal mio bst, grazie alle rotazioni
 
 
     template <typename Data>
